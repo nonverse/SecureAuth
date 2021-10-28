@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-
-
 function Index() {
     return (
         <div className="fluid">
