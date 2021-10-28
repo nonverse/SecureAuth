@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 
 import FluidLoader from "./FluidLoader";
+import AuthRouter from "../Routers/AuthRouter";
 import LogoDark from "../elements/LogoDark";
 
 function Index() {
@@ -11,6 +12,7 @@ function Index() {
     return (
         <div className="fluid">
             <LogoDark/>
+            <AuthRouter load={setLoading}/>
             {loading ? <FluidLoader/> : ''}
         </div>
     );
