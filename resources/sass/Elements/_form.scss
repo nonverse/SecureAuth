@@ -24,9 +24,17 @@
         width: 100%;
         display: flex;
         justify-content: center;
-        margin-top: 5%;
+        padding: 5% 0 10% 0;
+
         .button {
             width: 40%;
         }
     }
+}
+
+.links {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
