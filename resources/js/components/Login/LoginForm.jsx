@@ -3,7 +3,7 @@ import Email from "./Email";
 
 const LoginForm = ({load}) => {
     const [state, advance] = useState(1)
-    const [credentials, setCredentials] = useState({})
+    const [user, updateUser] = useState({})
 
     function next() {
         advance(state + 1)
@@ -15,7 +15,7 @@ const LoginForm = ({load}) => {
 
     let view = false;
     if (state === 1) {
-        view = <Email load={load} setCredentials={setCredentials} advance={next}/>
+        view = <Email load={load} updateUser={updateUser} advance={next}/>
     }
 
     return (view)

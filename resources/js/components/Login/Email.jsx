@@ -2,14 +2,14 @@ import React, {useState} from "react";
 import Form from "../../elements/Form";
 import Field from "../../elements/Field";
 
-const Email = ({load, setCredentials, advance}) => {
+const Email = ({load, updateUser, advance}) => {
 
     const [email, setEmail] = useState('')
 
     function submit() {
         load(true)
         //console.log("Test Component Post Success")
-        setCredentials({
+        updateUser({
             email: email,
         })
         setTimeout(() => {

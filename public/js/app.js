@@ -4026,7 +4026,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var Email = function Email(_ref) {
   var load = _ref.load,
-      setCredentials = _ref.setCredentials,
+      updateUser = _ref.updateUser,
       advance = _ref.advance;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
@@ -4037,7 +4037,7 @@ var Email = function Email(_ref) {
   function submit() {
     load(true); //console.log("Test Component Post Success")
 
-    setCredentials({
+    updateUser({
       email: email
     });
     setTimeout(function () {
@@ -4113,8 +4113,8 @@ var LoginForm = function LoginForm(_ref) {
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
       _useState4 = _slicedToArray(_useState3, 2),
-      credentials = _useState4[0],
-      setCredentials = _useState4[1];
+      user = _useState4[0],
+      updateUser = _useState4[1];
 
   function next() {
     advance(state + 1);
@@ -4129,7 +4129,7 @@ var LoginForm = function LoginForm(_ref) {
   if (state === 1) {
     view = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Email__WEBPACK_IMPORTED_MODULE_1__["default"], {
       load: load,
-      setCredentials: setCredentials,
+      updateUser: updateUser,
       advance: next
     });
   }
