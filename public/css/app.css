@@ -10012,6 +10012,7 @@ h3 {
   justify-content: center;
 }
 #root .fluid {
+  position: relative;
   background-color: #f1f5f8;
   display: flex;
   flex-direction: column;
@@ -10021,7 +10022,7 @@ h3 {
   height: -moz-min-content;
   height: min-content;
   border-radius: 30px;
-  padding: 2.5% 0 1.5% 0;
+  padding: 5vh 0 3vh 0;
   box-shadow: 10px 0 35px 0 rgba(185, 185, 185, 0.2);
 }
 #root .fluid .nv-logo {
@@ -10076,4 +10077,18 @@ h3 {
 }
 .button:hover {
   opacity: 0.7;
+}
+
+.fluid-loader {
+  position: absolute;
+  background-color: #e5e7e9;
+  opacity: 0.6;
+  z-index: 10;
+  height: 100%;
+  width: 100%;
+  margin-top: -5vh;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

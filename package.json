@@ -23,5 +23,8 @@
         "resolve-url-loader": "^4.0.0",
         "sass": "^1.43.4",
         "sass-loader": "^11.0.1"
+    },
+    "dependencies": {
+        "react-spinners": "^0.11.0"
     }
 }

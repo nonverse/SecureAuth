@@ -3868,7 +3868,7 @@ var FluidLoader = function FluidLoader() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
     className: "fluid-loader",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_spinners__WEBPACK_IMPORTED_MODULE_2__.ClipLoader, {
-      size: 30,
+      size: 40,
       color: '#333344'
     })
   });
@@ -3916,10 +3916,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function Index() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('dfdf'),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
-      email = _useState2[0],
-      setEmail = _useState2[1];
+      loading = _useState2[0],
+      setLoading = _useState2[1];
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
     className: "fluid",
@@ -3936,20 +3936,7 @@ function Index() {
         transform: "translate(-353.483 -1638.94)",
         fill: "#333344"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-      className: "content-wrapper",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_elements_Form__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        title: "Login To Continue",
-        submit: function submit() {
-          console.log("Test Success");
-        },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_elements_Field__WEBPACK_IMPORTED_MODULE_3__["default"], {
-          name: "Email",
-          value: email,
-          update: setEmail
-        })
-      })
-    })]
+    }), loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_FluidLoader__WEBPACK_IMPORTED_MODULE_4__["default"], {}) : '']
   });
 }
 

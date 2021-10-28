@@ -15,6 +15,7 @@
     justify-content: center;
 
     .fluid {
+        position: relative;
         background-color: $foreground;
         display: flex;
         flex-direction: column;
@@ -22,7 +23,7 @@
         width: 17%;
         height: min-content;
         border-radius: 30px;
-        padding: 2.5% 0 1.5% 0;
+        padding: 5vh 0 3vh 0;
         box-shadow: 10px 0 35px 0 rgba(185, 185, 185, 0.2);
 
         .nv-logo {
@@ -40,3 +41,6 @@
 // Elements
 @import 'Elements/form';
 @import 'Elements/button';
+
+// Components
+@import 'Components/fluidloader';
