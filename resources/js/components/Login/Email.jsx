@@ -1,9 +1,8 @@
 import React, {useState} from "react";
+import Form from "../../elements/Form";
+import Field from "../../elements/Field";
 
-import Form from "../elements/Form";
-import Field from "../elements/Field";
-
-const LoginForm = ({load}) => {
+const Email = ({load, advance}) => {
 
     const [email, setEmail] = useState('')
 
@@ -13,7 +12,10 @@ const LoginForm = ({load}) => {
 
         setTimeout(() => {
             load(false)
+            advance()
         }, 1200)
+
+
     }
 
     return (
@@ -29,4 +31,4 @@ const LoginForm = ({load}) => {
     )
 }
 
-export default LoginForm
+export default Email
