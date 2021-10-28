@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 function Index() {
     return (
-        <div className="container">
+        <div className="app">
             <h1>SecureAuth App</h1>
         </div>
     );
