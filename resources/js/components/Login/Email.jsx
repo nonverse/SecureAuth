@@ -10,6 +10,7 @@ const Email = ({load, updateUser, advance}) => {
     return (
         <div className="content-wrapper">
             <h4>Login to continue</h4>
+            <span>Nonverse Studios</span>
             <Formik initialValues={{
                 email: '',
             }} onSubmit={(values) => {
