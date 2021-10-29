@@ -1,7 +1,9 @@
 import React from "react";
-import {Field, Form, Formik} from "formik";
-import Button from "../../elements/Button";
+import {Formik} from "formik";
 import validate from "../../Scripts/validate";
+
+import Form from "../Form";
+import Field from "../Field";
 
 const Password = ({load, user, advance, back}) => {
 
@@ -28,13 +30,9 @@ const Password = ({load, user, advance, back}) => {
                 }, 500)
             }}>
                 {({errors}) => (
-                    <Form>
-                        <Field className={errors.password ? 'field-error' : ''} type={"password"} id={"password"}
-                               name={"password"} placeholder={"Password"} validate={validate.password}/>
-                        <span className="error">{errors.password}</span>
-                        <div className="button-wrapper">
-                            <Button label={"Login"} submit/>
-                        </div>
+                    <Form submitCta={"Login"}>
+                        <Field password placeholder={"Password"} validate={validate.password} name={"password"}
+                               errors={errors}/>
                     </Form>
                 )}
             </Formik>
