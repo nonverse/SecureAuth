@@ -1,19 +1,8 @@
 import React, {useState} from "react";
-import Form from "../../elements/Form";
-import Field from "../../elements/Field";
+import {Formik, Field, Form} from "formik";
+import Button from "../../elements/Button";
 
 const Password = ({load, user, advance, back}) => {
-
-    const [password, setPassword] = useState('')
-
-    function submit() {
-        load(true)
-        console.log("Password Submit")
-
-        setTimeout(() => {
-            load(false)
-        }, 1200)
-    }
 
     function previous() {
         load(true)
@@ -26,10 +15,27 @@ const Password = ({load, user, advance, back}) => {
     return (
         <div className="content-wrapper">
             <span>Welcome back</span>
-            <Form title={user.email} submit={submit}>
-                <span className="link-btn" onClick={previous}>Not You?</span>
-                <Field password update={setPassword} value={password} name={"Password"}/>
-            </Form>
+            <h4>{user.email}</h4>
+            <span className="link-btn" onClick={previous}>Not You?</span>
+            <Formik initialValues={{
+                password: '',
+            }} onSubmit={(values) => {
+                load(true)
+
+                setTimeout(() => {
+                    load(false)
+                }, 500)
+            }}>
+                <Form>
+                    <Field type={"password"} id={"password"} name={"password"} placeholder={"Password"}/>
+                    <div className="button-wrapper">
+                        <Button label={"Login"} submit/>
+                    </div>
+                </Form>
+            </Formik>
+            <div className="links">
+                <a href="#">Forgot Password?</a>
+            </div>
         </div>
     )
 }

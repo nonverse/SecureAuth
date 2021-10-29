@@ -10038,16 +10038,12 @@ h3 {
   cursor: pointer;
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-.form input {
+input {
   border: none;
   outline: none;
 }
-.form input {
+
+input {
   width: 100%;
   height: 45px;
   margin: 15px 0;
@@ -10059,13 +10055,14 @@ h3 {
   font-size: 1.2rem;
   color: #333344;
 }
-.form .button-wrapper {
+
+.button-wrapper {
   width: 100%;
   display: flex;
   justify-content: center;
   padding: 5% 0 10% 0;
 }
-.form .button-wrapper .button {
+.button-wrapper .button {
   width: 40%;
 }
 
@@ -10086,6 +10083,8 @@ h3 {
   justify-content: center;
   font-size: 1em;
   cursor: pointer;
+  outline: none;
+  border: none;
 }
 .button:hover {
   opacity: 0.7;
