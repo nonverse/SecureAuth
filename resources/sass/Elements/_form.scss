@@ -45,6 +45,17 @@ form {
         display: flex;
     }
 }
+.summary {
+    margin: 5% 0;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    span {
+        font-size: 1.2rem;
+        color: $font-color;
+        margin: 1% 0;
+    }
+}
 
 .links {
     width: 100%;

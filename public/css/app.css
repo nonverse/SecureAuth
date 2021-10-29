@@ -8,6 +8,10 @@
   color: goldenrod;
 }
 
+.op-05 {
+  opacity: 0.5;
+}
+
 .default {
   color: #3f9ae5;
 }
@@ -10088,6 +10092,18 @@ form .default {
 form .error {
   margin-top: 0;
   display: flex;
+}
+
+.summary {
+  margin: 5% 0;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.summary span {
+  font-size: 1.2rem;
+  color: #333344;
+  margin: 1% 0;
 }
 
 .links {
