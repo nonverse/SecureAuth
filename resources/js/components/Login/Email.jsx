@@ -1,7 +1,9 @@
 import React, {useState} from "react";
-import {Formik, Field, Form} from "formik";
+import {Formik, Field} from "formik";
 import Button from "../../elements/Button";
 import validate from "../../Scripts/validate";
+
+import Form from "../Form";
 
 const Email = ({load, updateUser, advance}) => {
 
@@ -26,9 +28,6 @@ const Email = ({load, updateUser, advance}) => {
                         <Field className={errors.email ? 'field-error' : ''} id={"email"} name={"email"}
                                placeholder={"Email"} validate={validate.email}/>
                         <span className="error">{errors.email}</span>
-                        <div className="button-wrapper">
-                            <Button label={"Continue"} submit/>
-                        </div>
                     </Form>
                 )}
             </Formik>
