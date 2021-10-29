@@ -4288,15 +4288,13 @@ var Field = function Field(_ref) {
       value = _ref.value,
       update = _ref.update,
       password = _ref.password;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-      type: password ? 'password' : 'text',
-      placeholder: name,
-      value: value,
-      onChange: function onChange(e) {
-        update(e.target.value);
-      }
-    })
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+    type: password ? 'password' : 'text',
+    placeholder: name,
+    value: value,
+    onChange: function onChange(e) {
+      update(e.target.value);
+    }
   });
 };
 
