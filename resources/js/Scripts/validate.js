@@ -9,6 +9,14 @@ class validate {
         }
         return error
     }
+
+    password(value) {
+        let error;
+        if (!value) {
+            error = "A password is required"
+        }
+        return error
+    }
 }
 
 export default new validate()
