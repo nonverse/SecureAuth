@@ -31,7 +31,7 @@ const Password = ({load, user, advance, back}) => {
             }}>
                 {({errors}) => (
                     <Form submitCta={"Login"}>
-                        <Field password placeholder={"Password"} validate={validate.password} name={"password"}
+                        <Field password placeholder={"Password"} validate={validate.require} name={"password"}
                                errors={errors}/>
                     </Form>
                 )}

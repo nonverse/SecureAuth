@@ -10,10 +10,10 @@ class validate {
         return error
     }
 
-    password(value) {
+    require(value) {
         let error;
         if (!value) {
-            error = "A password is required"
+            error = "This field is required"
         }
         return error
     }
