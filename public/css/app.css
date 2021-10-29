@@ -10060,6 +10060,7 @@ form input {
 }
 form .field-error {
   border-image-source: linear-gradient(90deg, #ff3300 0%, #ff7300 100%);
+  margin-bottom: 5px;
 }
 form .button-wrapper {
   width: 100%;
