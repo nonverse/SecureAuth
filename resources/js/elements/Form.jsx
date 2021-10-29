@@ -4,13 +4,16 @@ import Button from "./Button";
 const Form = ({title, submit, children}) => {
 
     return (
-        <div className="form">
+        <form className="form" onSubmit={(e) => {
+            e.preventDefault()
+            submit()
+        }}>
             <h3>{title}</h3>
             {children}
             <div className="button-wrapper">
                 <Button label={"Continue"} onclick={submit}/>
             </div>
-        </div>
+        </form>
     )
 }
 
