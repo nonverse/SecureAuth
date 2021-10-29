@@ -4,6 +4,14 @@
   color: orangered;
 }
 
+.warning {
+  color: goldenrod;
+}
+
+.default {
+  color: #3f9ae5;
+}
+
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -10070,6 +10078,12 @@ form .button-wrapper {
 }
 form .button-wrapper .button {
   width: 40%;
+}
+form .default {
+  display: flex;
+  width: 100%;
+  text-align: left;
+  margin-top: 10px;
 }
 form .error {
   margin-top: 0;

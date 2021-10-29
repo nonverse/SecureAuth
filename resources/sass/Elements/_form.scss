@@ -33,6 +33,13 @@ form {
         }
     }
 
+    .default {
+        display: flex;
+        width: 100%;
+        text-align: left;
+        margin-top: 10px;
+    }
+
     .error {
         margin-top: 0;
         display: flex;

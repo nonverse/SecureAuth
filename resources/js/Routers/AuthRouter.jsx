@@ -1,6 +1,7 @@
 import React from "react";
 import {BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
 import LoginForm from "../components/Login/LoginForm";
+import RegisterForm from "../components/Register/RegisterForm";
 
 const AuthRouter = ({load}) => {
 
@@ -14,6 +15,7 @@ const AuthRouter = ({load}) => {
 
                 {/*Authentication Routes*/}
                 <Route path={'/login'} render={(props) => <LoginForm {...props} load={load}/>}/>
+                <Route path={'/register'} render={(props) => <RegisterForm {...props} load={load}/>}/>
 
             </Switch>
         </BrowserRouter>

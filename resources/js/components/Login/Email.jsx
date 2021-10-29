@@ -4,8 +4,23 @@ import validate from "../../Scripts/validate";
 
 import Form from "../Form";
 import Field from "../Field";
+import {useHistory} from "react-router-dom";
 
 const Email = ({load, updateUser, advance}) => {
+
+    const history = useHistory()
+
+    function submit(values) {
+        load(true)
+        console.log(values);
+        updateUser({
+            email: values.email,
+        })
+        setTimeout(() => {
+            load(false)
+            advance()
+        }, 1200)
+    }
 
     return (
         <div className="content-wrapper">
@@ -14,15 +29,7 @@ const Email = ({load, updateUser, advance}) => {
             <Formik initialValues={{
                 email: '',
             }} onSubmit={(values) => {
-                load(true)
-                console.log(values);
-                updateUser({
-                    email: values.email,
-                })
-                setTimeout(() => {
-                    load(false)
-                    advance()
-                }, 1200)
+                submit(values)
             }}>
                 {({errors}) => (
                     <Form>
@@ -32,7 +39,7 @@ const Email = ({load, updateUser, advance}) => {
             </Formik>
             <div className="links">
                 <a href="#">Forgot your email?</a>
-                <a href="#">Create account</a>
+                <span className="link-btn" onClick={() => history.push('/register')}>Create Account</span>
             </div>
         </div>
     )
