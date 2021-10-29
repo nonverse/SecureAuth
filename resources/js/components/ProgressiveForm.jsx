@@ -1,18 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 
-const ProgressiveForm = ({load, views}) => {
+const ProgressiveForm = ({state, views}) => {
 
-    const [state, setState] = useState(1)
-
-    function next() {
-        setState(state + 1)
-    }
-
-    function previous() {
-        setState(state - 1)
-    }
-
-    let currentForm = 1
+    let currentForm
     currentForm = views[state];
 
     return (currentForm)
