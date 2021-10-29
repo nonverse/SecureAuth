@@ -10033,16 +10033,21 @@ h3 {
   text-align: center;
   flex-direction: column;
 }
+#root .link-btn {
+  color: #0064ff;
+  cursor: pointer;
+}
 
 .form {
   display: flex;
   flex-direction: column;
+  text-align: center;
 }
 .form input {
   border: none;
   outline: none;
 }
-.form input[type=text] {
+.form input {
   width: 100%;
   height: 45px;
   margin: 15px 0;
