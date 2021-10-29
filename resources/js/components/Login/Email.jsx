@@ -1,9 +1,10 @@
 import React, {useState} from "react";
-import {Formik, Field} from "formik";
+import {Formik} from "formik";
 import Button from "../../elements/Button";
 import validate from "../../Scripts/validate";
 
 import Form from "../Form";
+import Field from "../Field";
 
 const Email = ({load, updateUser, advance}) => {
 
@@ -25,9 +26,7 @@ const Email = ({load, updateUser, advance}) => {
             }}>
                 {({errors}) => (
                     <Form>
-                        <Field className={errors.email ? 'field-error' : ''} id={"email"} name={"email"}
-                               placeholder={"Email"} validate={validate.email}/>
-                        <span className="error">{errors.email}</span>
+                        <Field placeholder={"Email"} validate={validate.email} name={"email"} errors={errors}/>
                     </Form>
                 )}
             </Formik>
