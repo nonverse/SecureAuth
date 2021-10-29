@@ -5,7 +5,7 @@ import Field from "../Field";
 import validate from "../../Scripts/validate";
 import {useHistory} from "react-router-dom";
 
-const Email = ({load, updateUser, advance}) => {
+const Email = ({load, user, updateUser, advance}) => {
 
     const history = useHistory()
 
@@ -26,13 +26,13 @@ const Email = ({load, updateUser, advance}) => {
             <h4>Create an account</h4>
             <span>Nonverse Studios</span>
             <Formik initialValues={{
-                email: '',
+                email: user.email,
             }} onSubmit={(values) => {
                 submit(values)
             }}>
-                {({errors}) => (
+                {({values, errors}) => (
                     <Form>
-                        <Field placeholder={"Email"} validate={validate.email} name={"email"} errors={errors}/>
+                        <Field placeholder={"Email"} validate={validate.email} name={"email"} errors={errors} value={values.email}/>
                         <span className={"default"}> By continuing you consent to your email being collected and sent to Nonverse servers for verification</span>
                     </Form>
                 )}

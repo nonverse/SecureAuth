@@ -1,6 +1,5 @@
 import React from "react";
 import {Formik} from "formik";
-import {value} from "lodash/seq";
 import Form from "../Form";
 import Field from "../Field";
 import validate from "../../Scripts/validate";
@@ -33,17 +32,18 @@ const Name = ({load, user, updateUser, advance, back}) => {
             <h4>What's your name?</h4>
             <span>{user.email}</span>
             <Formik initialValues={{
-                firstname: '',
-                lastname: '',
+                firstname: user.firstname,
+                lastname: user.lastname,
 
             }} onSubmit={(values) => {
                 submit(values)
             }}>
-                {({errors}) => (
+                {({values, errors}) => (
                     <Form>
                         <Field placeholder={"First Name"} validate={validate.require} name={"firstname"}
-                               errors={errors}/>
-                        <Field placeholder={"Last Name"} validate={validate.require} name={"lastname"} errors={errors}/>
+                               errors={errors} value={values.firstname}/>
+                        <Field placeholder={"Last Name"} validate={validate.require} name={"lastname"} errors={errors}
+                               value={values.lastname}/>
                         <span className="default">Your name not be shown to others without your consent</span>
                     </Form>
                 )}

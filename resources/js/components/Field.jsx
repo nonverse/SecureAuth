@@ -1,7 +1,7 @@
 import React from "react";
 import {Field as FormikField} from "formik";
 
-const Field = ({password, name, placeholder, errors, validate}) => {
+const Field = ({password, name, placeholder, value, errors, validate}) => {
 
     let error
     if (errors) {
@@ -18,6 +18,7 @@ const Field = ({password, name, placeholder, errors, validate}) => {
         <div className="field-wrapper">
             <FormikField type={password ? 'password' : 'text'} className={error ? 'field-error' : ''} id={name}
                          name={name} placeholder={placeholder}
+                         value={value}
                          validate={validator}/>
             {error ? <span className="error">{error}</span> : ''}
         </div>

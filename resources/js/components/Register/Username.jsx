@@ -31,13 +31,13 @@ const Username = ({load, user, updateUser, advance, back}) => {
             <h4>Choose a username</h4>
             <span>{`${user.firstname} ${user.lastname}`}</span>
             <Formik initialValues={{
-                username: '',
+                username: user.username,
             }} onSubmit={(values) => {
                 submit(values)
             }}>
-                {({errors}) => (
+                {({values, errors}) => (
                     <Form>
-                        <Field placeholder={"Username"} validate={validate.require} name={"username"} errors={errors}/>
+                        <Field placeholder={"Username"} validate={validate.require} name={"username"} errors={errors} value={values.username}/>
                         <span className="default">Your username will be your public identifier and is visible to everyone</span>
                     </Form>
                 )}
