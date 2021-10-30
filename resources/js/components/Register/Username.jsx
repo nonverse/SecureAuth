@@ -31,7 +31,7 @@ const Username = ({load, user, updateUser, advance, back}) => {
             <h4>Choose a username</h4>
             <span>{`${user.firstname} ${user.lastname}`}</span>
             <Formik initialValues={{
-                username: user.username,
+                username: user.username ? user.username : '',
             }} onSubmit={(values) => {
                 submit(values)
             }}>

@@ -3841,61 +3841,6 @@ var AuthRouter = function AuthRouter(_ref) {
 
 /***/ }),
 
-/***/ "./resources/js/Scripts/validate.js":
-/*!******************************************!*\
-  !*** ./resources/js/Scripts/validate.js ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var validate = /*#__PURE__*/function () {
-  function validate() {
-    _classCallCheck(this, validate);
-  }
-
-  _createClass(validate, [{
-    key: "email",
-    value: function email(value) {
-      var error;
-
-      if (!value) {
-        error = "An email is required";
-      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-        error = "Email is invalid";
-      }
-
-      return error;
-    }
-  }, {
-    key: "require",
-    value: function require(value) {
-      var error;
-
-      if (!value) {
-        error = "This field is required";
-      }
-
-      return error;
-    }
-  }]);
-
-  return validate;
-}();
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new validate());
-
-/***/ }),
-
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -4179,7 +4124,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
-/* harmony import */ var _Scripts_validate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Scripts/validate */ "./resources/js/Scripts/validate.js");
+/* harmony import */ var _scripts_validate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../scripts/validate */ "./resources/js/scripts/validate.js");
 /* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Form */ "./resources/js/components/Form.jsx");
 /* harmony import */ var _Field__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Field */ "./resources/js/components/Field.jsx");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
@@ -4229,7 +4174,7 @@ var Email = function Email(_ref) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Form__WEBPACK_IMPORTED_MODULE_3__["default"], {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Field__WEBPACK_IMPORTED_MODULE_4__["default"], {
             placeholder: "Email",
-            validate: _Scripts_validate__WEBPACK_IMPORTED_MODULE_2__["default"].email,
+            validate: _scripts_validate__WEBPACK_IMPORTED_MODULE_2__["default"].email,
             name: "email",
             errors: errors
           })
@@ -4345,7 +4290,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
-/* harmony import */ var _Scripts_validate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Scripts/validate */ "./resources/js/Scripts/validate.js");
+/* harmony import */ var _scripts_validate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../scripts/validate */ "./resources/js/scripts/validate.js");
 /* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Form */ "./resources/js/components/Form.jsx");
 /* harmony import */ var _Field__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Field */ "./resources/js/components/Field.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
@@ -4398,7 +4343,7 @@ var Password = function Password(_ref) {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Field__WEBPACK_IMPORTED_MODULE_4__["default"], {
             password: true,
             placeholder: "Password",
-            validate: _Scripts_validate__WEBPACK_IMPORTED_MODULE_2__["default"].require,
+            validate: _scripts_validate__WEBPACK_IMPORTED_MODULE_2__["default"].require,
             name: "password",
             errors: errors
           })
@@ -4459,7 +4404,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
 /* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Form */ "./resources/js/components/Form.jsx");
 /* harmony import */ var _Field__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Field */ "./resources/js/components/Field.jsx");
-/* harmony import */ var _Scripts_validate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Scripts/validate */ "./resources/js/Scripts/validate.js");
+/* harmony import */ var _scripts_validate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../scripts/validate */ "./resources/js/scripts/validate.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
@@ -4497,7 +4442,7 @@ var Email = function Email(_ref) {
       children: "Nonverse Studios"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(formik__WEBPACK_IMPORTED_MODULE_1__.Formik, {
       initialValues: {
-        email: user.email
+        email: user.email ? user.email : ''
       },
       onSubmit: function onSubmit(values) {
         submit(values);
@@ -4508,7 +4453,7 @@ var Email = function Email(_ref) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Form__WEBPACK_IMPORTED_MODULE_2__["default"], {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Field__WEBPACK_IMPORTED_MODULE_3__["default"], {
             placeholder: "Email",
-            validate: _Scripts_validate__WEBPACK_IMPORTED_MODULE_4__["default"].email,
+            validate: _scripts_validate__WEBPACK_IMPORTED_MODULE_4__["default"].email,
             name: "email",
             errors: errors,
             value: values.email
@@ -4550,7 +4495,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
 /* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Form */ "./resources/js/components/Form.jsx");
 /* harmony import */ var _Field__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Field */ "./resources/js/components/Field.jsx");
-/* harmony import */ var _Scripts_validate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Scripts/validate */ "./resources/js/Scripts/validate.js");
+/* harmony import */ var _scripts_validate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../scripts/validate */ "./resources/js/scripts/validate.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
@@ -4601,8 +4546,8 @@ var Name = function Name(_ref) {
       children: user.email
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(formik__WEBPACK_IMPORTED_MODULE_1__.Formik, {
       initialValues: {
-        firstname: user.firstname,
-        lastname: user.lastname
+        firstname: user.firstname ? user.firstname : '',
+        lastname: user.lastname ? user.lastname : ''
       },
       onSubmit: function onSubmit(values) {
         submit(values);
@@ -4613,13 +4558,13 @@ var Name = function Name(_ref) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Form__WEBPACK_IMPORTED_MODULE_2__["default"], {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Field__WEBPACK_IMPORTED_MODULE_3__["default"], {
             placeholder: "First Name",
-            validate: _Scripts_validate__WEBPACK_IMPORTED_MODULE_4__["default"].require,
+            validate: _scripts_validate__WEBPACK_IMPORTED_MODULE_4__["default"].require,
             name: "firstname",
             errors: errors,
             value: values.firstname
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Field__WEBPACK_IMPORTED_MODULE_3__["default"], {
             placeholder: "Last Name",
-            validate: _Scripts_validate__WEBPACK_IMPORTED_MODULE_4__["default"].require,
+            validate: _scripts_validate__WEBPACK_IMPORTED_MODULE_4__["default"].require,
             name: "lastname",
             errors: errors,
             value: values.lastname
@@ -4659,8 +4604,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
 /* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Form */ "./resources/js/components/Form.jsx");
 /* harmony import */ var _Field__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Field */ "./resources/js/components/Field.jsx");
-/* harmony import */ var _Scripts_validate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Scripts/validate */ "./resources/js/Scripts/validate.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _scripts_validate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../scripts/validate */ "./resources/js/scripts/validate.js");
+/* harmony import */ var _scripts_api_user__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../scripts/api/user */ "./resources/js/scripts/api/user.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -4671,7 +4624,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var Password = function Password(_ref) {
   var load = _ref.load,
-      user = _ref.user,
+      userData = _ref.userData,
       updateUser = _ref.updateUser,
       advance = _ref.advance,
       back = _ref.back;
@@ -4684,38 +4637,39 @@ var Password = function Password(_ref) {
     }, 500);
   }
 
-  function submit(values) {//
+  function submit(values) {
+    _scripts_api_user__WEBPACK_IMPORTED_MODULE_5__["default"].create(_objectSpread(_objectSpread({}, userData), values));
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     className: "content-wrapper",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h4", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h4", {
       children: "Secure it with a password"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
       className: "default",
       children: "First make sure your account data is correct"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "summary",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
-        children: ["Name: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
+        children: ["Name: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
           className: "op-05",
-          children: "".concat(user.firstname, " ").concat(user.lastname)
+          children: "".concat(userData.firstname, " ").concat(userData.lastname)
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
-        children: ["Email: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
+        children: ["Email: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
           className: "op-05",
-          children: user.email
+          children: userData.email
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
-        children: ["Username: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
+        children: ["Username: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
           className: "op-05",
-          children: user.username
+          children: userData.username
         })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
       className: "default",
       children: "If any of this data is incorrect, please go back and correct it before submitting"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(formik__WEBPACK_IMPORTED_MODULE_1__.Formik, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(formik__WEBPACK_IMPORTED_MODULE_1__.Formik, {
       initialValues: {
         password: '',
         password_confirmation: ''
@@ -4725,26 +4679,26 @@ var Password = function Password(_ref) {
       },
       children: function children(_ref2) {
         var errors = _ref2.errors;
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Form__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_Form__WEBPACK_IMPORTED_MODULE_2__["default"], {
           submitCta: "Submit",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Field__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Field__WEBPACK_IMPORTED_MODULE_3__["default"], {
             password: true,
             placeholder: "Password",
-            validate: _Scripts_validate__WEBPACK_IMPORTED_MODULE_4__["default"].require,
+            validate: _scripts_validate__WEBPACK_IMPORTED_MODULE_4__["default"].require,
             name: "password",
             errors: errors
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Field__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Field__WEBPACK_IMPORTED_MODULE_3__["default"], {
             password: true,
             placeholder: "Confirm Password",
-            validate: _Scripts_validate__WEBPACK_IMPORTED_MODULE_4__["default"].require,
+            validate: _scripts_validate__WEBPACK_IMPORTED_MODULE_4__["default"].require,
             name: "password_confirmation",
             errors: errors
           })]
         });
       }
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
       className: "links",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
         className: "link-btn",
         onClick: previous,
         children: "Back"
@@ -4841,7 +4795,7 @@ var RegisterForm = function RegisterForm(_ref) {
       }),
       4: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Password__WEBPACK_IMPORTED_MODULE_5__["default"], {
         load: load,
-        user: user,
+        userData: user,
         updateUser: updateUser,
         advance: advance,
         back: previous
@@ -4869,7 +4823,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
 /* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Form */ "./resources/js/components/Form.jsx");
 /* harmony import */ var _Field__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Field */ "./resources/js/components/Field.jsx");
-/* harmony import */ var _Scripts_validate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Scripts/validate */ "./resources/js/Scripts/validate.js");
+/* harmony import */ var _scripts_validate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../scripts/validate */ "./resources/js/scripts/validate.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
@@ -4919,7 +4873,7 @@ var Username = function Username(_ref) {
       children: "".concat(user.firstname, " ").concat(user.lastname)
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(formik__WEBPACK_IMPORTED_MODULE_1__.Formik, {
       initialValues: {
-        username: user.username
+        username: user.username ? user.username : ''
       },
       onSubmit: function onSubmit(values) {
         submit(values);
@@ -4930,7 +4884,7 @@ var Username = function Username(_ref) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Form__WEBPACK_IMPORTED_MODULE_2__["default"], {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Field__WEBPACK_IMPORTED_MODULE_3__["default"], {
             placeholder: "Username",
-            validate: _Scripts_validate__WEBPACK_IMPORTED_MODULE_4__["default"].require,
+            validate: _scripts_validate__WEBPACK_IMPORTED_MODULE_4__["default"].require,
             name: "username",
             errors: errors,
             value: values.username
@@ -5019,6 +4973,119 @@ var LogoDark = function LogoDark() {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LogoDark);
+
+/***/ }),
+
+/***/ "./resources/js/scripts/api/user.js":
+/*!******************************************!*\
+  !*** ./resources/js/scripts/api/user.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+var user = /*#__PURE__*/function () {
+  function user() {
+    _classCallCheck(this, user);
+
+    // API target endpoint
+    this.url = 'http://api.nonverse.test/'; // Config
+
+    (axios__WEBPACK_IMPORTED_MODULE_0___default().defaults.withCredentials) = true;
+  } // Create a new user
+
+
+  _createClass(user, [{
+    key: "create",
+    value: function create($data) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat(this.url, "auth/create-new-user"), {
+        email: $data.email,
+        username: $data.email,
+        name_first: $data.firstname,
+        name_last: $data.lastname,
+        password: $data.password,
+        password_confirmation: $data.password_confirmation
+      }).then(function () {
+        return true;
+      })["catch"](function (e) {
+        console.log(e);
+        return false;
+      });
+    }
+  }]);
+
+  return user;
+}();
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new user());
+
+/***/ }),
+
+/***/ "./resources/js/scripts/validate.js":
+/*!******************************************!*\
+  !*** ./resources/js/scripts/validate.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var validate = /*#__PURE__*/function () {
+  function validate() {
+    _classCallCheck(this, validate);
+  }
+
+  _createClass(validate, [{
+    key: "email",
+    value: function email(value) {
+      var error;
+
+      if (!value) {
+        error = "An email is required";
+      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+        error = "Email is invalid";
+      }
+
+      return error;
+    }
+  }, {
+    key: "require",
+    value: function require(value) {
+      var error;
+
+      if (!value) {
+        error = "This field is required";
+      }
+
+      return error;
+    }
+  }]);
+
+  return validate;
+}();
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new validate());
 
 /***/ }),
 

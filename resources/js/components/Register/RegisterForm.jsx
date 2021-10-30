@@ -8,12 +8,7 @@ import Password from "./Password";
 
 const RegisterForm = ({load}) => {
 
-    const [user, updateUser] = useState({
-        email: '',
-        username: '',
-        firstname: '',
-        lastname: '',
-    })
+    const [user, updateUser] = useState({})
     const [state, setState] = useState(1)
 
     function advance() {
@@ -29,7 +24,7 @@ const RegisterForm = ({load}) => {
             1: <Email load={load} user={user} updateUser={updateUser} advance={advance}/>,
             2: <Name load={load} user={user} updateUser={updateUser} advance={advance} back={previous}/>,
             3: <Username load={load} user={user} updateUser={updateUser} advance={advance} back={previous}/>,
-            4: <Password load={load} user={user} updateUser={updateUser} advance={advance} back={previous}/>
+            4: <Password load={load} userData={user} updateUser={updateUser} advance={advance} back={previous}/>
         }}/>
     )
 }

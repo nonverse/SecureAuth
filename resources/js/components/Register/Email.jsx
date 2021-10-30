@@ -26,13 +26,14 @@ const Email = ({load, user, updateUser, advance}) => {
             <h4>Create an account</h4>
             <span>Nonverse Studios</span>
             <Formik initialValues={{
-                email: user.email,
+                email: user.email ? user.email : '',
             }} onSubmit={(values) => {
                 submit(values)
             }}>
                 {({values, errors}) => (
                     <Form>
-                        <Field placeholder={"Email"} validate={validate.email} name={"email"} errors={errors} value={values.email}/>
+                        <Field placeholder={"Email"} validate={validate.email} name={"email"} errors={errors}
+                               value={values.email}/>
                         <span className={"default"}> By continuing you consent to your email being collected and sent to Nonverse servers for verification</span>
                     </Form>
                 )}
