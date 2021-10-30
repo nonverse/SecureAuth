@@ -11,8 +11,8 @@ class user {
     }
 
     // Create a new user
-    create($data) {
-        axios.post(
+    async create($data) {
+        await axios.post(
             `${this.url}auth/create-new-user`,
             {
                 email: $data.email,

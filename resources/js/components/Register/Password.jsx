@@ -15,11 +15,15 @@ const Password = ({load, userData, updateUser, advance, back}) => {
         }, 500)
     }
 
-    function submit(values) {
-        user.create({
+    async function submit(values) {
+        load(true)
+        await user.create({
             ...userData,
             ...values
         })
+        load(false)
+
+        // TODO Error handling if post fails
     }
 
     return (
