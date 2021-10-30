@@ -2,9 +2,10 @@ import React from "react";
 import {Formik} from "formik";
 import Form from "../Form";
 import Field from "../Field";
-import validate from "../../Scripts/validate";
+import validate from "../../scripts/validate";
+import user from "../../scripts/api/user";
 
-const Password = ({load, user, updateUser, advance, back}) => {
+const Password = ({load, userData, updateUser, advance, back}) => {
 
     function previous() {
         load(true)
@@ -15,7 +16,10 @@ const Password = ({load, user, updateUser, advance, back}) => {
     }
 
     function submit(values) {
-        //
+        user.create({
+            ...userData,
+            ...values
+        })
     }
 
     return (
@@ -23,11 +27,12 @@ const Password = ({load, user, updateUser, advance, back}) => {
             <h4>Secure it with a password</h4>
             <span className="default">First make sure your account data is correct</span>
             <div className="summary">
-                <span>Name: <span className="op-05">{`${user.firstname} ${user.lastname}`}</span></span>
-                <span>Email: <span className="op-05">{user.email}</span></span>
-                <span>Username: <span className="op-05">{user.username}</span></span>
+                <span>Name: <span className="op-05">{`${userData.firstname} ${userData.lastname}`}</span></span>
+                <span>Email: <span className="op-05">{userData.email}</span></span>
+                <span>Username: <span className="op-05">{userData.username}</span></span>
             </div>
-            <span className="default">If any of this data is incorrect, please go back and correct it before submitting</span>
+            <span
+                className="default">If any of this data is incorrect, please go back and correct it before submitting</span>
             <Formik initialValues={{
                 password: '',
                 password_confirmation: '',
@@ -36,8 +41,10 @@ const Password = ({load, user, updateUser, advance, back}) => {
             }}>
                 {({errors}) => (
                     <Form submitCta={"Submit"}>
-                        <Field password placeholder={"Password"} validate={validate.require} name={"password"} errors={errors}/>
-                        <Field password placeholder={"Confirm Password"} validate={validate.require} name={"password_confirmation"} errors={errors}/>
+                        <Field password placeholder={"Password"} validate={validate.require} name={"password"}
+                               errors={errors}/>
+                        <Field password placeholder={"Confirm Password"} validate={validate.require}
+                               name={"password_confirmation"} errors={errors}/>
                     </Form>
                 )}
             </Formik>
