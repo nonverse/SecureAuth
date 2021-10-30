@@ -2,7 +2,7 @@ import React from "react";
 import {Formik} from "formik";
 import Form from "../Form";
 import Field from "../Field";
-import validate from "../../Scripts/validate";
+import validate from "../../scripts/validate";
 
 const Name = ({load, user, updateUser, advance, back}) => {
 
