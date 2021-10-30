@@ -8,7 +8,12 @@ import Password from "./Password";
 
 const RegisterForm = ({load}) => {
 
-    const [user, updateUser] = useState({})
+    const [user, updateUser] = useState({
+        email: '',
+        username: '',
+        firstname: '',
+        lastname: '',
+    })
     const [state, setState] = useState(1)
 
     function advance() {
