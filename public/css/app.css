@@ -10027,7 +10027,14 @@ h3 {
   align-items: center;
   justify-content: center;
 }
-#root .fluid {
+#root .fluid-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#root .fluid-container .fluid {
   position: relative;
   background-color: #f1f5f8;
   display: flex;
@@ -10041,13 +10048,28 @@ h3 {
   padding: 5vh 0 3vh 0;
   box-shadow: 10px 0 35px 0 rgba(185, 185, 185, 0.2);
 }
-#root .fluid .nv-logo {
+#root .fluid-container .fluid .nv-logo {
   margin-bottom: 12%;
 }
-#root .fluid .content-wrapper {
+#root .fluid-container .fluid .content-wrapper {
   width: 75%;
   text-align: center;
   flex-direction: column;
+}
+#root .fluid-container .loader-container {
+  background-color: #ECF0F3;
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  flex-direction: column;
+  top: 0;
+}
+#root .fluid-container .loader-container .loader {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 #root .link-btn {
   color: #0064ff;

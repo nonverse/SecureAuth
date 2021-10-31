@@ -14,26 +14,50 @@
     align-items: center;
     justify-content: center;
 
-    .fluid {
-        position: relative;
-        background-color: $foreground;
+    .fluid-container {
+        width: 100vw;
+        height: 100vh;
         display: flex;
-        flex-direction: column;
         align-items: center;
-        width: 16%;
-        height: min-content;
-        border-radius: 30px;
-        padding: 5vh 0 3vh 0;
-        box-shadow: 10px 0 35px 0 rgba(185, 185, 185, 0.2);
+        justify-content: center;
 
-        .nv-logo {
-            margin-bottom: 12%;
+        .fluid {
+            position: relative;
+            background-color: $foreground;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 16%;
+            height: min-content;
+            border-radius: 30px;
+            padding: 5vh 0 3vh 0;
+            box-shadow: 10px 0 35px 0 rgba(185, 185, 185, 0.2);
+
+            .nv-logo {
+                margin-bottom: 12%;
+            }
+
+            .content-wrapper {
+                width: 75%;
+                text-align: center;
+                flex-direction: column;
+            }
         }
 
-        .content-wrapper {
-            width: 75%;
-            text-align: center;
+        .loader-container {
+            background-color: $main;
+            position: absolute;
+            display: flex;
+            width: 100%;
+            height: 100%;
+            align-items: center;
             flex-direction: column;
+            top: 0;
+            .loader {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+            }
         }
     }
 
