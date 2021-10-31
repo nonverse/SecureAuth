@@ -19,10 +19,10 @@ class user {
             {
                 email: email,
             }
-        ).then((r) => {
-            this.emailUsed = true
-        }).catch((e) => {
+        ).then(() => {
             this.emailUsed = false
+        }).catch(() => {
+            this.emailUsed = true
         })
     }
 

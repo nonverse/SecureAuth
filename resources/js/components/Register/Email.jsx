@@ -42,7 +42,6 @@ const Email = ({load, userData, updateUser, advance}) => {
                 {({values, errors}) => (
                     <Form>
                         <Field placeholder={"Email"} validate={validateEmail} name={"email"}
-                               setError={setError}
                                error={errors.email ? errors.email : error}
                                value={values.email}/>
                         <span className={"default"}> By continuing you consent to your email being collected and sent to Nonverse servers for verification</span>

@@ -4416,7 +4416,6 @@ var Email = function Email(_ref) {
             placeholder: "Email",
             validate: validateEmail,
             name: "email",
-            setError: setError,
             error: errors.email ? errors.email : error,
             value: values.email
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
@@ -5128,10 +5127,10 @@ var user = /*#__PURE__*/function () {
                 _context.next = 2;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "auth/test"), {
                   email: email
-                }).then(function (r) {
-                  _this.emailUsed = true;
-                })["catch"](function (e) {
+                }).then(function () {
                   _this.emailUsed = false;
+                })["catch"](function () {
+                  _this.emailUsed = true;
                 });
 
               case 2:
@@ -5160,7 +5159,7 @@ var user = /*#__PURE__*/function () {
                 _context2.next = 2;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "auth/create-new-user"), {
                   email: data.email,
-                  username: data.email,
+                  username: data.username,
                   name_first: data.firstname,
                   name_last: data.lastname,
                   password: data.password,
