@@ -4300,13 +4300,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
-/* harmony import */ var _elements_Form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../elements/Form */ "./resources/js/components/elements/Form.jsx");
-/* harmony import */ var _elements_Field__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../elements/Field */ "./resources/js/components/elements/Field.jsx");
-/* harmony import */ var _scripts_validate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../scripts/validate */ "./resources/js/scripts/validate.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var _elements_Form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../elements/Form */ "./resources/js/components/elements/Form.jsx");
+/* harmony import */ var _elements_Field__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../elements/Field */ "./resources/js/components/elements/Field.jsx");
+/* harmony import */ var _scripts_validate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../scripts/validate */ "./resources/js/scripts/validate.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var _scripts_api_user__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../scripts/api/user */ "./resources/js/scripts/api/user.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -4318,31 +4340,70 @@ __webpack_require__.r(__webpack_exports__);
 
 var Email = function Email(_ref) {
   var load = _ref.load,
-      user = _ref.user,
+      userData = _ref.userData,
       updateUser = _ref.updateUser,
       advance = _ref.advance;
-  var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useHistory)();
+  var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_8__.useHistory)();
 
-  function submit(values) {
-    load(true);
-    setTimeout(function () {
-      updateUser({
-        email: values.email
-      });
-      load(false);
-      advance();
-    }, 1200);
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      error = _useState2[0],
+      setError = _useState2[1];
+
+  function submit(_x) {
+    return _submit.apply(this, arguments);
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+  function _submit() {
+    _submit = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(values) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              load(true);
+              _context.next = 3;
+              return _scripts_api_user__WEBPACK_IMPORTED_MODULE_6__["default"].verifyEmail(values.email);
+
+            case 3:
+              if (!_scripts_api_user__WEBPACK_IMPORTED_MODULE_6__["default"].emailUsed) {
+                _context.next = 6;
+                break;
+              }
+
+              setError('This email is already registered');
+              return _context.abrupt("return", load(false));
+
+            case 6:
+              updateUser({
+                email: values.email
+              });
+              load(false);
+              advance();
+
+            case 9:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return _submit.apply(this, arguments);
+  }
+
+  function validateEmail(value) {
+    setError('');
+    return _scripts_validate__WEBPACK_IMPORTED_MODULE_5__["default"].email(value);
+  }
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
     className: "content-wrapper",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h4", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h4", {
       children: "Create an account"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
       children: "Nonverse Studios"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(formik__WEBPACK_IMPORTED_MODULE_1__.Formik, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(formik__WEBPACK_IMPORTED_MODULE_2__.Formik, {
       initialValues: {
-        email: user.email ? user.email : ''
+        email: userData.email ? userData.email : ''
       },
       onSubmit: function onSubmit(values) {
         submit(values);
@@ -4350,22 +4411,23 @@ var Email = function Email(_ref) {
       children: function children(_ref2) {
         var values = _ref2.values,
             errors = _ref2.errors;
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_elements_Form__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_elements_Field__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_elements_Form__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_elements_Field__WEBPACK_IMPORTED_MODULE_4__["default"], {
             placeholder: "Email",
-            validate: _scripts_validate__WEBPACK_IMPORTED_MODULE_4__["default"].email,
+            validate: validateEmail,
             name: "email",
-            errors: errors,
+            setError: setError,
+            error: errors.email ? errors.email : error,
             value: values.email
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
             className: "default",
             children: " By continuing you consent to your email being collected and sent to Nonverse servers for verification"
           })]
         });
       }
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "links",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
         className: "link-btn",
         onClick: function onClick() {
           return history.push('/login');
@@ -4706,7 +4768,7 @@ var RegisterForm = function RegisterForm(_ref) {
     views: {
       1: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Email__WEBPACK_IMPORTED_MODULE_2__["default"], {
         load: load,
-        user: user,
+        userData: user,
         updateUser: updateUser,
         advance: advance
       }),
@@ -4894,14 +4956,8 @@ var Field = function Field(_ref) {
       name = _ref.name,
       placeholder = _ref.placeholder,
       value = _ref.value,
-      errors = _ref.errors,
+      error = _ref.error,
       validate = _ref.validate;
-  var error;
-
-  if (errors) {
-    error = errors[name];
-  }
-
   var validator;
 
   if (validate) {
@@ -5051,34 +5107,31 @@ var user = /*#__PURE__*/function () {
   function user() {
     _classCallCheck(this, user);
 
-    // API target endpoint
+    // Variables
+    this.emailUsed = ''; // API target endpoint
+
     this.url = 'http://api.nonverse.test/'; // Config
 
     (axios__WEBPACK_IMPORTED_MODULE_1___default().defaults.withCredentials) = true;
-  } // Create a new user
-
+  }
 
   _createClass(user, [{
-    key: "create",
+    key: "verifyEmail",
     value: function () {
-      var _create = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee($data) {
+      var _verifyEmail = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(email) {
+        var _this = this;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "auth/create-new-user"), {
-                  email: $data.email,
-                  username: $data.email,
-                  name_first: $data.firstname,
-                  name_last: $data.lastname,
-                  password: $data.password,
-                  password_confirmation: $data.password_confirmation
-                }).then(function () {
-                  return true;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "auth/test"), {
+                  email: email
+                }).then(function (r) {
+                  _this.emailUsed = true;
                 })["catch"](function (e) {
-                  console.log(e);
-                  return false;
+                  _this.emailUsed = false;
                 });
 
               case 2:
@@ -5089,7 +5142,45 @@ var user = /*#__PURE__*/function () {
         }, _callee, this);
       }));
 
-      function create(_x) {
+      function verifyEmail(_x) {
+        return _verifyEmail.apply(this, arguments);
+      }
+
+      return verifyEmail;
+    }() // Create a new user
+
+  }, {
+    key: "create",
+    value: function () {
+      var _create = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(data) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "auth/create-new-user"), {
+                  email: data.email,
+                  username: data.email,
+                  name_first: data.firstname,
+                  name_last: data.lastname,
+                  password: data.password,
+                  password_confirmation: data.password_confirmation
+                }).then(function () {
+                  return true;
+                })["catch"](function (e) {
+                  console.log(e);
+                  return false;
+                });
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function create(_x2) {
         return _create.apply(this, arguments);
       }
 

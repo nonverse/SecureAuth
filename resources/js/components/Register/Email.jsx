@@ -1,24 +1,33 @@
-import React from "react";
+import React, {useState} from "react";
 import {Formik} from "formik";
 import Form from "../elements/Form";
 import Field from "../elements/Field";
 import validate from "../../scripts/validate";
 import {useHistory} from "react-router-dom";
+import user from "../../scripts/api/user";
 
-const Email = ({load, user, updateUser, advance}) => {
+const Email = ({load, userData, updateUser, advance}) => {
 
     const history = useHistory()
+    const [error, setError] = useState('')
 
-    function submit(values) {
+    async function submit(values) {
         load(true)
+        await user.verifyEmail(values.email)
+        if (user.emailUsed) {
+            setError('This email is already registered')
+            return load(false)
+        }
+        updateUser({
+            email: values.email
+        })
+        load(false)
+        advance()
+    }
 
-        setTimeout(() => {
-            updateUser({
-                email: values.email,
-            })
-            load(false)
-            advance()
-        }, 1200)
+    function validateEmail(value) {
+        setError('')
+        return validate.email(value)
     }
 
     return (
@@ -26,13 +35,15 @@ const Email = ({load, user, updateUser, advance}) => {
             <h4>Create an account</h4>
             <span>Nonverse Studios</span>
             <Formik initialValues={{
-                email: user.email ? user.email : '',
+                email: userData.email ? userData.email : '',
             }} onSubmit={(values) => {
                 submit(values)
             }}>
                 {({values, errors}) => (
                     <Form>
-                        <Field placeholder={"Email"} validate={validate.email} name={"email"} errors={errors}
+                        <Field placeholder={"Email"} validate={validateEmail} name={"email"}
+                               setError={setError}
+                               error={errors.email ? errors.email : error}
                                value={values.email}/>
                         <span className={"default"}> By continuing you consent to your email being collected and sent to Nonverse servers for verification</span>
                     </Form>

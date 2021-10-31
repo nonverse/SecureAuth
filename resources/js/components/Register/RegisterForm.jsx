@@ -21,7 +21,7 @@ const RegisterForm = ({load}) => {
 
     return (
         <ProgressiveForm state={state} views={{
-            1: <Email load={load} user={user} updateUser={updateUser} advance={advance}/>,
+            1: <Email load={load} userData={user} updateUser={updateUser} advance={advance}/>,
             2: <Name load={load} user={user} updateUser={updateUser} advance={advance} back={previous}/>,
             3: <Username load={load} user={user} updateUser={updateUser} advance={advance} back={previous}/>,
             4: <Password load={load} userData={user} updateUser={updateUser} advance={advance} back={previous}/>
