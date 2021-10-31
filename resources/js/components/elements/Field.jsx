@@ -1,12 +1,8 @@
 import React from "react";
 import {Field as FormikField} from "formik";
 
-const Field = ({password, name, placeholder, value, errors, validate}) => {
+const Field = ({password, name, placeholder, value, error, validate}) => {
 
-    let error
-    if (errors) {
-        error = errors[name]
-    }
     let validator
     if (validate) {
         validator = validate
