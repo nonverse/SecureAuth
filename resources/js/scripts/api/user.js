@@ -32,7 +32,7 @@ class user {
             `${this.url}auth/create-new-user`,
             {
                 email: data.email,
-                username: data.email,
+                username: data.username,
                 name_first: data.firstname,
                 name_last: data.lastname,
                 password: data.password,
