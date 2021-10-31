@@ -3963,12 +3963,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var _FluidLoader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FluidLoader */ "./resources/js/components/FluidLoader.jsx");
-/* harmony import */ var _Routers_AuthRouter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Routers/AuthRouter */ "./resources/js/Routers/AuthRouter.jsx");
-/* harmony import */ var _elements_LogoDark__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./elements/LogoDark */ "./resources/js/components/elements/LogoDark.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var _FluidLoader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./FluidLoader */ "./resources/js/components/FluidLoader.jsx");
+/* harmony import */ var _Routers_AuthRouter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Routers/AuthRouter */ "./resources/js/Routers/AuthRouter.jsx");
+/* harmony import */ var _elements_LogoDark__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./elements/LogoDark */ "./resources/js/components/elements/LogoDark.jsx");
+/* harmony import */ var _scripts_api_api__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../scripts/api/api */ "./resources/js/scripts/api/api.js");
+/* harmony import */ var _Loader__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Loader */ "./resources/js/components/Loader.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -3989,25 +3999,88 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 function Index() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
       loading = _useState2[0],
       setLoading = _useState2[1];
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-    className: "fluid",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_elements_LogoDark__WEBPACK_IMPORTED_MODULE_4__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Routers_AuthRouter__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      load: setLoading
-    }), loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_FluidLoader__WEBPACK_IMPORTED_MODULE_2__["default"], {}) : '']
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      initialised = _useState4[0],
+      setInitialised = _useState4[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return _scripts_api_api__WEBPACK_IMPORTED_MODULE_6__["default"].initialiseCsrf().then(function () {
+              setInitialised(_scripts_api_api__WEBPACK_IMPORTED_MODULE_6__["default"].initialised);
+            });
+
+          case 2:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  })), []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    className: "fluid-container",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      className: "fluid",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_elements_LogoDark__WEBPACK_IMPORTED_MODULE_5__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Routers_AuthRouter__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        load: setLoading
+      }), loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_FluidLoader__WEBPACK_IMPORTED_MODULE_3__["default"], {}) : '']
+    }), initialised ? '' : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Loader__WEBPACK_IMPORTED_MODULE_7__["default"], {})]
   });
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Index);
 
 if (document.getElementById('root')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Index, {}), document.getElementById('root'));
+  react_dom__WEBPACK_IMPORTED_MODULE_2__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Index, {}), document.getElementById('root'));
 }
+
+/***/ }),
+
+/***/ "./resources/js/components/Loader.jsx":
+/*!********************************************!*\
+  !*** ./resources/js/components/Loader.jsx ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_spinners__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-spinners */ "./node_modules/react-spinners/index.js");
+/* harmony import */ var react_spinners__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_spinners__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+var Loader = function Loader(complete) {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    className: "loader-container",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "loader",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_spinners__WEBPACK_IMPORTED_MODULE_2__.ClipLoader, {
+        color: '#3f9ae5',
+        size: 50
+      })
+    })
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Loader);
 
 /***/ }),
 
@@ -4491,8 +4564,8 @@ var Name = function Name(_ref) {
     load(true);
     setTimeout(function () {
       updateUser(_objectSpread(_objectSpread({}, user), {}, {
-        firstname: values.firstname,
-        lastname: values.lastname
+        name_first: values.firstname,
+        name_last: values.lastname
       }));
       load(false);
       advance();
@@ -4594,8 +4667,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var Password = function Password(_ref) {
   var load = _ref.load,
       userData = _ref.userData,
-      updateUser = _ref.updateUser,
-      advance = _ref.advance,
       back = _ref.back;
 
   function previous() {
@@ -4645,7 +4716,7 @@ var Password = function Password(_ref) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
         children: ["Name: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
           className: "op-05",
-          children: "".concat(userData.firstname, " ").concat(userData.lastname)
+          children: "".concat(userData.name_first, " ").concat(userData.name_last)
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
         children: ["Email: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
@@ -4862,7 +4933,7 @@ var Username = function Username(_ref) {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h4", {
       children: "Choose a username"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-      children: "".concat(user.firstname, " ").concat(user.lastname)
+      children: "".concat(user.name_first, " ").concat(user.name_last)
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(formik__WEBPACK_IMPORTED_MODULE_1__.Formik, {
       initialValues: {
         username: user.username ? user.username : ''
@@ -5073,6 +5144,84 @@ var LogoDark = function LogoDark() {
 
 /***/ }),
 
+/***/ "./resources/js/scripts/api/api.js":
+/*!*****************************************!*\
+  !*** ./resources/js/scripts/api/api.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+var api = /*#__PURE__*/function () {
+  function api() {
+    _classCallCheck(this, api);
+
+    // Variables
+    this.initialised = false; // API Location
+
+    this.url = 'http://api.nonverse.test/';
+  }
+
+  _createClass(api, [{
+    key: "initialiseCsrf",
+    value: function () {
+      var _initialiseCsrf = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var _this = this;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this.initialised = false;
+                _context.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(this.url, "sanctum/csrf-cookie")).then(function () {
+                  _this.initialised = true;
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function initialiseCsrf() {
+        return _initialiseCsrf.apply(this, arguments);
+      }
+
+      return initialiseCsrf;
+    }()
+  }]);
+
+  return api;
+}();
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new api());
+
+/***/ }),
+
 /***/ "./resources/js/scripts/api/user.js":
 /*!******************************************!*\
   !*** ./resources/js/scripts/api/user.js ***!
@@ -5125,7 +5274,7 @@ var user = /*#__PURE__*/function () {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "auth/test"), {
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "auth/verify/validate-user-email"), {
                   email: email
                 }).then(function () {
                   _this.emailUsed = false;
@@ -5156,22 +5305,16 @@ var user = /*#__PURE__*/function () {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "auth/create-new-user"), {
-                  email: data.email,
-                  username: data.username,
-                  name_first: data.firstname,
-                  name_last: data.lastname,
-                  password: data.password,
-                  password_confirmation: data.password_confirmation
-                }).then(function () {
+                console.log(data);
+                _context2.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "auth/create-new-user"), data).then(function () {
                   return true;
                 })["catch"](function (e) {
                   console.log(e);
                   return false;
                 });
 
-              case 2:
+              case 3:
               case "end":
                 return _context2.stop();
             }
