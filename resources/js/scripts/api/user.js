@@ -14,8 +14,11 @@ class user {
     }
 
     async verifyEmail(email) {
+        await axios.get(
+            `${this.url}sanctum/csrf-cookie`
+        )
         await axios.post(
-            `${this.url}auth/test`,
+            `${this.url}auth/verify/validate-user-email`,
             {
                 email: email,
             }
