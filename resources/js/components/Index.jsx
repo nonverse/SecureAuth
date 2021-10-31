@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import FluidLoader from "./FluidLoader";
 import AuthRouter from "../Routers/AuthRouter";
-import LogoDark from "../elements/LogoDark";
+import LogoDark from "./elements/LogoDark";
 
 function Index() {
 

@@ -1,7 +1,7 @@
 import React from "react";
 import {Form as FormikForm} from "formik";
 
-import Button from "../elements/Button";
+import Button from "./Button";
 
 const Form = ({submitCta, children}) => {
 

@@ -2,8 +2,8 @@ import React from "react";
 import {Formik} from "formik";
 import validate from "../../scripts/validate";
 
-import Form from "../Form";
-import Field from "../Field";
+import Form from "../elements/Form";
+import Field from "../elements/Field";
 import {useHistory} from "react-router-dom";
 
 const Email = ({load, updateUser, advance}) => {

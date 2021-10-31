@@ -1,7 +1,7 @@
 import React from "react";
 import {Formik} from "formik";
-import Form from "../Form";
-import Field from "../Field";
+import Form from "../elements/Form";
+import Field from "../elements/Field";
 import validate from "../../scripts/validate";
 
 const Username = ({load, user, updateUser, advance, back}) => {
