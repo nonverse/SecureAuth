@@ -5,7 +5,7 @@ import Field from "../elements/Field";
 import validate from "../../scripts/validate";
 import user from "../../scripts/api/user";
 
-const Password = ({load, userData, updateUser, advance, back}) => {
+const Password = ({load, userData, back}) => {
 
     function previous() {
         load(true)
@@ -31,7 +31,7 @@ const Password = ({load, userData, updateUser, advance, back}) => {
             <h4>Secure it with a password</h4>
             <span className="default">First make sure your account data is correct</span>
             <div className="summary">
-                <span>Name: <span className="op-05">{`${userData.firstname} ${userData.lastname}`}</span></span>
+                <span>Name: <span className="op-05">{`${userData.name_first} ${userData.name_last}`}</span></span>
                 <span>Email: <span className="op-05">{userData.email}</span></span>
                 <span>Username: <span className="op-05">{userData.username}</span></span>
             </div>

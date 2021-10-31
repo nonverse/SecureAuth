@@ -29,7 +29,7 @@ const Username = ({load, user, updateUser, advance, back}) => {
     return (
         <div className="content-wrapper">
             <h4>Choose a username</h4>
-            <span>{`${user.firstname} ${user.lastname}`}</span>
+            <span>{`${user.name_first} ${user.name_last}`}</span>
             <Formik initialValues={{
                 username: user.username ? user.username : '',
             }} onSubmit={(values) => {

@@ -19,8 +19,8 @@ const Name = ({load, user, updateUser, advance, back}) => {
         setTimeout(() => {
             updateUser({
                 ...user,
-                firstname: values.firstname,
-                lastname: values.lastname,
+                name_first: values.firstname,
+                name_last: values.lastname,
             })
             load(false)
             advance()

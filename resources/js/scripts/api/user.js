@@ -14,9 +14,6 @@ class user {
     }
 
     async verifyEmail(email) {
-        await axios.get(
-            `${this.url}sanctum/csrf-cookie`
-        )
         await axios.post(
             `${this.url}auth/verify/validate-user-email`,
             {
@@ -31,17 +28,9 @@ class user {
 
     // Create a new user
     async create(data) {
+        console.log(data)
         await axios.post(
-            `${this.url}auth/create-new-user`,
-            {
-                email: data.email,
-                username: data.username,
-                name_first: data.firstname,
-                name_last: data.lastname,
-                password: data.password,
-                password_confirmation: data.password_confirmation
-            }
-        ).then(() => {
+            `${this.url}auth/create-new-user`, data).then(() => {
             return true
         }).catch((e) => {
             console.log(e)
