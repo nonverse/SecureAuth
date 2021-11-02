@@ -13,9 +13,9 @@ class user {
         axios.defaults.withCredentials = true;
     }
 
-    async verifyEmail(email) {
+    async verifyNewEmail(email) {
         await axios.post(
-            `${this.url}auth/verify/validate-user-email`,
+            `${this.url}auth/verify/validate-new-email`,
             {
                 email: email,
             }
@@ -28,14 +28,16 @@ class user {
 
     // Create a new user
     async create(data) {
-        console.log(data)
+        //console.log(data)
         await axios.post(
-            `${this.url}auth/create-new-user`, data).then(() => {
-            return true
-        }).catch((e) => {
-            console.log(e)
-            return false
-        })
+            `${this.url}auth/create-new-user`, data)
+            .then((response) => {
+                console.log(response.data.data)
+                return response.data.data
+            }).catch((e) => {
+                console.log(e)
+                return false
+            })
     }
 }
 

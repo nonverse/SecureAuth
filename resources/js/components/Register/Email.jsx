@@ -13,7 +13,7 @@ const Email = ({load, userData, updateUser, advance}) => {
 
     async function submit(values) {
         load(true)
-        await user.verifyEmail(values.email)
+        await user.verifyNewEmail(values.email)
         if (user.emailUsed) {
             setError('This email is already registered')
             return load(false)

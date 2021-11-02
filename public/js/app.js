@@ -4435,7 +4435,7 @@ var Email = function Email(_ref) {
             case 0:
               load(true);
               _context.next = 3;
-              return _scripts_api_user__WEBPACK_IMPORTED_MODULE_6__["default"].verifyEmail(values.email);
+              return _scripts_api_user__WEBPACK_IMPORTED_MODULE_6__["default"].verifyNewEmail(values.email);
 
             case 3:
               if (!_scripts_api_user__WEBPACK_IMPORTED_MODULE_6__["default"].emailUsed) {
@@ -5264,9 +5264,9 @@ var user = /*#__PURE__*/function () {
   }
 
   _createClass(user, [{
-    key: "verifyEmail",
+    key: "verifyNewEmail",
     value: function () {
-      var _verifyEmail = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(email) {
+      var _verifyNewEmail = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(email) {
         var _this = this;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
@@ -5274,7 +5274,7 @@ var user = /*#__PURE__*/function () {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "auth/verify/validate-user-email"), {
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "auth/verify/validate-new-email"), {
                   email: email
                 }).then(function () {
                   _this.emailUsed = false;
@@ -5290,11 +5290,11 @@ var user = /*#__PURE__*/function () {
         }, _callee, this);
       }));
 
-      function verifyEmail(_x) {
-        return _verifyEmail.apply(this, arguments);
+      function verifyNewEmail(_x) {
+        return _verifyNewEmail.apply(this, arguments);
       }
 
-      return verifyEmail;
+      return verifyNewEmail;
     }() // Create a new user
 
   }, {
@@ -5305,16 +5305,16 @@ var user = /*#__PURE__*/function () {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                console.log(data);
-                _context2.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "auth/create-new-user"), data).then(function () {
-                  return true;
+                _context2.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "auth/create-new-user"), data).then(function (response) {
+                  console.log(response.data.data);
+                  return response.data.data;
                 })["catch"](function (e) {
                   console.log(e);
                   return false;
                 });
 
-              case 3:
+              case 2:
               case "end":
                 return _context2.stop();
             }
