@@ -36,6 +36,18 @@ class validate {
         }
         return error
     }
+
+    otp(value) {
+        let error;
+        if (!value) {
+            error = "A one time code is required"
+        } else if (!/^[0-9]*$/i.test(value)) {
+            error = "Your code only contains digits"
+        } else if (value.length !== 6) {
+            error = "Your code must only be 6 digits"
+        }
+        return error
+    }
 }
 
 export default new validate()
