@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -13,7 +14,6 @@ use App\Models\User;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class AuthenticationController extends AbstractAuthenticationController
 {
@@ -21,7 +21,7 @@ class AuthenticationController extends AbstractAuthenticationController
      * Authenticate a user on the system
      *
      * @param Request $request
-     * @return Application|RedirectResponse|Redirector|int
+     * @return Application|ResponseFactory|JsonResponse|Response
      */
     public function authenticate(Request $request)
     {
@@ -37,12 +37,12 @@ class AuthenticationController extends AbstractAuthenticationController
             $user = User::query()->where('email', $email)->firstOrFail();
 
         } catch (ModelNotFoundException $e) {
-            return Response::HTTP_BAD_REQUEST;
+            return response('User not found', 400);
         }
 
         // Verify that the user has provided a valid password before continuing
         if (!Hash::check($request->input('password'), $user->password)) {
-            return Response::HTTP_UNAUTHORIZED;
+            return response('Invalid password', 401);
         }
 
         // TODO Add logic to handle 2FA authentication
@@ -51,17 +51,17 @@ class AuthenticationController extends AbstractAuthenticationController
         try {
             Auth::login($user, $remember);
         } catch (AuthenticationException $e) {
-            return Response::HTTP_INTERNAL_SERVER_ERROR;
+            return response('Something went wrong', 500);
         }
 
-        return $this->sendLoginSuccessResponse($request);
+        return $this->sendLoginSuccessResponse($request, $user);
     }
 
     /**
      * Revoke a user's authentication on the system
      *
      * @param Request $request
-     * @return Application|RedirectResponse|Redirector|int
+     * @return JsonResponse|Response
      */
     public function revokeAuthentication(Request $request)
     {
@@ -69,7 +69,7 @@ class AuthenticationController extends AbstractAuthenticationController
         try {
             Auth::logout();
         } catch (AuthenticationException $e) {
-            return Response::HTTP_INTERNAL_SERVER_ERROR;
+            return response('Something went wrong', 500);
         }
 
         return $this->sendLogoutSuccessResponse($request);
@@ -109,19 +109,23 @@ class AuthenticationController extends AbstractAuthenticationController
      * Check if a user is authenticated on the system
      *
      * @param Request $request
-     * @return Application|JsonResponse|Redirector|RedirectResponse
+     * @return JsonResponse
      */
-    public function verifyAuthentication(Request $request)
+    public function verifyAuthentication(Request $request): JsonResponse
     {
         if ($request->user()) {
             $user = $request->user();
         } else {
-            return $this->sendUnauthenticatedResponse($request);
+            return new JsonResponse([
+                'data' => [
+                    'authenticated' => false,
+                ]
+            ]);
         }
 
         return new JsonResponse([
             'data' => [
-                'authenticated' => 'true',
+                'authenticated' => true,
                 'uuid' => $user->uuid
             ]
         ]);

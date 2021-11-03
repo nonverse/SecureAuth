@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -30,43 +31,40 @@ class AbstractAuthenticationController extends Controller
      * Regenerate session and redirect user to target URI
      *
      * @param Request $request
-     * @return Application|RedirectResponse|Redirector
+     * @param User $user
+     * @return JsonResponse
      */
-    public function sendLoginSuccessResponse(Request $request)
+    public function sendLoginSuccessResponse(Request $request, User $user): JsonResponse
     {
         $request->session()->regenerate();
         $intended = $this->retrieveIntended($request);
 
-        return redirect('https://' . $intended['host'] . $intended['resource']);
+        return new JsonResponse([
+            'data' => [
+                'complete' => true,
+                'uuid' => $user->uuid,
+                'host' => $intended['host'],
+                'resource' => $intended['resource']
+            ]
+        ]);
     }
 
     /**
      * Direct a user to login page after successful logout
      *
      * @param Request $request
-     * @return Application|RedirectResponse|Redirector
+     * @return JsonResponse
      */
-    public function sendLogoutSuccessResponse(Request $request)
+    public function sendLogoutSuccessResponse(Request $request): JsonResponse
     {
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect(env('APP_URL') . '/login');
-    }
-
-    /**
-     * Redirect a user to login page with intended URI as query string if unable to locate
-     * an authenticated user on the system
-     *
-     * @param Request $request
-     * @return Application|RedirectResponse|Redirector
-     */
-    public function sendUnauthenticatedResponse(Request $request)
-    {
-        $intended = $this->retrieveIntended($request);
-        $loginQuery = '?host=' . $intended['host'] . '&resource=' . $intended['resource'] ?: '';
-
-        return redirect(env('APP_URL') . '/login' . $loginQuery);
+        return new JsonResponse([
+            'data' => [
+                'success' => true
+            ]
+        ]);
     }
 }
