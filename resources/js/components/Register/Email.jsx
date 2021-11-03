@@ -13,15 +13,15 @@ const Email = ({load, userData, updateUser, advance}) => {
     async function submit(values) {
         load(true)
         await validate.validateNewEmail(values.email)
-        if (validate.emailInvalid) {
-            setError('This email is already registered')
-            return load(false)
-        }
-        updateUser({
-            email: values.email
-        })
+            .then((response) => {
+                updateUser({
+                    email: values.email
+                })
+                advance()
+            }).catch((e) => {
+                setError('This email is already registered')
+            })
         load(false)
-        advance()
     }
 
     function validateEmail(value) {

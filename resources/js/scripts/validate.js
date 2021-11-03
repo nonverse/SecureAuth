@@ -3,9 +3,6 @@ import axios from "axios";
 class validate {
     constructor() {
 
-        // Variables
-        this.emailInvalid = true
-
         // API target endpoint
         this.url = 'http://api.nonverse.test/';
 
@@ -14,16 +11,12 @@ class validate {
     }
 
     async validateNewEmail(email) {
-        await axios.post(
+        return await axios.post(
             `${this.url}validator/validate-new-email`,
             {
                 email: email,
             }
-        ).then(() => {
-            this.emailInvalid = false
-        }).catch(() => {
-            this.emailInvalid = true
-        })
+        )
     }
 
     email(value) {
