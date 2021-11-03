@@ -1,11 +1,10 @@
 import React, {useState} from "react";
 import {Formik} from "formik";
 import validate from "../../scripts/validate";
-import user from "../../scripts/api/user";
-
 import Form from "../elements/Form";
 import Field from "../elements/Field";
 import {useHistory} from "react-router-dom";
+import auth from "../../scripts/api/auth";
 
 const Email = ({load, updateUser, advance}) => {
 
@@ -14,10 +13,11 @@ const Email = ({load, updateUser, advance}) => {
 
     async function submit(values) {
         load(true)
-        await user.verifyEmail(values.email)
+        await auth.verifyEmail(values.email)
             .then((response) => {
                 let user = response.data.data
                 updateUser({
+                    email: user.email,
                     name_first: user.name_first,
                     name_last: user.name_last
                 })

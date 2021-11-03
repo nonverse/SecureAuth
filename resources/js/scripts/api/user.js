@@ -5,19 +5,9 @@ class user {
 
         // API target endpoints
         this.url = 'http://api.nonverse.test/';
-        this.auth = 'http://auth.nonverse.test/';
 
         // Config
         axios.defaults.withCredentials = true;
-    }
-
-    async verifyEmail(email) {
-        return await axios.post(
-            `${this.auth}api/verify-user-email`,
-            {
-                email: email,
-            }
-        )
     }
 
     // Create a new user
