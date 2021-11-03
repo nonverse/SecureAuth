@@ -33,7 +33,7 @@ const Email = ({load, updateUser, advance}) => {
             }}>
                 {({errors}) => (
                     <Form>
-                        <Field placeholder={"Email"} validate={validate.email} name={"email"} errors={errors}/>
+                        <Field placeholder={"Email"} validate={validate.email} name={"email"} error={errors.email}/>
                     </Form>
                 )}
             </Formik>

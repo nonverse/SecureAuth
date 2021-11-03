@@ -4149,7 +4149,7 @@ var Email = function Email(_ref) {
             placeholder: "Email",
             validate: _scripts_validate__WEBPACK_IMPORTED_MODULE_2__["default"].email,
             name: "email",
-            errors: errors
+            error: errors.email
           })
         });
       }
