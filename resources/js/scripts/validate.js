@@ -1,4 +1,30 @@
+import axios from "axios";
+
 class validate {
+    constructor() {
+
+        // Variables
+        this.emailInvalid = true
+
+        // API target endpoint
+        this.url = 'http://api.nonverse.test/';
+
+        // Config
+        axios.defaults.withCredentials = true;
+    }
+
+    async validateNewEmail(email) {
+        await axios.post(
+            `${this.url}validator/validate-new-email`,
+            {
+                email: email,
+            }
+        ).then(() => {
+            this.emailInvalid = false
+        }).catch(() => {
+            this.emailInvalid = true
+        })
+    }
 
     email(value) {
         let error;

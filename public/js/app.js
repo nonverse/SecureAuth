@@ -4380,9 +4380,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _elements_Form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../elements/Form */ "./resources/js/components/elements/Form.jsx");
 /* harmony import */ var _elements_Field__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../elements/Field */ "./resources/js/components/elements/Field.jsx");
 /* harmony import */ var _scripts_validate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../scripts/validate */ "./resources/js/scripts/validate.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var _scripts_api_user__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../scripts/api/user */ "./resources/js/scripts/api/user.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -4410,13 +4409,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 var Email = function Email(_ref) {
   var load = _ref.load,
       userData = _ref.userData,
       updateUser = _ref.updateUser,
       advance = _ref.advance;
-  var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_8__.useHistory)();
+  var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useHistory)();
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
@@ -4435,10 +4433,10 @@ var Email = function Email(_ref) {
             case 0:
               load(true);
               _context.next = 3;
-              return _scripts_api_user__WEBPACK_IMPORTED_MODULE_6__["default"].verifyNewEmail(values.email);
+              return _scripts_validate__WEBPACK_IMPORTED_MODULE_5__["default"].validateNewEmail(values.email);
 
             case 3:
-              if (!_scripts_api_user__WEBPACK_IMPORTED_MODULE_6__["default"].emailUsed) {
+              if (!_scripts_validate__WEBPACK_IMPORTED_MODULE_5__["default"].emailInvalid) {
                 _context.next = 6;
                 break;
               }
@@ -4468,13 +4466,13 @@ var Email = function Email(_ref) {
     return _scripts_validate__WEBPACK_IMPORTED_MODULE_5__["default"].email(value);
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     className: "content-wrapper",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h4", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h4", {
       children: "Create an account"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
       children: "Nonverse Studios"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(formik__WEBPACK_IMPORTED_MODULE_2__.Formik, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(formik__WEBPACK_IMPORTED_MODULE_2__.Formik, {
       initialValues: {
         email: userData.email ? userData.email : ''
       },
@@ -4484,22 +4482,22 @@ var Email = function Email(_ref) {
       children: function children(_ref2) {
         var values = _ref2.values,
             errors = _ref2.errors;
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_elements_Form__WEBPACK_IMPORTED_MODULE_3__["default"], {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_elements_Field__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_elements_Form__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_elements_Field__WEBPACK_IMPORTED_MODULE_4__["default"], {
             placeholder: "Email",
             validate: validateEmail,
             name: "email",
             error: errors.email ? errors.email : error,
             value: values.email
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
             className: "default",
             children: " By continuing you consent to your email being collected and sent to Nonverse servers for verification"
           })]
         });
       }
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
       className: "links",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
         className: "link-btn",
         onClick: function onClick() {
           return history.push('/login');
@@ -5255,57 +5253,22 @@ var user = /*#__PURE__*/function () {
   function user() {
     _classCallCheck(this, user);
 
-    // Variables
-    this.emailUsed = ''; // API target endpoint
-
+    // API target endpoint
     this.url = 'http://api.nonverse.test/'; // Config
 
     (axios__WEBPACK_IMPORTED_MODULE_1___default().defaults.withCredentials) = true;
-  }
+  } // Create a new user
+
 
   _createClass(user, [{
-    key: "verifyNewEmail",
+    key: "create",
     value: function () {
-      var _verifyNewEmail = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(email) {
-        var _this = this;
-
+      var _create = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(data) {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "auth/verify/validate-new-email"), {
-                  email: email
-                }).then(function () {
-                  _this.emailUsed = false;
-                })["catch"](function () {
-                  _this.emailUsed = true;
-                });
-
-              case 2:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-
-      function verifyNewEmail(_x) {
-        return _verifyNewEmail.apply(this, arguments);
-      }
-
-      return verifyNewEmail;
-    }() // Create a new user
-
-  }, {
-    key: "create",
-    value: function () {
-      var _create = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(data) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.next = 2;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "auth/create-new-user"), data).then(function (response) {
                   console.log(response.data.data);
                   return response.data.data;
@@ -5316,13 +5279,13 @@ var user = /*#__PURE__*/function () {
 
               case 2:
               case "end":
-                return _context2.stop();
+                return _context.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee, this);
       }));
 
-      function create(_x2) {
+      function create(_x) {
         return _create.apply(this, arguments);
       }
 
@@ -5348,18 +5311,70 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+
+
 var validate = /*#__PURE__*/function () {
   function validate() {
     _classCallCheck(this, validate);
+
+    // Variables
+    this.emailInvalid = true; // API target endpoint
+
+    this.url = 'http://api.nonverse.test/'; // Config
+
+    (axios__WEBPACK_IMPORTED_MODULE_1___default().defaults.withCredentials) = true;
   }
 
   _createClass(validate, [{
+    key: "validateNewEmail",
+    value: function () {
+      var _validateNewEmail = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(email) {
+        var _this = this;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "validator/validate-new-email"), {
+                  email: email
+                }).then(function () {
+                  _this.emailInvalid = false;
+                })["catch"](function () {
+                  _this.emailInvalid = true;
+                });
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function validateNewEmail(_x) {
+        return _validateNewEmail.apply(this, arguments);
+      }
+
+      return validateNewEmail;
+    }()
+  }, {
     key: "email",
     value: function email(value) {
       var error;

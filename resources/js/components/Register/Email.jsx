@@ -4,7 +4,6 @@ import Form from "../elements/Form";
 import Field from "../elements/Field";
 import validate from "../../scripts/validate";
 import {useHistory} from "react-router-dom";
-import user from "../../scripts/api/user";
 
 const Email = ({load, userData, updateUser, advance}) => {
 
@@ -13,8 +12,8 @@ const Email = ({load, userData, updateUser, advance}) => {
 
     async function submit(values) {
         load(true)
-        await user.verifyNewEmail(values.email)
-        if (user.emailUsed) {
+        await validate.validateNewEmail(values.email)
+        if (validate.emailInvalid) {
             setError('This email is already registered')
             return load(false)
         }

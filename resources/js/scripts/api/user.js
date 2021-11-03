@@ -3,27 +3,11 @@ import axios from 'axios';
 class user {
     constructor() {
 
-        // Variables
-        this.emailUsed = ''
-
         // API target endpoint
         this.url = 'http://api.nonverse.test/';
 
         // Config
         axios.defaults.withCredentials = true;
-    }
-
-    async verifyNewEmail(email) {
-        await axios.post(
-            `${this.url}auth/verify/validate-new-email`,
-            {
-                email: email,
-            }
-        ).then(() => {
-            this.emailUsed = false
-        }).catch(() => {
-            this.emailUsed = true
-        })
     }
 
     // Create a new user
