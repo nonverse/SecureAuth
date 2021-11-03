@@ -7,7 +7,7 @@ import TwoFactorCheckpoint from "./TwoFactorCheckpoint";
 const LoginForm = ({load}) => {
 
     const [user, updateUser] = useState({})
-    const [state, setState] = useState(3)
+    const [state, setState] = useState(1)
 
     function advance() {
         setState(state + 1)
