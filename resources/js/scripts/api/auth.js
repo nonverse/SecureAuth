@@ -23,7 +23,7 @@ class auth {
         const query = new URLSearchParams(window.location.search)
         const host = query.has('host') ? query.get('host') : ''
         const resource = query.has('resource') ? query.get('resource') : ''
-        return await axios.post(`${this.url}login?host=${host}&resource=${resource}`, ...credentials)
+        return await axios.post(`${this.url}login?host=${host}&resource=${resource}`, credentials)
     }
 }
 
