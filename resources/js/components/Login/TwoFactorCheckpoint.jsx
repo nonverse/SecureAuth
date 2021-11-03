@@ -25,7 +25,7 @@ const TwoFactorCheckpoint = ({load, userData}) => {
             <span>Your account is protected by 2FA</span>
             <Formik initialValues={{
                 otp: ''
-            }} onSubmit={() => {
+            }} onSubmit={(values) => {
                 submit(values)
             }}>
                 {({errors}) => (
