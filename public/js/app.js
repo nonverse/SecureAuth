@@ -4298,6 +4298,9 @@ var LoginForm = function LoginForm(_ref) {
         user: user,
         advance: advance,
         back: previous
+      }),
+      3: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        children: "Hello"
       })
     }
   });
@@ -4372,12 +4375,24 @@ var Password = function Password(_ref) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              load(true);
+              _context.next = 3;
               return _scripts_api_auth__WEBPACK_IMPORTED_MODULE_6__["default"].login(_objectSpread(_objectSpread(_objectSpread({}, user), values), {}, {
                 keep_authenticated: false
-              }));
+              })).then(function (response) {
+                var r = response.data.data;
 
-            case 2:
+                if (r.complete) {
+                  window.location.replace("https://".concat(r.host).concat(r.resource));
+                } else {
+                  advance();
+                }
+              });
+
+            case 3:
+              load(false);
+
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -5324,6 +5339,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -5382,17 +5409,21 @@ var auth = /*#__PURE__*/function () {
     key: "login",
     value: function () {
       var _login = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(credentials) {
+        var query, host, resource;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "login"), credentials);
+                query = new URLSearchParams(window.location.search);
+                host = query.has('host') ? query.get('host') : '';
+                resource = query.has('resource') ? query.get('resource') : '';
+                _context2.next = 5;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post.apply((axios__WEBPACK_IMPORTED_MODULE_1___default()), ["".concat(this.url, "login?host=").concat(host, "&resource=").concat(resource)].concat(_toConsumableArray(credentials)));
 
-              case 2:
+              case 5:
                 return _context2.abrupt("return", _context2.sent);
 
-              case 3:
+              case 6:
               case "end":
                 return _context2.stop();
             }

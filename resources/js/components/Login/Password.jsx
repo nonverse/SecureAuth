@@ -16,11 +16,20 @@ const Password = ({load, user, advance, back}) => {
     }
 
     async function submit(values) {
+        load(true)
         await auth.login({
             ...user,
             ...values,
             keep_authenticated: false,
+        }).then((response) => {
+            let r = response.data.data
+            if (r.complete) {
+                window.location.replace(`https://${r.host}${r.resource}`)
+            } else {
+                advance();
+            }
         })
+        load(false)
     }
 
     return (
