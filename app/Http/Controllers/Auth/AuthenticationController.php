@@ -13,16 +13,10 @@ use App\Models\User;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class AuthenticationController extends AbstractAuthenticationController
 {
-    /**
-     * Authenticate a user using email and password
-     *
-     * @param Request $request
-     * @return Application|RedirectResponse|Redirector|int
-     */
-
     /**
      * Authenticate a user on the system
      *
@@ -79,6 +73,36 @@ class AuthenticationController extends AbstractAuthenticationController
         }
 
         return $this->sendLogoutSuccessResponse($request);
+    }
+
+    /**
+     * Check if a email provided belongs to a valid user instance
+     *
+     * @param Request $request
+     * @return JsonResponse|Response
+     */
+    function verifyUserEmail(Request $request)
+    {
+        // Check if a email was provided in the request and
+        // verify that the email has a corresponding user instance
+        try {
+            $email = $request->input('email');
+
+            /**
+             * @var User
+             */
+            $user = User::query()->where('email', $email)->firstOrFail();
+        } catch (ModelNotFoundException $e) {
+            return response('Unable to find user', 400);
+        }
+
+        return new JsonResponse([
+            'data' => [
+                'email' => $user->email,
+                'name_first' => $user->name_first,
+                'name_last' => $user->name_last
+            ]
+        ]);
     }
 
     /**

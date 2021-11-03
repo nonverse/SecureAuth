@@ -11,5 +11,6 @@ use Illuminate\Support\Facades\Route;
 | Endpoint: /api
 |
 */
+Route::post('/verify-user-email', [\App\Http\Controllers\Auth\AuthenticationController::class, 'verifyUserEmail']);
 Route::post('/verify-authenticated-user', [\App\Http\Controllers\Auth\AuthenticationController::class, 'verifyAuthentication']);
 
