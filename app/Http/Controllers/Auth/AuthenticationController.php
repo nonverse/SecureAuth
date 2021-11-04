@@ -16,9 +16,6 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthenticationController extends AbstractAuthenticationController
 {
-    /**
-     * @var UserRepositoryInterface
-     */
     private $repository;
 
     public function __construct(
