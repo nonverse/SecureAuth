@@ -48,7 +48,7 @@ class TwoFactorSetupService
         $secret = '';
         try {
             $user = $this->repository->get($uuid);
-            $secret = Str::random(16);
+            $secret = $this->google2FA->generateSecretKey();
         } catch (Exception $e) {
             throw new RuntimeException($e->getMessage());
         }
