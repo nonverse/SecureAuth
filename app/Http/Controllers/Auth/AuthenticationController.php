@@ -2,21 +2,29 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Contracts\Repository\UserRepositoryInterface;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthenticationController extends AbstractAuthenticationController
 {
+    private $repository;
+
+    public function __construct(
+        UserRepositoryInterface $repository
+    )
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Authenticate a user on the system
      *
@@ -34,7 +42,7 @@ class AuthenticationController extends AbstractAuthenticationController
             /**
              * @var User
              */
-            $user = User::query()->where('email', $email)->firstOrFail();
+            $user = $this->repository->get($email);
 
         } catch (ModelNotFoundException $e) {
             return response('User not found', 400);
@@ -91,7 +99,7 @@ class AuthenticationController extends AbstractAuthenticationController
             /**
              * @var User
              */
-            $user = User::query()->where('email', $email)->firstOrFail();
+            $user = $this->repository->get($email);
         } catch (ModelNotFoundException $e) {
             return response('Unable to find user', 400);
         }
