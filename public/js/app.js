@@ -5612,7 +5612,7 @@ var user = /*#__PURE__*/function () {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "user/create-new-user"), data).then(function (response) {
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "user"), data).then(function (response) {
                   console.log(response.data.data);
                   return response.data.data;
                 })["catch"](function (e) {
