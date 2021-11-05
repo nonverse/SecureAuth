@@ -38,7 +38,7 @@ class TwoFactorController extends Controller
         }
 
         return new JsonResponse([
-            'data' => $this->setupService->handle($request->user()->uuid)
+            'data' => $this->setupService->handle($request->user())
         ]);
     }
 
@@ -54,7 +54,7 @@ class TwoFactorController extends Controller
         ]);
 
         return new JsonResponse([
-            'data' => $this->enableService->handle($request->user()->uuid, $request->input('code'))
+            'data' => $this->enableService->handle($request->user(), $request->input('code'))
         ]);
     }
 

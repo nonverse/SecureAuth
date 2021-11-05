@@ -3,6 +3,7 @@
 namespace App\Services\User;
 
 use App\Contracts\Repository\UserRepositoryInterface;
+use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException;
@@ -41,17 +42,16 @@ class TwoFactorEnableService
     /**
      * Enable 2FA on a user's account
      *
-     * @param $uuid
+     * @param User $user
      * @param $code
      * @return array|Response
      * @throws IncompatibleWithGoogleAuthenticatorException
      * @throws InvalidCharactersException
      * @throws SecretKeyTooShortException
      */
-    public function handle($uuid, $code)
+    public function handle(User $user, $code)
     {
         try {
-            $user = $this->repository->get($uuid);
             $secret = $this->encrypter->decrypt($user->totp_secret);
         } catch (Exception $e) {
             throw new RuntimeException($e->getMessage());
@@ -61,7 +61,7 @@ class TwoFactorEnableService
             return response('Invalid code', 401);
         }
 
-        $this->repository->update($uuid, [
+        $this->repository->update($user->uuid, [
             'use_totp' => true,
             'totp_authenticated_at' => Carbon::now()
         ]);

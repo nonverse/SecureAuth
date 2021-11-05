@@ -3,6 +3,7 @@
 namespace App\Services\User;
 
 use App\Contracts\Repository\UserRepositoryInterface;
+use App\Models\User;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Support\Str;
 use PragmaRX\Google2FA\Google2FA;
@@ -40,20 +41,19 @@ class TwoFactorSetupService
     /**
      * Generate a TOTP secret for the currently authenticated user
      *
-     * @param $uuid
+     * @param User $user
      * @return array
      */
-    public function handle($uuid): array
+    public function handle(User $user): array
     {
         $secret = '';
         try {
-            $user = $this->repository->get($uuid);
             $secret = $this->google2FA->generateSecretKey();
         } catch (Exception $e) {
             throw new RuntimeException($e->getMessage());
         }
 
-        $this->repository->update($uuid, [
+        $this->repository->update($user->uuid, [
             'totp_secret' => $this->encrypter->encrypt($secret),
         ]);
 
