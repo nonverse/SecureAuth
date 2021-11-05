@@ -24,6 +24,9 @@ class AuthenticationController extends AbstractAuthenticationController
      */
     private $repository;
 
+    /**
+     * @var Encrypter
+     */
     private $encrypter;
 
     public function __construct(
