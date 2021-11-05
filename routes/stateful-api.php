@@ -12,5 +12,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::post('/verify-user-email', [\App\Http\Controllers\Auth\AuthenticationController::class, 'verifyUserEmail']);
-Route::post('/verify-authenticated-user', [\App\Http\Controllers\Auth\AuthenticationController::class, 'verifyAuthentication']);
+Route::get('/get-authenticated-user', [\App\Http\Controllers\Auth\AuthenticationController::class, 'verifyAuthentication']);
 
