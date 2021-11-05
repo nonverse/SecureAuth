@@ -12,7 +12,7 @@ class auth {
 
     async verifyEmail(email) {
         return await axios.post(
-            `${this.url}api/verify-user-email`,
+            `${this.url}api/user`,
             {
                 email: email,
             }
