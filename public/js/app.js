@@ -4018,8 +4018,8 @@ function Index() {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return _scripts_api_api__WEBPACK_IMPORTED_MODULE_6__["default"].initialiseCsrf().then(function () {
-              setInitialised(_scripts_api_api__WEBPACK_IMPORTED_MODULE_6__["default"].initialised);
+            return _scripts_api_api__WEBPACK_IMPORTED_MODULE_6__["default"].initialiseCsrf().then(function (response) {
+              setInitialised(true);
             });
 
           case 2:
@@ -5408,9 +5408,7 @@ var api = /*#__PURE__*/function () {
   function api() {
     _classCallCheck(this, api);
 
-    // Variables
-    this.initialised = false; // API Location
-
+    // API Location
     this.url = 'http://api.nonverse.test/';
   }
 
@@ -5418,19 +5416,18 @@ var api = /*#__PURE__*/function () {
     key: "initialiseCsrf",
     value: function () {
       var _initialiseCsrf = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var _this = this;
-
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 this.initialised = false;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(this.url, "sanctum/csrf-cookie")).then(function () {
-                  _this.initialised = true;
-                });
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(this.url, "sanctum/csrf-cookie"));
 
               case 3:
+                return _context.abrupt("return", _context.sent);
+
+              case 4:
               case "end":
                 return _context.stop();
             }
