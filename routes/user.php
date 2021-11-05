@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Get current user
+Route::get('/', [\App\Http\Controllers\Auth\AuthenticationController::class, 'getUser']);
+
+// 2FA routes
 Route::get('/two-factor-authentication', [\App\Http\Controllers\Auth\TwoFactorController::class, 'setup']);
 Route::post('/two-factor-authentication', [\App\Http\Controllers\Auth\TwoFactorController::class, 'enable']);
 Route::delete('/two-factor-authentication', [\App\Http\Controllers\Auth\TwoFactorController::class, 'disable']);

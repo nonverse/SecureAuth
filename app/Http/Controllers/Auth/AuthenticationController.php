@@ -40,7 +40,7 @@ class AuthenticationController extends AbstractAuthenticationController
         // verify that the email has a corresponding user instance
         try {
             $email = $request->input('email');
-            $remember = $request->has('keep_authenticated');
+            $remember = false;
 
             /**
              * @var User
@@ -122,22 +122,12 @@ class AuthenticationController extends AbstractAuthenticationController
      * @param Request $request
      * @return JsonResponse
      */
-    public function verifyAuthentication(Request $request): JsonResponse
+    public function getUser(Request $request): JsonResponse
     {
-        if ($request->user()) {
-            $user = $request->user();
-        } else {
-            return new JsonResponse([
-                'data' => [
-                    'authenticated' => false,
-                ]
-            ]);
-        }
-
         return new JsonResponse([
             'data' => [
                 'authenticated' => true,
-                'uuid' => $user->uuid
+                'uuid' => $request->user()->uuid
             ]
         ]);
     }
