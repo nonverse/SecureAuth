@@ -75,7 +75,6 @@ class AuthenticationController extends AbstractAuthenticationController
             return new JsonResponse([
                 'data' => [
                     'complete' => false,
-                    'uuid' => $user->uuid,
                     'auth_token' => $token
                 ]
             ]);

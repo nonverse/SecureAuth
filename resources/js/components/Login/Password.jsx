@@ -30,7 +30,6 @@ const Password = ({load, user, updateUser, advance, back}) => {
             } else {
                 updateUser({
                     ...user,
-                    uuid: data.uuid,
                     auth_token: data.auth_token
                 })
                 advance();
