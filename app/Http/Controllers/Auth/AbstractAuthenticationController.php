@@ -4,11 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 
 class AbstractAuthenticationController extends Controller
@@ -37,8 +34,11 @@ class AbstractAuthenticationController extends Controller
      */
     public function sendLoginSuccessResponse(Request $request, User $user): JsonResponse
     {
-        Auth::login($user, $request->input('remember'));
+        $request->session()->forget('two_factor_token');
         $request->session()->regenerate();
+
+        Auth::login($user, $request->input('remember'));
+
         $intended = $this->retrieveIntended($request);
 
         return new JsonResponse([
