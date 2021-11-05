@@ -1,11 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import {Formik} from "formik";
 import validate from "../../scripts/validate";
 import Form from "../elements/Form";
 import Field from "../elements/Field";
 import auth from "../../scripts/api/auth";
 
-const Password = ({load, user, advance, back}) => {
+const Password = ({load, user, updateUser, advance, back}) => {
+
+    const [error, setError] = useState('');
 
     function previous() {
         load(true)
@@ -22,14 +24,26 @@ const Password = ({load, user, advance, back}) => {
             ...values,
             keep_authenticated: false,
         }).then((response) => {
-            let r = response.data.data
-            if (r.complete) {
-                window.location.replace(`https://${r.host}${r.resource}`)
+            let data = response.data.data
+            if (data.complete) {
+                window.location.replace(`https://${data.host}${data.resource}`)
             } else {
+                updateUser({
+                    ...user,
+                    uuid: data.uuid,
+                    auth_token: data.auth_token
+                })
                 advance();
             }
+        }).catch(() => {
+            setError('Password is incorrect')
         })
         load(false)
+    }
+
+    function validatePassword(values) {
+        setError('')
+        return validate.require(values)
     }
 
     return (
@@ -44,8 +58,8 @@ const Password = ({load, user, advance, back}) => {
             }}>
                 {({errors}) => (
                     <Form submitCta={"Login"}>
-                        <Field password placeholder={"Password"} validate={validate.require} name={"password"}
-                               errors={errors}/>
+                        <Field password placeholder={"Password"} validate={validatePassword} name={"password"}
+                               error={errors.password ? errors.password : error}/>
                     </Form>
                 )}
             </Formik>
