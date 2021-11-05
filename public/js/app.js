@@ -5498,7 +5498,7 @@ var auth = /*#__PURE__*/function () {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "api/user"), {
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "api/verify-user-email"), {
                   email: email
                 });
 
