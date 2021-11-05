@@ -50,7 +50,6 @@ class AuthenticationController extends AbstractAuthenticationController
         // verify that the email has a corresponding user instance
         try {
             $email = $request->input('email');
-            $remember = false;
 
             /**
              * @var User
@@ -83,13 +82,6 @@ class AuthenticationController extends AbstractAuthenticationController
             ]);
         }
 
-        // Attempt to authenticate a user
-        try {
-            Auth::login($user, $remember);
-        } catch (AuthenticationException $e) {
-            return response('Something went wrong', 500);
-        }
-
         return $this->sendLoginSuccessResponse($request, $user);
     }
 
@@ -102,11 +94,6 @@ class AuthenticationController extends AbstractAuthenticationController
     public function revokeAuthentication(Request $request)
     {
         // Attempt to revoke user authentication
-        try {
-            Auth::logout();
-        } catch (AuthenticationException $e) {
-            return response('Something went wrong', 500);
-        }
 
         return $this->sendLogoutSuccessResponse($request);
     }

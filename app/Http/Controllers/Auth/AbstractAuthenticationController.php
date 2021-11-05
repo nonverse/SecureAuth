@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 
 class AbstractAuthenticationController extends Controller
 {
@@ -36,6 +37,7 @@ class AbstractAuthenticationController extends Controller
      */
     public function sendLoginSuccessResponse(Request $request, User $user): JsonResponse
     {
+        Auth::login($user, $request->input('remember'));
         $request->session()->regenerate();
         $intended = $this->retrieveIntended($request);
 
@@ -57,7 +59,7 @@ class AbstractAuthenticationController extends Controller
      */
     public function sendLogoutSuccessResponse(Request $request): JsonResponse
     {
-
+        Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
