@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Get current user
-Route::get('/', [\App\Http\Controllers\Auth\AuthenticationController::class, 'getUser']);
+Route::post('/', [\App\Http\Controllers\UserController::class, 'verify'])->withoutMiddleware('auth');
+Route::get('/', [\App\Http\Controllers\UserController::class, 'get']);
 
 // 2FA routes
 Route::get('/two-factor-authentication', [\App\Http\Controllers\Auth\TwoFactorController::class, 'setup']);
