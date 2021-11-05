@@ -25,6 +25,16 @@ class auth {
         const resource = query.has('resource') ? query.get('resource') : ''
         return await axios.post(`${this.url}login?host=${host}&resource=${resource}`, credentials)
     }
+
+    async twofactor(token, code) {
+        return axios.post(
+            `${this.url}login/two-factor`,
+            {
+                auth_token: token,
+                code: code
+            }
+        )
+    }
 }
 
 export default new auth();

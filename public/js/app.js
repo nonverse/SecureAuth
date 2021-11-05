@@ -4298,12 +4298,13 @@ var LoginForm = function LoginForm(_ref) {
       2: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Password__WEBPACK_IMPORTED_MODULE_2__["default"], {
         load: load,
         user: user,
+        updateUser: updateUser,
         advance: advance,
         back: previous
       }),
       3: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_TwoFactorCheckpoint__WEBPACK_IMPORTED_MODULE_4__["default"], {
         load: load,
-        userData: user
+        user: user
       })
     }
   });
@@ -4345,6 +4346,18 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -4357,8 +4370,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var Password = function Password(_ref) {
   var load = _ref.load,
       user = _ref.user,
+      updateUser = _ref.updateUser,
       advance = _ref.advance,
       back = _ref.back;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      error = _useState2[0],
+      setError = _useState2[1];
 
   function previous() {
     load(true);
@@ -4383,13 +4402,18 @@ var Password = function Password(_ref) {
               return _scripts_api_auth__WEBPACK_IMPORTED_MODULE_6__["default"].login(_objectSpread(_objectSpread(_objectSpread({}, user), values), {}, {
                 keep_authenticated: false
               })).then(function (response) {
-                var r = response.data.data;
+                var data = response.data.data;
 
-                if (r.complete) {
-                  window.location.replace("https://".concat(r.host).concat(r.resource));
+                if (data.complete) {
+                  window.location.replace("https://".concat(data.host).concat(data.resource));
                 } else {
+                  updateUser(_objectSpread(_objectSpread({}, user), {}, {
+                    auth_token: data.auth_token
+                  }));
                   advance();
                 }
+              })["catch"](function () {
+                setError('Password is incorrect');
               });
 
             case 3:
@@ -4403,6 +4427,11 @@ var Password = function Password(_ref) {
       }, _callee);
     }));
     return _submit.apply(this, arguments);
+  }
+
+  function validatePassword(values) {
+    setError('');
+    return _scripts_validate__WEBPACK_IMPORTED_MODULE_3__["default"].require(values);
   }
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
@@ -4429,9 +4458,9 @@ var Password = function Password(_ref) {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_elements_Field__WEBPACK_IMPORTED_MODULE_5__["default"], {
             password: true,
             placeholder: "Password",
-            validate: _scripts_validate__WEBPACK_IMPORTED_MODULE_3__["default"].require,
+            validate: validatePassword,
             name: "password",
-            errors: errors
+            error: errors.password ? errors.password : error
           })
         });
       }
@@ -4463,12 +4492,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
 /* harmony import */ var _elements_Form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../elements/Form */ "./resources/js/components/elements/Form.jsx");
 /* harmony import */ var _elements_Field__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../elements/Field */ "./resources/js/components/elements/Field.jsx");
 /* harmony import */ var _scripts_validate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../scripts/validate */ "./resources/js/scripts/validate.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _scripts_api_auth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../scripts/api/auth */ "./resources/js/scripts/api/auth.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -4496,10 +4526,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var TwoFactorCheckpoint = function TwoFactorCheckpoint(_ref) {
   var load = _ref.load,
-      userData = _ref.userData;
-  var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useHistory)();
+      user = _ref.user;
+  var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_8__.useHistory)();
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
@@ -4516,6 +4547,28 @@ var TwoFactorCheckpoint = function TwoFactorCheckpoint(_ref) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              load(true);
+              _context.next = 3;
+              return _scripts_api_auth__WEBPACK_IMPORTED_MODULE_6__["default"].twofactor(user.auth_token, values.otp).then(function (response) {
+                var data = response.data.data;
+
+                if (data.complete) {
+                  window.location.replace("https://".concat(data.host).concat(data.resource));
+                }
+              })["catch"](function (e) {
+                var status = e.response.status;
+
+                if (status === 400) {
+                  setError('Token has expired, please restart login');
+                } else if (status === 401) {
+                  setError('The code you entered is invalid');
+                }
+              });
+
+            case 3:
+              load(false);
+
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -4530,13 +4583,13 @@ var TwoFactorCheckpoint = function TwoFactorCheckpoint(_ref) {
     return _scripts_validate__WEBPACK_IMPORTED_MODULE_5__["default"].otp(value);
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
     className: "content-wrapper",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h4", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h4", {
       children: "Two Factor Authentication"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
       children: "Your account is protected by 2FA"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(formik__WEBPACK_IMPORTED_MODULE_2__.Formik, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(formik__WEBPACK_IMPORTED_MODULE_2__.Formik, {
       initialValues: {
         otp: ''
       },
@@ -4545,9 +4598,9 @@ var TwoFactorCheckpoint = function TwoFactorCheckpoint(_ref) {
       },
       children: function children(_ref2) {
         var errors = _ref2.errors;
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_elements_Form__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_elements_Form__WEBPACK_IMPORTED_MODULE_3__["default"], {
           submitCta: "Verify",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_elements_Field__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_elements_Field__WEBPACK_IMPORTED_MODULE_4__["default"], {
             placeholder: "Code",
             validate: validateOtp,
             name: "otp",
@@ -4555,12 +4608,12 @@ var TwoFactorCheckpoint = function TwoFactorCheckpoint(_ref) {
           })
         });
       }
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "links",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
         className: "link-btn",
         children: "Can't access authenticator?"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
         className: "link-btn",
         onClick: function onClick() {
           return window.location.reload();
@@ -5550,6 +5603,33 @@ var auth = /*#__PURE__*/function () {
       }
 
       return login;
+    }()
+  }, {
+    key: "twofactor",
+    value: function () {
+      var _twofactor = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(token, code) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                return _context3.abrupt("return", axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "login/two-factor"), {
+                  auth_token: token,
+                  code: code
+                }));
+
+              case 1:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function twofactor(_x3, _x4) {
+        return _twofactor.apply(this, arguments);
+      }
+
+      return twofactor;
     }()
   }]);
 

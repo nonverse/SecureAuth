@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Contracts\Repository\UserRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Services\User\TwoFactorEnableService;
 use App\Services\User\TwoFactorSetupService;
 use Carbon\Carbon;
+use Illuminate\Encryption\Encrypter;
 use Illuminate\Http\Response;
 use RuntimeException;
 use Exception;
@@ -18,13 +20,19 @@ use PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException;
 
 class TwoFactorController extends Controller
 {
+    /**
+     * @var TwoFactorSetupService
+     */
     private $setupService;
 
+    /**
+     * @var TwoFactorEnableService
+     */
     private $enableService;
 
     public function __construct(
-        TwoFactorSetupService  $setupService,
-        TwoFactorEnableService $enableService
+        TwoFactorSetupService   $setupService,
+        TwoFactorEnableService  $enableService
     )
     {
         $this->setupService = $setupService;

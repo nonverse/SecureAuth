@@ -4,14 +4,30 @@ import {Formik} from "formik";
 import Form from "../elements/Form";
 import Field from "../elements/Field";
 import validate from "../../scripts/validate";
+import auth from "../../scripts/api/auth";
 
-const TwoFactorCheckpoint = ({load, userData}) => {
+const TwoFactorCheckpoint = ({load, user}) => {
 
     const history = useHistory()
     const [error, setError] = useState('')
 
     async function submit(values) {
-        //
+        load(true)
+        await auth.twofactor(user.auth_token, values.otp)
+            .then((response) => {
+                let data = response.data.data
+                if (data.complete) {
+                    window.location.replace(`https://${data.host}${data.resource}`)
+                }
+            }).catch((e) => {
+                let status = e.response.status
+                if (status === 400) {
+                    setError('Token has expired, please restart login')
+                } else if (status === 401) {
+                    setError('The code you entered is invalid')
+                }
+            })
+        load(false);
     }
 
     function validateOtp(value) {
@@ -30,7 +46,8 @@ const TwoFactorCheckpoint = ({load, userData}) => {
             }}>
                 {({errors}) => (
                     <Form submitCta={"Verify"}>
-                        <Field placeholder={"Code"} validate={validateOtp} name={"otp"} error={errors.otp ? errors.otp : error}/>
+                        <Field placeholder={"Code"} validate={validateOtp} name={"otp"}
+                               error={errors.otp ? errors.otp : error}/>
                     </Form>
                 )}
             </Formik>
