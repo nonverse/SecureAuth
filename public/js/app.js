@@ -5166,17 +5166,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
-/* harmony import */ var _elements_Form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../elements/Form */ "./resources/js/components/elements/Form.jsx");
-/* harmony import */ var _elements_Field__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../elements/Field */ "./resources/js/components/elements/Field.jsx");
-/* harmony import */ var _scripts_validate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../scripts/validate */ "./resources/js/scripts/validate.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var _elements_Form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../elements/Form */ "./resources/js/components/elements/Form.jsx");
+/* harmony import */ var _elements_Field__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../elements/Field */ "./resources/js/components/elements/Field.jsx");
+/* harmony import */ var _scripts_validate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../scripts/validate */ "./resources/js/scripts/validate.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
@@ -5193,6 +5213,11 @@ var Username = function Username(_ref) {
       advance = _ref.advance,
       back = _ref.back;
 
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      error = _useState2[0],
+      setError = _useState2[1];
+
   function previous() {
     load(true);
     setTimeout(function () {
@@ -5201,24 +5226,52 @@ var Username = function Username(_ref) {
     }, 500);
   }
 
-  function submit(values) {
-    load(true);
-    setTimeout(function () {
-      updateUser(_objectSpread(_objectSpread({}, user), {}, {
-        username: values.username
-      }));
-      load(false);
-      advance();
-    }, 1200);
+  function submit(_x) {
+    return _submit.apply(this, arguments);
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+  function _submit() {
+    _submit = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(values) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              load(true);
+              _context.next = 3;
+              return _scripts_validate__WEBPACK_IMPORTED_MODULE_5__["default"].validateNewUser(values.username).then(function (response) {
+                updateUser(_objectSpread(_objectSpread({}, user), {}, {
+                  username: values.username
+                }));
+                advance();
+              })["catch"](function (e) {
+                setError('That username is already taken');
+              });
+
+            case 3:
+              load(false);
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return _submit.apply(this, arguments);
+  }
+
+  function validateUsername(value) {
+    setError('');
+    return _scripts_validate__WEBPACK_IMPORTED_MODULE_5__["default"].require(value);
+  }
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     className: "content-wrapper",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h4", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h4", {
       children: "Choose a username"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
       children: "".concat(user.name_first, " ").concat(user.name_last)
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(formik__WEBPACK_IMPORTED_MODULE_1__.Formik, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(formik__WEBPACK_IMPORTED_MODULE_2__.Formik, {
       initialValues: {
         username: user.username ? user.username : ''
       },
@@ -5228,22 +5281,22 @@ var Username = function Username(_ref) {
       children: function children(_ref2) {
         var values = _ref2.values,
             errors = _ref2.errors;
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_elements_Form__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_elements_Field__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_elements_Form__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_elements_Field__WEBPACK_IMPORTED_MODULE_4__["default"], {
             placeholder: "Username",
-            validate: _scripts_validate__WEBPACK_IMPORTED_MODULE_4__["default"].require,
+            validate: validateUsername,
             name: "username",
-            errors: errors,
+            error: errors.username ? errors.username : error,
             value: values.username
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
             className: "default",
             children: "Your username will be your public identifier and is visible to everyone"
           })]
         });
       }
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
       className: "links",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
         className: "link-btn",
         onClick: previous,
         children: "Back"
@@ -5537,7 +5590,11 @@ var auth = /*#__PURE__*/function () {
     _classCallCheck(this, auth);
 
     // Auth URI
-    this.url = 'http://auth.nonverse.test/'; // Config
+    this.url = 'http://auth.nonverse.test/'; // Variables
+
+    var query = new URLSearchParams(window.location.search);
+    this.host = query.has('host') ? query.get('host') : '';
+    this.resource = query.has('resource') ? query.get('resource') : ''; // Config
 
     (axios__WEBPACK_IMPORTED_MODULE_1___default().defaults.withCredentials) = true;
   }
@@ -5576,21 +5633,17 @@ var auth = /*#__PURE__*/function () {
     key: "login",
     value: function () {
       var _login = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(credentials) {
-        var query, host, resource;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                query = new URLSearchParams(window.location.search);
-                host = query.has('host') ? query.get('host') : '';
-                resource = query.has('resource') ? query.get('resource') : '';
-                _context2.next = 5;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "login?host=").concat(host, "&resource=").concat(resource), credentials);
+                _context2.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "login?host=").concat(this.host, "&resource=").concat(this.resource), credentials);
 
-              case 5:
+              case 2:
                 return _context2.abrupt("return", _context2.sent);
 
-              case 6:
+              case 3:
               case "end":
                 return _context2.stop();
             }
@@ -5612,7 +5665,7 @@ var auth = /*#__PURE__*/function () {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                return _context3.abrupt("return", axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "login/two-factor"), {
+                return _context3.abrupt("return", axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "login/two-factor?host=").concat(this.host, "&resource=").concat(this.resource), {
                   auth_token: token,
                   code: code
                 }));
@@ -5754,7 +5807,7 @@ var validate = /*#__PURE__*/function () {
     _classCallCheck(this, validate);
 
     // API target endpoint
-    this.url = 'http://api.nonverse.test/'; // Config
+    this.url = 'http://api.nonverse.test/validator/'; // Config
 
     (axios__WEBPACK_IMPORTED_MODULE_1___default().defaults.withCredentials) = true;
   }
@@ -5768,7 +5821,7 @@ var validate = /*#__PURE__*/function () {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "validator/validate-new-email"), {
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "validate-new-email"), {
                   email: email
                 });
 
@@ -5788,6 +5841,36 @@ var validate = /*#__PURE__*/function () {
       }
 
       return validateNewEmail;
+    }()
+  }, {
+    key: "validateNewUser",
+    value: function () {
+      var _validateNewUser = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(username) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "validate-new-user"), {
+                  username: username
+                });
+
+              case 2:
+                return _context2.abrupt("return", _context2.sent);
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function validateNewUser(_x2) {
+        return _validateNewUser.apply(this, arguments);
+      }
+
+      return validateNewUser;
     }()
   }, {
     key: "email",

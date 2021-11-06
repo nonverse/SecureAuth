@@ -4,7 +4,7 @@ class validate {
     constructor() {
 
         // API target endpoint
-        this.url = 'http://api.nonverse.test/';
+        this.url = 'http://api.nonverse.test/validator/';
 
         // Config
         axios.defaults.withCredentials = true;
@@ -12,9 +12,18 @@ class validate {
 
     async validateNewEmail(email) {
         return await axios.post(
-            `${this.url}validator/validate-new-email`,
+            `${this.url}validate-new-email`,
             {
                 email: email,
+            }
+        )
+    }
+
+    async validateNewUser(username) {
+        return await axios.post(
+            `${this.url}validate-new-user`,
+            {
+                username: username,
             }
         )
     }
