@@ -20,10 +20,15 @@ const Password = ({load, userData, back}) => {
         await user.create({
             ...userData,
             ...values
+        }).then((response) => {
+            let data = response.data.data
+            if (data.complete) {
+                return window.location.replace('https://nonverse.net')
+            }
+        }).catch((e) => {
+            // TODO Error handling if post fails
         })
         load(false)
-
-        // TODO Error handling if post fails
     }
 
     return (

@@ -13,15 +13,7 @@ class user {
     // Create a new user
     async create(data) {
         //console.log(data)
-        await axios.post(
-            `${this.url}user`, data)
-            .then((response) => {
-                console.log(response.data.data)
-                return response.data.data
-            }).catch((e) => {
-                console.log(e)
-                return false
-            })
+        return await axios.post(`${this.url}user`, data)
     }
 }
 
