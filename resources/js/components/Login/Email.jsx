@@ -50,7 +50,7 @@ const Email = ({load, updateUser, advance}) => {
             </Formik>
             <div className="links">
                 <span className="link-btn">Forgot your email?</span>
-                <span className="link-btn" onClick={() => history.push('/register')}>Create Account</span>
+                <span className="link-btn" onClick={() => window.location.replace('/register')}>Create Account</span>
             </div>
         </div>
     )

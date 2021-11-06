@@ -4218,7 +4218,7 @@ var Email = function Email(_ref) {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
         className: "link-btn",
         onClick: function onClick() {
-          return history.push('/register');
+          return window.location.replace('/register');
         },
         children: "Create Account"
       })]
@@ -4784,7 +4784,7 @@ var Email = function Email(_ref) {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
         className: "link-btn",
         onClick: function onClick() {
-          return history.push('/login');
+          return window.location.replace('/login');
         },
         children: "Login"
       })

@@ -49,7 +49,7 @@ const Email = ({load, userData, updateUser, advance}) => {
             </Formik>
 
             <div className="links">
-                <span className="link-btn" onClick={() => history.push('/login')}>Login</span>
+                <span className="link-btn" onClick={() => window.location.replace('/login')}>Login</span>
             </div>
         </div>
     )
