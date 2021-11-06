@@ -26,7 +26,7 @@ const Password = ({load, user, updateUser, advance, back}) => {
         }).then((response) => {
             let data = response.data.data
             if (data.complete) {
-                window.location.replace(`https://${data.host}${data.resource}`)
+                return window.location.replace(`https://${data.host}${data.resource}`)
             } else {
                 updateUser({
                     ...user,

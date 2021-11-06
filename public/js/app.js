@@ -4405,7 +4405,7 @@ var Password = function Password(_ref) {
                 var data = response.data.data;
 
                 if (data.complete) {
-                  window.location.replace("https://".concat(data.host).concat(data.resource));
+                  return window.location.replace("https://".concat(data.host).concat(data.resource));
                 } else {
                   updateUser(_objectSpread(_objectSpread({}, user), {}, {
                     auth_token: data.auth_token
@@ -4492,7 +4492,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
 /* harmony import */ var _elements_Form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../elements/Form */ "./resources/js/components/elements/Form.jsx");
 /* harmony import */ var _elements_Field__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../elements/Field */ "./resources/js/components/elements/Field.jsx");
@@ -4530,7 +4529,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var TwoFactorCheckpoint = function TwoFactorCheckpoint(_ref) {
   var load = _ref.load,
       user = _ref.user;
-  var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_8__.useHistory)();
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
@@ -4553,7 +4551,7 @@ var TwoFactorCheckpoint = function TwoFactorCheckpoint(_ref) {
                 var data = response.data.data;
 
                 if (data.complete) {
-                  window.location.replace("https://".concat(data.host).concat(data.resource));
+                  return window.location.replace("https://".concat(data.host).concat(data.resource));
                 }
               })["catch"](function (e) {
                 var status = e.response.status;
@@ -4973,10 +4971,17 @@ var Password = function Password(_ref) {
             case 0:
               load(true);
               _context.next = 3;
-              return _scripts_api_user__WEBPACK_IMPORTED_MODULE_6__["default"].create(_objectSpread(_objectSpread({}, userData), values));
+              return _scripts_api_user__WEBPACK_IMPORTED_MODULE_6__["default"].create(_objectSpread(_objectSpread({}, userData), values)).then(function (response) {
+                var data = response.data.data;
+
+                if (data.complete) {
+                  return window.location.replace('https://nonverse.net');
+                }
+              })["catch"](function (e) {// TODO Error handling if post fails
+              });
 
             case 3:
-              load(false); // TODO Error handling if post fails
+              load(false);
 
             case 4:
             case "end":
@@ -5742,15 +5747,12 @@ var user = /*#__PURE__*/function () {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "user"), data).then(function (response) {
-                  console.log(response.data.data);
-                  return response.data.data;
-                })["catch"](function (e) {
-                  console.log(e);
-                  return false;
-                });
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "user"), data);
 
               case 2:
+                return _context.abrupt("return", _context.sent);
+
+              case 3:
               case "end":
                 return _context.stop();
             }

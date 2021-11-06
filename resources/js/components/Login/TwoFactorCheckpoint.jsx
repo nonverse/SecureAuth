@@ -8,7 +8,6 @@ import auth from "../../scripts/api/auth";
 
 const TwoFactorCheckpoint = ({load, user}) => {
 
-    const history = useHistory()
     const [error, setError] = useState('')
 
     async function submit(values) {
@@ -17,7 +16,7 @@ const TwoFactorCheckpoint = ({load, user}) => {
             .then((response) => {
                 let data = response.data.data
                 if (data.complete) {
-                    window.location.replace(`https://${data.host}${data.resource}`)
+                    return window.location.replace(`https://${data.host}${data.resource}`)
                 }
             }).catch((e) => {
                 let status = e.response.status
