@@ -25,6 +25,33 @@ class UserController extends Controller
     }
 
     /**
+     * Check if a user has been stored in cookies and return the user's name
+     *
+     * @param Request $request
+     * @return JsonResponse|Response
+     */
+    public function cookie(Request $request)
+    {
+        if (!$request->cookie('uuid')) {
+            return response('No stored user', 400);
+        }
+
+        try {
+            $user = $this->repository->get($request->cookie('uuid'));
+        } catch (ModelNotFoundException $e) {
+            return response('Invalid user stored', 400);
+        }
+
+        return new JsonResponse([
+            'data' => [
+                'email' => $user->email,
+                'name_first' => $user->name_first,
+                'name_last' => $user->name_last
+            ]
+        ]);
+    }
+
+    /**
      * Check if a email provided belongs to a valid user instance
      *
      * @param Request $request
@@ -60,7 +87,7 @@ class UserController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function gets(Request $request): JsonResponse
+    public function get(Request $request): JsonResponse
     {
         return new JsonResponse([
             'data' => [

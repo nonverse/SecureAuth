@@ -40,15 +40,16 @@ class AbstractAuthenticationController extends Controller
         Auth::login($user, $request->input('remember'));
 
         $intended = $this->retrieveIntended($request);
+        $cookie = cookie('uuid', $user->uuid, 2628000);
 
-        return new JsonResponse([
+        return response()->json([
             'data' => [
                 'complete' => true,
                 'uuid' => $user->uuid,
                 'host' => $intended['host'],
                 'resource' => $intended['resource']
             ]
-        ]);
+        ])->cookie($cookie);
     }
 
     /**
