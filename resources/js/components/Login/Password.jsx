@@ -63,7 +63,9 @@ const Password = ({load, user, updateUser, advance, back}) => {
                 )}
             </Formik>
             <div className="links">
-                <a href="#">Forgot Password?</a>
+                <span className="link-btn" onClick={() => {
+                    window.location.replace('/forgot')
+                }}>Forgot Password?</span>
             </div>
         </div>
     )

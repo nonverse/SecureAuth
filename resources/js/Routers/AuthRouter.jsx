@@ -2,6 +2,7 @@ import React from "react";
 import {BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
 import LoginForm from "../components/Login/LoginForm";
 import RegisterForm from "../components/Register/RegisterForm";
+import ForgotPassword from "../components/Recovery/ForgotPassword";
 
 const AuthRouter = ({load, setInitialised}) => {
 
@@ -16,6 +17,7 @@ const AuthRouter = ({load, setInitialised}) => {
                 {/*Authentication Routes*/}
                 <Route path={'/login'} render={(props) => <LoginForm {...props} load={load} setInitialised={setInitialised}/>}/>
                 <Route path={'/register'} render={(props) => <RegisterForm {...props} load={load} setInitialised={setInitialised}/>}/>
+                <Route path={'/forgot'} render={(props) => <ForgotPassword {...props} load={load} setInitialised={setInitialised}/>}/>
 
             </Switch>
         </BrowserRouter>

@@ -20,4 +20,6 @@ Route::group(['middleware' => 'guest'], function() {
     Route::get('/login', function() {return view('app');});
     Route::get('/register', function() {return view('app');});
     Route::get('/logout', function() {return abort(404);});
+
+    Route::get('/forgot', function() {return view('app');});
 });
