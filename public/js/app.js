@@ -3820,7 +3820,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var AuthRouter = function AuthRouter(_ref) {
-  var load = _ref.load;
+  var load = _ref.load,
+      setInitialised = _ref.setInitialised;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.BrowserRouter, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Switch, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
@@ -3833,14 +3834,16 @@ var AuthRouter = function AuthRouter(_ref) {
         path: '/login',
         render: function render(props) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_Login_LoginForm__WEBPACK_IMPORTED_MODULE_1__["default"], _objectSpread(_objectSpread({}, props), {}, {
-            load: load
+            load: load,
+            setInitialised: setInitialised
           }));
         }
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
         path: '/register',
         render: function render(props) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_Register_RegisterForm__WEBPACK_IMPORTED_MODULE_2__["default"], _objectSpread(_objectSpread({}, props), {}, {
-            load: load
+            load: load,
+            setInitialised: setInitialised
           }));
         }
       })]
@@ -4018,8 +4021,7 @@ function Index() {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return _scripts_api_api__WEBPACK_IMPORTED_MODULE_6__["default"].initialiseCsrf().then(function (response) {
-              setInitialised(true);
+            return _scripts_api_api__WEBPACK_IMPORTED_MODULE_6__["default"].initialiseCsrf().then(function (response) {//setInitialised(true)
             });
 
           case 2:
@@ -4034,7 +4036,8 @@ function Index() {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "fluid",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_elements_LogoDark__WEBPACK_IMPORTED_MODULE_5__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Routers_AuthRouter__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        load: setLoading
+        load: setLoading,
+        setInitialised: setInitialised
       }), loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_FluidLoader__WEBPACK_IMPORTED_MODULE_3__["default"], {}) : '']
     }), initialised ? '' : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Loader__WEBPACK_IMPORTED_MODULE_7__["default"], {})]
   });
@@ -4241,12 +4244,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _Email__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Email */ "./resources/js/components/Login/Email.jsx");
-/* harmony import */ var _Password__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Password */ "./resources/js/components/Login/Password.jsx");
-/* harmony import */ var _ProgressiveForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ProgressiveForm */ "./resources/js/components/ProgressiveForm.jsx");
-/* harmony import */ var _TwoFactorCheckpoint__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TwoFactorCheckpoint */ "./resources/js/components/Login/TwoFactorCheckpoint.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _Email__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Email */ "./resources/js/components/Login/Email.jsx");
+/* harmony import */ var _Password__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Password */ "./resources/js/components/Login/Password.jsx");
+/* harmony import */ var _ProgressiveForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../ProgressiveForm */ "./resources/js/components/ProgressiveForm.jsx");
+/* harmony import */ var _TwoFactorCheckpoint__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./TwoFactorCheckpoint */ "./resources/js/components/Login/TwoFactorCheckpoint.jsx");
+/* harmony import */ var _scripts_api_user__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../scripts/api/user */ "./resources/js/scripts/api/user.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -4266,15 +4278,17 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var LoginForm = function LoginForm(_ref) {
-  var load = _ref.load;
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+var LoginForm = function LoginForm(_ref) {
+  var load = _ref.load,
+      setInitialised = _ref.setInitialised;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({}),
       _useState2 = _slicedToArray(_useState, 2),
-      user = _useState2[0],
+      userData = _useState2[0],
       updateUser = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(1),
       _useState4 = _slicedToArray(_useState3, 2),
       state = _useState4[0],
       setState = _useState4[1];
@@ -4287,24 +4301,61 @@ var LoginForm = function LoginForm(_ref) {
     setState(state - 1);
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ProgressiveForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  function getCookie() {
+    return _getCookie.apply(this, arguments);
+  }
+
+  function _getCookie() {
+    _getCookie = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _scripts_api_user__WEBPACK_IMPORTED_MODULE_6__["default"].getCookie().then(function (response) {
+                var data = response.data.data;
+                updateUser({
+                  email: data.email,
+                  name_first: data.name_first,
+                  name_last: data.name_last
+                });
+                setState(2);
+                setInitialised(true);
+              })["catch"](function (e) {
+                setInitialised(true);
+              });
+
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return _getCookie.apply(this, arguments);
+  }
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    getCookie();
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ProgressiveForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
     state: state,
     views: {
-      1: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Email__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      1: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Email__WEBPACK_IMPORTED_MODULE_2__["default"], {
         load: load,
         updateUser: updateUser,
         advance: advance
       }),
-      2: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Password__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      2: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Password__WEBPACK_IMPORTED_MODULE_3__["default"], {
         load: load,
-        user: user,
+        user: userData,
         updateUser: updateUser,
         advance: advance,
         back: previous
       }),
-      3: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_TwoFactorCheckpoint__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      3: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_TwoFactorCheckpoint__WEBPACK_IMPORTED_MODULE_5__["default"], {
         load: load,
-        user: user
+        user: userData
       })
     }
   });
@@ -5102,7 +5153,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var RegisterForm = function RegisterForm(_ref) {
-  var load = _ref.load;
+  var load = _ref.load,
+      setInitialised = _ref.setInitialised;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
       _useState2 = _slicedToArray(_useState, 2),
@@ -5122,6 +5174,9 @@ var RegisterForm = function RegisterForm(_ref) {
     setState(state - 1);
   }
 
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setInitialised(true);
+  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ProgressiveForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
     state: state,
     views: {
@@ -5713,6 +5768,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./auth */ "./resources/js/scripts/api/auth.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -5727,6 +5783,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
+
 var user = /*#__PURE__*/function () {
   function user() {
     _classCallCheck(this, user);
@@ -5735,19 +5792,19 @@ var user = /*#__PURE__*/function () {
     this.url = 'http://api.nonverse.test/'; // Config
 
     (axios__WEBPACK_IMPORTED_MODULE_1___default().defaults.withCredentials) = true;
-  } // Create a new user
+  } // Get stored user email and name if exists
 
 
   _createClass(user, [{
-    key: "create",
+    key: "getCookie",
     value: function () {
-      var _create = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(data) {
+      var _getCookie = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "user"), data);
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(_auth__WEBPACK_IMPORTED_MODULE_2__["default"].url, "api/user/cookie"));
 
               case 2:
                 return _context.abrupt("return", _context.sent);
@@ -5757,7 +5814,36 @@ var user = /*#__PURE__*/function () {
                 return _context.stop();
             }
           }
-        }, _callee, this);
+        }, _callee);
+      }));
+
+      function getCookie() {
+        return _getCookie.apply(this, arguments);
+      }
+
+      return getCookie;
+    }() // Create a new user
+
+  }, {
+    key: "create",
+    value: function () {
+      var _create = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(data) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "user"), data);
+
+              case 2:
+                return _context2.abrupt("return", _context2.sent);
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
       }));
 
       function create(_x) {

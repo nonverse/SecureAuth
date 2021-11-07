@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import ProgressiveForm from "../ProgressiveForm";
 
 import Email from "./Email";
@@ -6,7 +6,7 @@ import Name from "./Name";
 import Username from "./Username";
 import Password from "./Password";
 
-const RegisterForm = ({load}) => {
+const RegisterForm = ({load, setInitialised}) => {
 
     const [user, updateUser] = useState({})
     const [state, setState] = useState(1)
@@ -18,6 +18,10 @@ const RegisterForm = ({load}) => {
     function previous() {
         setState(state - 1)
     }
+
+    useEffect(() => {
+        setInitialised(true)
+    })
 
     return (
         <ProgressiveForm state={state} views={{

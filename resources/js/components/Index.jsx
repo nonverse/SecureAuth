@@ -15,7 +15,7 @@ function Index() {
     useEffect(async () => {
         await api.initialiseCsrf()
             .then((response) => {
-                setInitialised(true)
+                //setInitialised(true)
             })
     }, [])
 
@@ -23,7 +23,7 @@ function Index() {
         <div className="fluid-container">
             <div className="fluid">
                 <LogoDark/>
-                <AuthRouter load={setLoading}/>
+                <AuthRouter load={setLoading} setInitialised={setInitialised}/>
                 {loading ? <FluidLoader/> : ''}
             </div>
             {initialised ? '' : <Loader/>}

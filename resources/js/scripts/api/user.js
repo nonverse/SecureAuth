@@ -1,4 +1,5 @@
 import axios from 'axios';
+import auth from "./auth";
 
 class user {
     constructor() {
@@ -8,6 +9,11 @@ class user {
 
         // Config
         axios.defaults.withCredentials = true;
+    }
+
+    // Get stored user email and name if exists
+    async getCookie() {
+        return await axios.get(`${auth.url}api/user/cookie`)
     }
 
     // Create a new user
