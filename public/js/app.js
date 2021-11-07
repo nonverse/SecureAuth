@@ -4320,12 +4320,12 @@ var LoginForm = function LoginForm(_ref) {
                   name_last: data.name_last
                 });
                 setState(2);
-                setInitialised(true);
-              })["catch"](function (e) {
-                setInitialised(true);
               });
 
             case 2:
+              setInitialised(true);
+
+            case 3:
             case "end":
               return _context.stop();
           }

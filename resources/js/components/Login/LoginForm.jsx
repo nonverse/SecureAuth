@@ -28,11 +28,8 @@ const LoginForm = ({load, setInitialised}) => {
                     name_last: data.name_last
                 })
                 setState(2)
-                setInitialised(true)
             })
-            .catch((e) => {
-                setInitialised(true)
-            })
+        setInitialised(true)
     }
 
     useEffect(() => {
