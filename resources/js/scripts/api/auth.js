@@ -37,6 +37,15 @@ class auth {
             }
         )
     }
+
+    async forgot(email) {
+        return await axios.post(
+            `${this.url}forgot`,
+            {
+                email: email
+            }
+        )
+    }
 }
 
 export default new auth();
