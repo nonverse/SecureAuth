@@ -19,3 +19,4 @@ Route::post('/logout', [\App\Http\Controllers\Auth\AuthenticationController::cla
 
 // Password recovery
 Route::post('/forgot', [\App\Http\Controllers\Recovery\PasswordController::class, 'forgot']);
+Route::post('/reset', [\App\Http\Controllers\Recovery\PasswordController::class, 'reset']);

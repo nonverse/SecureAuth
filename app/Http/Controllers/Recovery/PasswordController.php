@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Recovery;
 
+use App\Contracts\Repository\UserRepositoryInterface;
 use App\Http\Controllers\Controller;
+use App\Notifications\PasswordReset;
+use Illuminate\Contracts\Hashing\Hasher;
+use Illuminate\Events\Dispatcher;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Passwords\PasswordBroker;
@@ -10,14 +14,33 @@ use Illuminate\Auth\Passwords\PasswordBroker;
 class PasswordController extends Controller
 {
     /**
+     * @var UserRepositoryInterface
+     */
+    private $repository;
+
+    /**
      * @var PasswordBroker
      */
     private $broker;
 
+    /**
+     * @var Hasher
+     */
+    private $hasher;
+
+    private $dispatcher;
+
     public function __construct(
-        PasswordBroker $broker
-    ) {
+        UserRepositoryInterface $repository,
+        PasswordBroker          $broker,
+        Hasher                  $hasher,
+        Dispatcher              $dispatcher
+    )
+    {
+        $this->repository = $repository;
         $this->broker = $broker;
+        $this->hasher = $hasher;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -45,6 +68,47 @@ class PasswordController extends Controller
         return new JsonResponse([
             'data' => [
                 'success' => true,
+            ]
+        ]);
+    }
+
+    /**
+     * Reset a user's password
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function reset(Request $request): JsonResponse
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8|confirmed'
+        ]);
+
+        $status = $this->broker->reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                $user = $this->repository->update($user->uuid, [
+                    'password' => $this->hasher->make($password)
+                ]);
+
+                $this->dispatcher->dispatch(new PasswordReset($user));
+            }
+        );
+
+        if ($status !== $this->broker::PASSWORD_RESET) {
+            return new JsonResponse([
+                'data' => [
+                    'success' => false,
+                    'error' => __($status)
+                ]
+            ]);
+        }
+
+        return new JsonResponse([
+            'data' => [
+                'success' => true
             ]
         ]);
     }
