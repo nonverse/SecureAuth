@@ -48,12 +48,13 @@ const Password = ({load, userData, back}) => {
             }} onSubmit={(values) => {
                 submit(values)
             }}>
-                {({errors}) => (
+                {({errors, values}) => (
                     <Form submitCta={"Submit"}>
                         <Field password placeholder={"Password"} validate={validate.require} name={"password"}
-                               errors={errors}/>
-                        <Field password placeholder={"Confirm Password"} validate={validate.require}
-                               name={"password_confirmation"} errors={errors}/>
+                               error={errors.password}/>
+                        <Field password placeholder={"Confirm Password"}
+                               validate={value => validate.confirmation(value, values.password)}
+                               name={"password_confirmation"} error={errors.password_confirmation}/>
                     </Form>
                 )}
             </Formik>
