@@ -64,10 +64,10 @@ class AbstractAuthenticationController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return new JsonResponse([
+        return response()->json([
             'data' => [
                 'success' => true
             ]
-        ]);
+        ])->withCookie('uuid');
     }
 }
