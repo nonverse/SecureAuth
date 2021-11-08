@@ -14,7 +14,7 @@ const ForgotPassword = ({load, advance, updateUser}) => {
         await auth.forgot(values.email)
             .then((response) => {
                 let data = response.data.data
-                if (data.complete) {
+                if (data.success) {
                     updateUser({
                         email: values.email,
                     })
