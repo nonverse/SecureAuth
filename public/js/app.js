@@ -4947,6 +4947,53 @@ var ForgotPasswordForm = function ForgotPasswordForm(_ref) {
 
 /***/ }),
 
+/***/ "./resources/js/components/Recovery/PasswordResetConfirmation.jsx":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/Recovery/PasswordResetConfirmation.jsx ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+var PasswordResetEmailSent = function PasswordResetEmailSent() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: "content-wrapper",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h4", {
+      children: "Account Recovery"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+      children: "Reset Password"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+      className: "default",
+      children: "Your password has successfully been reset and you can now use it to login to your account. Please note that resetting your password DOES NOT disable Two Factor Authentication. If you have lost access to  your authenticator app, please contact support"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "links",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+        className: "link-btn",
+        onClick: function onClick() {
+          return window.location.replace('/login');
+        },
+        children: "Back to login"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+        className: "link-btn",
+        children: "Contact support"
+      })]
+    })]
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PasswordResetEmailSent);
+
+/***/ }),
+
 /***/ "./resources/js/components/Recovery/PasswordResetEmailSent.jsx":
 /*!*********************************************************************!*\
   !*** ./resources/js/components/Recovery/PasswordResetEmailSent.jsx ***!
@@ -4959,32 +5006,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _scripts_api_user__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../scripts/api/user */ "./resources/js/scripts/api/user.js");
-/* harmony import */ var _elements_Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../elements/Button */ "./resources/js/components/elements/Button.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
 
 var PasswordResetEmailSent = function PasswordResetEmailSent(_ref) {
   var userData = _ref.userData;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     className: "content-wrapper",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h4", {
       children: "Account Recovery"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
       children: "Forgot Password"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("p", {
       className: "default",
       children: ["An email has been sent to ", userData.email, " containing instructions to reset your password. If you do not have access to this email, please contact support"]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       className: "links",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
         className: "link-btn",
+        onClick: function onClick() {
+          return window.location.replace('/login');
+        },
         children: "Back to login"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
         className: "link-btn",
         children: "Contact support"
       })]
@@ -5014,7 +5060,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _elements_Form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../elements/Form */ "./resources/js/components/elements/Form.jsx");
 /* harmony import */ var _elements_Field__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../elements/Field */ "./resources/js/components/elements/Field.jsx");
 /* harmony import */ var _scripts_validate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../scripts/validate */ "./resources/js/scripts/validate.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _scripts_api_auth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../scripts/api/auth */ "./resources/js/scripts/api/auth.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -5041,9 +5088,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var ResetPassword = function ResetPassword(_ref) {
   var load = _ref.load,
-      updateUser = _ref.updateUser,
       advance = _ref.advance;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
@@ -5061,6 +5108,24 @@ var ResetPassword = function ResetPassword(_ref) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              load(true);
+              _context.next = 3;
+              return _scripts_api_auth__WEBPACK_IMPORTED_MODULE_6__["default"].reset(values).then(function (response) {
+                var data = response.data.data;
+
+                if (data.success) {
+                  advance();
+                } else {
+                  setError(data.error);
+                }
+              })["catch"](function (e) {
+                setError('Something went wrong');
+              });
+
+            case 3:
+              load(false);
+
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -5070,13 +5135,18 @@ var ResetPassword = function ResetPassword(_ref) {
     return _submit.apply(this, arguments);
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+  function validateConfirm(value, compare) {
+    setError('');
+    return _scripts_validate__WEBPACK_IMPORTED_MODULE_5__["default"].confirmation(value, compare);
+  }
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
     className: "content-wrapper",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h4", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h4", {
       children: "Account Recovery"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
       children: "Reset Password"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(formik__WEBPACK_IMPORTED_MODULE_2__.Formik, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(formik__WEBPACK_IMPORTED_MODULE_2__.Formik, {
       initialValues: {
         password: '',
         password_confirmation: ''
@@ -5087,28 +5157,28 @@ var ResetPassword = function ResetPassword(_ref) {
       children: function children(_ref2) {
         var errors = _ref2.errors,
             values = _ref2.values;
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_elements_Form__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_elements_Form__WEBPACK_IMPORTED_MODULE_3__["default"], {
           submitCta: "Submit",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_elements_Field__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_elements_Field__WEBPACK_IMPORTED_MODULE_4__["default"], {
             password: true,
             placeholder: "Password",
             validate: _scripts_validate__WEBPACK_IMPORTED_MODULE_5__["default"].require,
             name: "password",
             error: errors.password
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_elements_Field__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_elements_Field__WEBPACK_IMPORTED_MODULE_4__["default"], {
             password: true,
             placeholder: "Confirm Password",
             validate: function validate(value) {
-              return _scripts_validate__WEBPACK_IMPORTED_MODULE_5__["default"].confirmation(value, values.password);
+              return validateConfirm(value, values.password);
             },
             name: "password_confirmation",
-            error: errors.password_confirmation
+            error: errors.password_confirmation ? errors.password_confirmation : error
           })]
         });
       }
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "links",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
         className: "link-btn",
         onClick: function onClick() {
           return window.location.replace('/login');
@@ -5137,7 +5207,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _ProgressiveForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ProgressiveForm */ "./resources/js/components/ProgressiveForm.jsx");
 /* harmony import */ var _ResetPassword__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ResetPassword */ "./resources/js/components/Recovery/ResetPassword.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _PasswordResetConfirmation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PasswordResetConfirmation */ "./resources/js/components/Recovery/PasswordResetConfirmation.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -5149,6 +5220,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -5176,14 +5248,15 @@ var ResetPasswordForm = function ResetPasswordForm(_ref) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setInitialised(true);
   });
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ProgressiveForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProgressiveForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
     state: state,
     views: {
-      1: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ResetPassword__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      1: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ResetPassword__WEBPACK_IMPORTED_MODULE_2__["default"], {
         load: load,
         updateUser: updateUser,
         advance: advance
-      })
+      }),
+      2: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_PasswordResetConfirmation__WEBPACK_IMPORTED_MODULE_3__["default"], {})
     }
   });
 };
@@ -6265,6 +6338,37 @@ var auth = /*#__PURE__*/function () {
       }
 
       return forgot;
+    }()
+  }, {
+    key: "reset",
+    value: function () {
+      var _reset = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(data) {
+        var query;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                query = new URLSearchParams(window.location.search);
+                return _context5.abrupt("return", axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "reset"), {
+                  password: data.password,
+                  password_confirmation: data.password_confirmation,
+                  email: query.get('email'),
+                  token: query.get('token')
+                }));
+
+              case 2:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this);
+      }));
+
+      function reset(_x6) {
+        return _reset.apply(this, arguments);
+      }
+
+      return reset;
     }()
   }]);
 
