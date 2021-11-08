@@ -46,6 +46,17 @@ class validate {
         return error
     }
 
+    confirmation(value, compare) {
+        let error
+        if (!value) {
+            error = 'Confirmation is required'
+        }
+        if (value !== compare) {
+            error = 'Confirmation does not match'
+        }
+        return error
+    }
+
     otp(value) {
         let error;
         if (!value) {
