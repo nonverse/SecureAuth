@@ -46,6 +46,18 @@ class auth {
             }
         )
     }
+
+    async reset(data) {
+        const query = new URLSearchParams(window.location.search)
+        return axios.post(
+            `${this.url}reset`, {
+                password: data.password,
+                password_confirmation: data.password_confirmation,
+                email: query.get('email'),
+                token: query.get('token')
+            }
+        )
+    }
 }
 
 export default new auth();
