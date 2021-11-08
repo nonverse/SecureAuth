@@ -5231,15 +5231,10 @@ var ResetPasswordForm = function ResetPasswordForm(_ref) {
   var load = _ref.load,
       setInitialised = _ref.setInitialised;
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
       _useState2 = _slicedToArray(_useState, 2),
-      userData = _useState2[0],
-      updateUser = _useState2[1];
-
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
-      _useState4 = _slicedToArray(_useState3, 2),
-      state = _useState4[0],
-      setState = _useState4[1];
+      state = _useState2[0],
+      setState = _useState2[1];
 
   function advance() {
     setState(state + 1);
@@ -5253,7 +5248,6 @@ var ResetPasswordForm = function ResetPasswordForm(_ref) {
     views: {
       1: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ResetPassword__WEBPACK_IMPORTED_MODULE_2__["default"], {
         load: load,
-        updateUser: updateUser,
         advance: advance
       }),
       2: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_PasswordResetConfirmation__WEBPACK_IMPORTED_MODULE_3__["default"], {})

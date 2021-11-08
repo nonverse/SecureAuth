@@ -22,5 +22,5 @@ Route::group(['middleware' => 'guest'], function() {
     Route::get('/logout', function() {return abort(404);});
 
     Route::get('/forgot', function() {return view('app');});
-    Route::get('/reset', function() {return view('app');});
+    Route::get('/reset', function() {return view('app');}) ->middleware('token.reset');
 });
