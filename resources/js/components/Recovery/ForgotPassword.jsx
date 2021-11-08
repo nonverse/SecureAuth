@@ -22,6 +22,8 @@ const ForgotPassword = ({load, advance, updateUser}) => {
                 } else {
                     setError(data.error)
                 }
+            }).catch((e) => {
+                setError('Something went wrong')
             })
         load(false)
     }

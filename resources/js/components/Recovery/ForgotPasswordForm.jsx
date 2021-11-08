@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import ProgressiveForm from "../ProgressiveForm";
 import ForgotPassword from "./ForgotPassword";
+import PasswordResetEmailSent from "./PasswordResetEmailSent";
 
 const ForgotPasswordForm = ({load, setInitialised}) => {
 
@@ -16,7 +17,8 @@ const ForgotPasswordForm = ({load, setInitialised}) => {
     })
 
     return (<ProgressiveForm state={state} views={{
-            1: <ForgotPassword load={load} advance={advance} updateUser={updateUser}/>
+            1: <ForgotPassword load={load} advance={advance} updateUser={updateUser}/>,
+            2: <PasswordResetEmailSent userData={userData}/>
         }}/>
     )
 }
