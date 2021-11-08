@@ -4,6 +4,7 @@ import ForgotPassword from "./ForgotPassword";
 
 const ForgotPasswordForm = ({load, setInitialised}) => {
 
+    const [userData, updateUser] = useState({})
     const [state, setState] = useState(1)
 
     function advance() {
@@ -15,7 +16,7 @@ const ForgotPasswordForm = ({load, setInitialised}) => {
     })
 
     return (<ProgressiveForm state={state} views={{
-            1: <ForgotPassword load={load}/>
+            1: <ForgotPassword load={load} advance={advance} updateUser={updateUser}/>
         }}/>
     )
 }

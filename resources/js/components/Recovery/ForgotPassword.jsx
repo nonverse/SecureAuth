@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Formik} from "formik";
 import Form from "../elements/Form";
 import Field from "../elements/Field";
 import validate from "../../scripts/validate";
 import auth from "../../scripts/api/auth";
 
-const ForgotPassword = ({load}) => {
+const ForgotPassword = ({load, advance, updateUser}) => {
 
     const [error, setError] = useState('')
 
@@ -14,7 +14,12 @@ const ForgotPassword = ({load}) => {
         await auth.forgot(values.email)
             .then((response) => {
                 let data = response.data.data
-                if (!data.complete) {
+                if (data.complete) {
+                    updateUser({
+                        email: values.email,
+                    })
+                    advance()
+                } else {
                     setError(data.error)
                 }
             })
