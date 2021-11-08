@@ -3,13 +3,22 @@ import {Formik} from "formik";
 import Form from "../elements/Form";
 import Field from "../elements/Field";
 import validate from "../../scripts/validate";
+import auth from "../../scripts/api/auth";
 
-const ForgotPassword = ({load, setInitialised, userData, updateUser}) => {
+const ForgotPassword = ({load}) => {
 
     const [error, setError] = useState('')
 
-    async function submit() {
-        //
+    async function submit(values) {
+        load(true)
+        await auth.forgot(values.email)
+            .then((response) => {
+                let data = response.data.data
+                if (!data.complete) {
+                    setError(data.error)
+                }
+            })
+        load(false)
     }
 
     function validateEmail(value) {
@@ -17,22 +26,19 @@ const ForgotPassword = ({load, setInitialised, userData, updateUser}) => {
         return validate.email(value)
     }
 
-    useEffect(() => {
-        setInitialised(true)
-    })
-
     return (
         <div className="content-wrapper">
             <h4>Account Recovery</h4>
             <span>Forgot Password</span>
             <Formik initialValues={{
                 email: '',
-            }} onSubmit={() => {
-                submit()
+            }} onSubmit={(values) => {
+                submit(values)
             }}>
                 {({errors}) => (
                     <Form submitCta={"Submit"}>
-                        <Field placeholder={"Email"} validate={validateEmail} name={"email"} error={errors.email ? errors.email : error}/>
+                        <Field placeholder={"Email"} validate={validateEmail} name={"email"}
+                               error={errors.email ? errors.email : error}/>
                         <span className="default">An email will be sent to your email with instructions to reset your password</span>
                     </Form>
                 )}
