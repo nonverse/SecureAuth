@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Get current user
+// No auth routes
 Route::post('/', [\App\Http\Controllers\UserController::class, 'verify'])->withoutMiddleware('auth');
 Route::get('/cookie', [\App\Http\Controllers\UserController::class, 'cookie'])->withoutMiddleware('auth');
+
+// Get current user
 Route::get('/', [\App\Http\Controllers\UserController::class, 'get']);
 
 // 2FA routes
