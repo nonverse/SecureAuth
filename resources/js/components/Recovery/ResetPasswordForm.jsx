@@ -5,7 +5,6 @@ import PasswordResetConfirmation from "./PasswordResetConfirmation";
 
 const ResetPasswordForm = ({load, setInitialised}) => {
 
-    const [userData, updateUser] = useState({})
     const [state, setState] = useState(1)
 
     function advance() {
@@ -17,7 +16,7 @@ const ResetPasswordForm = ({load, setInitialised}) => {
     })
 
     return (<ProgressiveForm state={state} views={{
-            1: <ResetPassword load={load} updateUser={updateUser} advance={advance}/>,
+            1: <ResetPassword load={load} advance={advance}/>,
             2: <PasswordResetConfirmation/>
         }}/>
     )
