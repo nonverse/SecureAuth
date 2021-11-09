@@ -15,12 +15,12 @@ use Illuminate\Support\Facades\Route;
 
 // Pre authentication user initialisation
 Route::get('/cookie', [\App\Http\Controllers\Api\UserInitialisationController::class, 'getCookie'])->withoutMiddleware('auth');
-Route::post('/cookie', [\App\Http\Controllers\Api\UserInitialisationController::class, 'deleteCookie'])->withoutMiddleware('auth');
+Route::post('/cookie', [\App\Http\Controllers\Api\UserInitialisationController::class, 'deleteCookie'])->withoutMiddleware('auth')->name('user.cookie');
 
 // Get current user
 Route::get('/', [\App\Http\Controllers\Api\UserController::class, 'get']);
 
 // 2FA routes
 Route::get('/two-factor-authentication', [\App\Http\Controllers\Auth\TwoFactorController::class, 'setup']);
-Route::post('/two-factor-authentication', [\App\Http\Controllers\Auth\TwoFactorController::class, 'enable']);
-Route::delete('/two-factor-authentication', [\App\Http\Controllers\Auth\TwoFactorController::class, 'disable']);
+Route::post('/two-factor-authentication', [\App\Http\Controllers\Auth\TwoFactorController::class, 'enable'])->name('user.2fa-enable');
+Route::delete('/two-factor-authentication', [\App\Http\Controllers\Auth\TwoFactorController::class, 'disable'])->name('user.2fa-disable');
