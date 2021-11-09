@@ -97,4 +97,35 @@ class AuthenticationController extends AbstractAuthenticationController
 
         return $this->sendLogoutSuccessResponse($request);
     }
+
+    /**
+     * Verify if a user exists on the system before continuing with authentication
+     *
+     * @param Request $request
+     * @return JsonResponse|Response
+     */
+    function verifyEmail(Request $request)
+    {
+        // Check if a email was provided in the request and
+        // verify that the email has a corresponding user instance
+        try {
+            $email = $request->input('email');
+
+            /**
+             * @var User
+             */
+            $user = $this->repository->get($email);
+        } catch (ModelNotFoundException $e) {
+            return response('Unable to find user', 400);
+        }
+
+        // Return the name of the user to display on client app
+        return new JsonResponse([
+            'data' => [
+                'email' => $user->email,
+                'name_first' => $user->name_first,
+                'name_last' => $user->name_last
+            ]
+        ]);
+    }
 }
