@@ -42,7 +42,7 @@ const LoginForm = ({load, setInitialised}) => {
     return (
         <ProgressiveForm state={state} views={{
             1: <Email load={load} updateUser={updateUser} advance={advance}/>,
-            2: <Password load={load} user={userData} updateUser={updateUser} advance={advance} back={previous}/>,
+            2: <Password load={load} userData={userData} updateUser={updateUser} advance={advance} back={previous}/>,
             3: <TwoFactorCheckpoint load={load} user={userData}/>
         }}/>
     )

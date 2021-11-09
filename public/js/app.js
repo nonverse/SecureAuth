@@ -4368,7 +4368,7 @@ var LoginForm = function LoginForm(_ref) {
       }),
       2: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Password__WEBPACK_IMPORTED_MODULE_3__["default"], {
         load: load,
-        user: userData,
+        userData: userData,
         updateUser: updateUser,
         advance: advance,
         back: previous
@@ -4400,18 +4400,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
-/* harmony import */ var _scripts_validate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../scripts/validate */ "./resources/js/scripts/validate.js");
-/* harmony import */ var _elements_Form__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../elements/Form */ "./resources/js/components/elements/Form.jsx");
-/* harmony import */ var _elements_Field__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../elements/Field */ "./resources/js/components/elements/Field.jsx");
-/* harmony import */ var _scripts_api_auth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../scripts/api/auth */ "./resources/js/scripts/api/auth.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
+/* harmony import */ var _elements_Form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../elements/Form */ "./resources/js/components/elements/Form.jsx");
+/* harmony import */ var _elements_Field__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../elements/Field */ "./resources/js/components/elements/Field.jsx");
+/* harmony import */ var _scripts_api_auth__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../scripts/api/auth */ "./resources/js/scripts/api/auth.js");
+/* harmony import */ var _scripts_api_user__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../scripts/api/user */ "./resources/js/scripts/api/user.js");
+/* harmony import */ var _scripts_validate__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../scripts/validate */ "./resources/js/scripts/validate.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -4438,9 +4439,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var Password = function Password(_ref) {
   var load = _ref.load,
-      user = _ref.user,
+      userData = _ref.userData,
       updateUser = _ref.updateUser,
       advance = _ref.advance,
       back = _ref.back;
@@ -4451,11 +4453,31 @@ var Password = function Password(_ref) {
       setError = _useState2[1];
 
   function previous() {
-    load(true);
-    setTimeout(function () {
-      load(false);
-      back();
-    }, 500);
+    return _previous.apply(this, arguments);
+  }
+
+  function _previous() {
+    _previous = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              load(true);
+              _context.next = 3;
+              return _scripts_api_user__WEBPACK_IMPORTED_MODULE_6__["default"].deleteCookie();
+
+            case 3:
+              back();
+              load(false);
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return _previous.apply(this, arguments);
   }
 
   function submit(_x) {
@@ -4463,14 +4485,14 @@ var Password = function Password(_ref) {
   }
 
   function _submit() {
-    _submit = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(values) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+    _submit = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(values) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               load(true);
-              _context.next = 3;
-              return _scripts_api_auth__WEBPACK_IMPORTED_MODULE_6__["default"].login(_objectSpread(_objectSpread(_objectSpread({}, user), values), {}, {
+              _context2.next = 3;
+              return _scripts_api_auth__WEBPACK_IMPORTED_MODULE_5__["default"].login(_objectSpread(_objectSpread(_objectSpread({}, userData), values), {}, {
                 keep_authenticated: false
               })).then(function (response) {
                 var data = response.data.data;
@@ -4478,7 +4500,7 @@ var Password = function Password(_ref) {
                 if (data.complete) {
                   return window.location.replace("https://".concat(data.host).concat(data.resource));
                 } else {
-                  updateUser(_objectSpread(_objectSpread({}, user), {}, {
+                  updateUser(_objectSpread(_objectSpread({}, userData), {}, {
                     auth_token: data.auth_token
                   }));
                   advance();
@@ -4492,30 +4514,30 @@ var Password = function Password(_ref) {
 
             case 4:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee);
+      }, _callee2);
     }));
     return _submit.apply(this, arguments);
   }
 
   function validatePassword(values) {
     setError('');
-    return _scripts_validate__WEBPACK_IMPORTED_MODULE_3__["default"].require(values);
+    return _scripts_validate__WEBPACK_IMPORTED_MODULE_7__["default"].require(values);
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
     className: "content-wrapper",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
       children: "Welcome back"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h4", {
-      children: "".concat(user.name_first, " ").concat(user.name_last)
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h4", {
+      children: "".concat(userData.name_first, " ").concat(userData.name_last)
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
       className: "link-btn",
       onClick: previous,
       children: "Not You?"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(formik__WEBPACK_IMPORTED_MODULE_2__.Formik, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(formik__WEBPACK_IMPORTED_MODULE_2__.Formik, {
       initialValues: {
         password: ''
       },
@@ -4524,9 +4546,9 @@ var Password = function Password(_ref) {
       },
       children: function children(_ref2) {
         var errors = _ref2.errors;
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_elements_Form__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_elements_Form__WEBPACK_IMPORTED_MODULE_3__["default"], {
           submitCta: "Login",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_elements_Field__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_elements_Field__WEBPACK_IMPORTED_MODULE_4__["default"], {
             password: true,
             placeholder: "Password",
             validate: validatePassword,
@@ -4535,9 +4557,9 @@ var Password = function Password(_ref) {
           })
         });
       }
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
       className: "links",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
         className: "link-btn",
         onClick: function onClick() {
           window.location.replace('/forgot');

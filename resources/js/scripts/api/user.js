@@ -16,6 +16,10 @@ class user {
         return await axios.get(`${auth.url}api/user/cookie`)
     }
 
+    async deleteCookie() {
+        return await axios.post(`${auth.url}api/user/cookie`)
+    }
+
     // Create a new user
     async create(data) {
         //console.log(data)

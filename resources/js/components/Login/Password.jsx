@@ -1,26 +1,26 @@
 import React, {useState} from "react";
 import {Formik} from "formik";
-import validate from "../../scripts/validate";
 import Form from "../elements/Form";
 import Field from "../elements/Field";
 import auth from "../../scripts/api/auth";
+import user from "../../scripts/api/user";
+import validate from "../../scripts/validate";
 
-const Password = ({load, user, updateUser, advance, back}) => {
+const Password = ({load, userData, updateUser, advance, back}) => {
 
     const [error, setError] = useState('');
 
-    function previous() {
+    async function previous() {
         load(true)
-        setTimeout(() => {
-            load(false);
-            back()
-        }, 500)
+        await user.deleteCookie()
+        back()
+        load(false)
     }
 
     async function submit(values) {
         load(true)
         await auth.login({
-            ...user,
+            ...userData,
             ...values,
             keep_authenticated: false,
         }).then((response) => {
@@ -29,7 +29,7 @@ const Password = ({load, user, updateUser, advance, back}) => {
                 return window.location.replace(`https://${data.host}${data.resource}`)
             } else {
                 updateUser({
-                    ...user,
+                    ...userData,
                     auth_token: data.auth_token
                 })
                 advance();
@@ -48,7 +48,7 @@ const Password = ({load, user, updateUser, advance, back}) => {
     return (
         <div className="content-wrapper">
             <span>Welcome back</span>
-            <h4>{`${user.name_first} ${user.name_last}`}</h4>
+            <h4>{`${userData.name_first} ${userData.name_last}`}</h4>
             <span className="link-btn" onClick={previous}>Not You?</span>
             <Formik initialValues={{
                 password: '',
