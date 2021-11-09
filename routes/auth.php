@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 
 // Basic authentication
 Route::post('/login', [\App\Http\Controllers\Auth\AuthenticationController::class, 'authenticate'])->name('password.reset');
+Route::post('/login/verify-email', [\App\Http\Controllers\Auth\AuthenticationController::class, 'verifyEmail']);
 Route::post('/login/two-factor', [\App\Http\Controllers\Auth\TwoFactorVerificationController::class, 'verify']);
 Route::post('/logout', [\App\Http\Controllers\Auth\AuthenticationController::class, 'revokeAuthentication']);
 // User registration is handled by API

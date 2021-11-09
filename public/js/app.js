@@ -6227,7 +6227,7 @@ var auth = /*#__PURE__*/function () {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "api/user"), {
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "login/verify-email"), {
                   email: email
                 });
 
@@ -6442,18 +6442,17 @@ var user = /*#__PURE__*/function () {
       }
 
       return getCookie;
-    }() // Create a new user
-
+    }()
   }, {
-    key: "create",
+    key: "deleteCookie",
     value: function () {
-      var _create = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(data) {
+      var _deleteCookie = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "user"), data);
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(_auth__WEBPACK_IMPORTED_MODULE_2__["default"].url, "api/user/cookie"));
 
               case 2:
                 return _context2.abrupt("return", _context2.sent);
@@ -6463,7 +6462,36 @@ var user = /*#__PURE__*/function () {
                 return _context2.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee2);
+      }));
+
+      function deleteCookie() {
+        return _deleteCookie.apply(this, arguments);
+      }
+
+      return deleteCookie;
+    }() // Create a new user
+
+  }, {
+    key: "create",
+    value: function () {
+      var _create = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(data) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "user"), data);
+
+              case 2:
+                return _context3.abrupt("return", _context3.sent);
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
       }));
 
       function create(_x) {

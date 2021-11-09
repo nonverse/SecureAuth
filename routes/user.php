@@ -13,12 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// No auth routes
-Route::post('/', [\App\Http\Controllers\UserController::class, 'verify'])->withoutMiddleware('auth');
-Route::get('/cookie', [\App\Http\Controllers\UserController::class, 'cookie'])->withoutMiddleware('auth');
+// Pre authentication user initialisation
+Route::get('/cookie', [\App\Http\Controllers\Api\UserInitialisationController::class, 'getCookie'])->withoutMiddleware('auth');
+Route::post('/cookie', [\App\Http\Controllers\Api\UserInitialisationController::class, 'deleteCookie'])->withoutMiddleware('auth');
 
 // Get current user
-Route::get('/', [\App\Http\Controllers\UserController::class, 'get']);
+Route::get('/', [\App\Http\Controllers\Api\UserController::class, 'get']);
 
 // 2FA routes
 Route::get('/two-factor-authentication', [\App\Http\Controllers\Auth\TwoFactorController::class, 'setup']);
