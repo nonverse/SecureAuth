@@ -4498,7 +4498,7 @@ var Password = function Password(_ref) {
                 var data = response.data.data;
 
                 if (data.complete) {
-                  return window.location.replace("https://".concat(data.host).concat(data.resource));
+                  return window.location.replace("http://".concat(data.host).concat(data.resource));
                 } else {
                   updateUser(_objectSpread(_objectSpread({}, userData), {}, {
                     auth_token: data.auth_token
@@ -4647,7 +4647,7 @@ var TwoFactorCheckpoint = function TwoFactorCheckpoint(_ref) {
                 var data = response.data.data;
 
                 if (data.complete) {
-                  return window.location.replace("https://".concat(data.host).concat(data.resource));
+                  return window.location.replace("http://".concat(data.host).concat(data.resource));
                 }
               })["catch"](function (e) {
                 var status = e.response.status;

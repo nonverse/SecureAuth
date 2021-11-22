@@ -26,7 +26,7 @@ class RedirectIfAuthenticated
             if (Auth::guard($guard)->check()) {
                 $authController = new AbstractAuthenticationController;
                 $intended = $authController->retrieveIntended($request);
-                return redirect('https://' . $intended['host'] . $intended['resource']);
+                return redirect('http://' . $intended['host'] . $intended['resource']);
             }
         }
 
