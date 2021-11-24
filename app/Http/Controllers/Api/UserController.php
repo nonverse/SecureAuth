@@ -33,10 +33,15 @@ class UserController extends Controller
      */
     public function get(Request $request): JsonResponse
     {
+        $user = $request->user();
+
         return new JsonResponse([
             'data' => [
                 'authenticated' => true,
-                'uuid' => $request->user()->uuid
+                'uuid' => $user->uuid
+            ],
+            'meta' => [
+                'email_verification' => $user->email_verified_at
             ]
         ]);
     }
