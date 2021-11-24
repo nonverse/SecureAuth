@@ -4,6 +4,7 @@ import Password from "./Password";
 import ProgressiveForm from "../ProgressiveForm";
 import TwoFactorCheckpoint from "./TwoFactorCheckpoint";
 import user from "../../scripts/api/user";
+import api from "../../scripts/api/api";
 
 const LoginForm = ({load, setInitialised}) => {
 
@@ -19,19 +20,25 @@ const LoginForm = ({load, setInitialised}) => {
     }
 
     async function getCookie() {
-        await user.getCookie()
-            .then((response) => {
-                let data = response.data.data
-                updateUser({
-                    email: data.email,
-                    name_first: data.name_first,
-                    name_last: data.name_last
-                })
-                setState(2)
-                setInitialised(true)
+        await api.initialiseCsrf()
+            .then(async () => {
+                await user.getCookie()
+                    .then((response) => {
+                        let data = response.data.data
+                        updateUser({
+                            email: data.email,
+                            name_first: data.name_first,
+                            name_last: data.name_last
+                        })
+                        setState(2)
+                        setInitialised(true)
+                    })
+                    .catch((e) => {
+                        setInitialised(true)
+                    })
             })
-            .catch((e) => {
-                setInitialised(true)
+            .catch(() => {
+                return setInitialised(false)
             })
     }
 

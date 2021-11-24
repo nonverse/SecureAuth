@@ -19,10 +19,6 @@ const RegisterForm = ({load, setInitialised}) => {
         setState(state - 1)
     }
 
-    useEffect(() => {
-        setInitialised(true)
-    })
-
     return (
         <ProgressiveForm state={state} views={{
             1: <Email load={load} userData={user} updateUser={updateUser} advance={advance}/>,

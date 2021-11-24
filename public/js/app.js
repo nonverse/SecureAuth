@@ -4041,7 +4041,8 @@ function Index() {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return _scripts_api_api__WEBPACK_IMPORTED_MODULE_6__["default"].initialiseCsrf().then(function (response) {//setInitialised(true)
+            return _scripts_api_api__WEBPACK_IMPORTED_MODULE_6__["default"].initialiseCsrf().then(function (response) {
+              setInitialised(true);
             });
 
           case 2:
@@ -4272,7 +4273,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProgressiveForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../ProgressiveForm */ "./resources/js/components/ProgressiveForm.jsx");
 /* harmony import */ var _TwoFactorCheckpoint__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./TwoFactorCheckpoint */ "./resources/js/components/Login/TwoFactorCheckpoint.jsx");
 /* harmony import */ var _scripts_api_user__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../scripts/api/user */ "./resources/js/scripts/api/user.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _scripts_api_api__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../scripts/api/api */ "./resources/js/scripts/api/api.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -4290,6 +4292,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -4326,31 +4329,47 @@ var LoginForm = function LoginForm(_ref) {
   }
 
   function _getCookie() {
-    _getCookie = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+    _getCookie = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
-              _context.next = 2;
-              return _scripts_api_user__WEBPACK_IMPORTED_MODULE_6__["default"].getCookie().then(function (response) {
-                var data = response.data.data;
-                updateUser({
-                  email: data.email,
-                  name_first: data.name_first,
-                  name_last: data.name_last
-                });
-                setState(2);
-                setInitialised(true);
-              })["catch"](function (e) {
-                setInitialised(true);
+              _context2.next = 2;
+              return _scripts_api_api__WEBPACK_IMPORTED_MODULE_7__["default"].initialiseCsrf().then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+                return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        _context.next = 2;
+                        return _scripts_api_user__WEBPACK_IMPORTED_MODULE_6__["default"].getCookie().then(function (response) {
+                          var data = response.data.data;
+                          updateUser({
+                            email: data.email,
+                            name_first: data.name_first,
+                            name_last: data.name_last
+                          });
+                          setState(2);
+                          setInitialised(true);
+                        })["catch"](function (e) {
+                          setInitialised(true);
+                        });
+
+                      case 2:
+                      case "end":
+                        return _context.stop();
+                    }
+                  }
+                }, _callee);
+              })))["catch"](function () {
+                return setInitialised(false);
               });
 
             case 2:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee);
+      }, _callee2);
     }));
     return _getCookie.apply(this, arguments);
   }
@@ -4358,22 +4377,22 @@ var LoginForm = function LoginForm(_ref) {
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     getCookie();
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ProgressiveForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_ProgressiveForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
     state: state,
     views: {
-      1: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Email__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      1: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Email__WEBPACK_IMPORTED_MODULE_2__["default"], {
         load: load,
         updateUser: updateUser,
         advance: advance
       }),
-      2: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Password__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      2: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Password__WEBPACK_IMPORTED_MODULE_3__["default"], {
         load: load,
         userData: userData,
         updateUser: updateUser,
         advance: advance,
         back: previous
       }),
-      3: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_TwoFactorCheckpoint__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      3: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_TwoFactorCheckpoint__WEBPACK_IMPORTED_MODULE_5__["default"], {
         load: load,
         user: userData
       })
@@ -4930,8 +4949,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var ForgotPasswordForm = function ForgotPasswordForm(_ref) {
-  var load = _ref.load,
-      setInitialised = _ref.setInitialised;
+  var load = _ref.load;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
       _useState2 = _slicedToArray(_useState, 2),
@@ -4947,9 +4965,6 @@ var ForgotPasswordForm = function ForgotPasswordForm(_ref) {
     setState(state + 1);
   }
 
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    setInitialised(true);
-  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProgressiveForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
     state: state,
     views: {
@@ -5250,8 +5265,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var ResetPasswordForm = function ResetPasswordForm(_ref) {
-  var load = _ref.load,
-      setInitialised = _ref.setInitialised;
+  var load = _ref.load;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
       _useState2 = _slicedToArray(_useState, 2),
@@ -5262,9 +5276,6 @@ var ResetPasswordForm = function ResetPasswordForm(_ref) {
     setState(state + 1);
   }
 
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    setInitialised(true);
-  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProgressiveForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
     state: state,
     views: {
@@ -5755,9 +5766,6 @@ var RegisterForm = function RegisterForm(_ref) {
     setState(state - 1);
   }
 
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    setInitialised(true);
-  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ProgressiveForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
     state: state,
     views: {
