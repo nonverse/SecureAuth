@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Contracts\Repository\UserRepositoryInterface;
 use App\Http\Controllers\Controller;
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
@@ -35,13 +36,19 @@ class UserController extends Controller
     {
         $user = $request->user();
 
+        $hasProfile = false;
+        if (Profile::query()->where('uuid', $user->uuid)->exists() && Profile::query()->where('uuid', $user->uuid)->first()->profile_verified_at !== null) {
+            $hasProfile = true;
+        }
+
         return new JsonResponse([
             'data' => [
                 'authenticated' => true,
                 'uuid' => $user->uuid
             ],
             'meta' => [
-                'email_verification' => $user->email_verified_at
+                'email_verified_at' => $user->email_verified_at,
+                'has_valid_profile' => $hasProfile,
             ]
         ]);
     }
