@@ -12,7 +12,7 @@ class validate {
 
     async validateNewEmail(email) {
         return await axios.post(
-            `${this.url}validate-new-email`,
+            `${this.url}user/email`,
             {
                 email: email,
             }
@@ -21,7 +21,7 @@ class validate {
 
     async validateNewUser(username) {
         return await axios.post(
-            `${this.url}validate-new-user`,
+            `${this.url}user`,
             {
                 username: username,
             }

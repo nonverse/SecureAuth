@@ -6587,7 +6587,7 @@ var validate = /*#__PURE__*/function () {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "validate-new-email"), {
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "user/email"), {
                   email: email
                 });
 
@@ -6617,7 +6617,7 @@ var validate = /*#__PURE__*/function () {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "validate-new-user"), {
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(this.url, "user"), {
                   username: username
                 });
 
