@@ -58,7 +58,9 @@ class TwoFactorEnableService
         }
 
         if (!$this->google2FA->verifyKey($secret, $code)) {
-            return response('Invalid code', 401);
+            return [
+                'enabled' => false
+            ];
         }
 
         $this->repository->update($user->uuid, [
