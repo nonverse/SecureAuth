@@ -47,6 +47,7 @@ class UserController extends Controller
                 'uuid' => $user->uuid
             ],
             'meta' => [
+                'two_factor_enabled' => $user->use_totp,
                 'email_verified_at' => $user->email_verified_at,
                 'has_valid_profile' => $hasProfile,
             ]
