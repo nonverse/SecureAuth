@@ -99,6 +99,21 @@ class AuthenticationController extends AbstractAuthenticationController
     }
 
     /**
+     * Revoke user authentication on all devices except the current one
+     *
+     * @param Request $request
+     * @return bool|Application|ResponseFactory|Response|null
+     */
+    public function revokeAllAuthentication(Request $request) {
+
+        if (!Hash::check($request->input('password'), $request->user()->password)) {
+            return response('Invalid password', 401);
+        }
+
+        return Auth::logoutOtherDevices($request->input('password'));
+    }
+
+    /**
      * Verify if a user exists on the system before continuing with authentication
      *
      * @param Request $request
