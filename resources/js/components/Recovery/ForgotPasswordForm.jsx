@@ -3,10 +3,14 @@ import ProgressiveForm from "../ProgressiveForm";
 import ForgotPassword from "./ForgotPassword";
 import PasswordResetEmailSent from "./PasswordResetEmailSent";
 
-const ForgotPasswordForm = ({load}) => {
+const ForgotPasswordForm = ({load, setInitialised}) => {
 
     const [userData, updateUser] = useState({})
     const [state, setState] = useState(1)
+
+    useEffect(() => {
+        setInitialised(true)
+    }, [])
 
     function advance() {
         setState(state + 1)

@@ -7,6 +7,10 @@ const ResetPasswordForm = ({load}) => {
 
     const [state, setState] = useState(1)
 
+    useEffect(() => {
+        setInitialised(true)
+    }, [])
+
     function advance() {
         setState(state + 1)
     }

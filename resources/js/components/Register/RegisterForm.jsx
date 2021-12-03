@@ -11,6 +11,10 @@ const RegisterForm = ({load, setInitialised}) => {
     const [user, updateUser] = useState({})
     const [state, setState] = useState(1)
 
+    useEffect(() => {
+        setInitialised(true)
+    }, [])
+
     function advance() {
         setState(state + 1)
     }

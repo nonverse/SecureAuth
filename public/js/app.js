@@ -4041,9 +4041,7 @@ function Index() {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return _scripts_api_api__WEBPACK_IMPORTED_MODULE_6__["default"].initialiseCsrf().then(function (response) {
-              setInitialised(true);
-            });
+            return _scripts_api_api__WEBPACK_IMPORTED_MODULE_6__["default"].initialiseCsrf();
 
           case 2:
           case "end":
@@ -4949,7 +4947,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var ForgotPasswordForm = function ForgotPasswordForm(_ref) {
-  var load = _ref.load;
+  var load = _ref.load,
+      setInitialised = _ref.setInitialised;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
       _useState2 = _slicedToArray(_useState, 2),
@@ -4960,6 +4959,10 @@ var ForgotPasswordForm = function ForgotPasswordForm(_ref) {
       _useState4 = _slicedToArray(_useState3, 2),
       state = _useState4[0],
       setState = _useState4[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setInitialised(true);
+  }, []);
 
   function advance() {
     setState(state + 1);
@@ -5271,6 +5274,10 @@ var ResetPasswordForm = function ResetPasswordForm(_ref) {
       _useState2 = _slicedToArray(_useState, 2),
       state = _useState2[0],
       setState = _useState2[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setInitialised(true);
+  }, []);
 
   function advance() {
     setState(state + 1);
@@ -5757,6 +5764,10 @@ var RegisterForm = function RegisterForm(_ref) {
       _useState4 = _slicedToArray(_useState3, 2),
       state = _useState4[0],
       setState = _useState4[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setInitialised(true);
+  }, []);
 
   function advance() {
     setState(state + 1);

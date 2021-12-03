@@ -14,9 +14,6 @@ function Index() {
 
     useEffect(async () => {
         await api.initialiseCsrf()
-            .then((response) => {
-                setInitialised(true)
-            })
     }, [])
 
     return (
