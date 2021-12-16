@@ -3,7 +3,7 @@ import ProgressiveForm from "../ProgressiveForm";
 import ResetPassword from "./ResetPassword";
 import PasswordResetConfirmation from "./PasswordResetConfirmation";
 
-const ResetPasswordForm = ({load}) => {
+const ResetPasswordForm = ({load, setInitialised}) => {
 
     const [state, setState] = useState(1)
 

@@ -5268,7 +5268,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var ResetPasswordForm = function ResetPasswordForm(_ref) {
-  var load = _ref.load;
+  var load = _ref.load,
+      setInitialised = _ref.setInitialised;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
       _useState2 = _slicedToArray(_useState, 2),
