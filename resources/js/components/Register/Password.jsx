@@ -23,7 +23,7 @@ const Password = ({load, userData, back}) => {
         }).then((response) => {
             let data = response.data.data
             if (data.complete) {
-                return window.location.replace('https://nonverse.net')
+                return window.location.replace('http://my.nonverse.test/account')
             }
         }).catch((e) => {
             // TODO Error handling if post fails
