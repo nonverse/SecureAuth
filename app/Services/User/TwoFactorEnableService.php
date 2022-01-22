@@ -6,6 +6,8 @@ use App\Contracts\Repository\UserRepositoryInterface;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException;
 use PragmaRX\Google2FA\Exceptions\InvalidCharactersException;
 use PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException;
@@ -63,13 +65,17 @@ class TwoFactorEnableService
             ];
         }
 
+        $token = Str::random(24);
+
         $this->repository->update($user->uuid, [
             'use_totp' => true,
+            'totp_recovery_token' => Hash::make($token),
             'totp_authenticated_at' => Carbon::now()
         ]);
 
         return [
             'uuid' => $user->uuid,
+            'recovery_token' => $token,
             'enabled' => true
         ];
     }
