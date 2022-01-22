@@ -6,7 +6,7 @@ import Field from "../elements/Field";
 import validate from "../../scripts/validate";
 import auth from "../../scripts/api/auth";
 
-const TwoFactorCheckpoint = ({load, user}) => {
+const TwoFactorCheckpoint = ({load, user, advance}) => {
 
     const [error, setError] = useState('')
 
@@ -51,7 +51,13 @@ const TwoFactorCheckpoint = ({load, user}) => {
                 )}
             </Formik>
             <div className="links">
-                <span className="link-btn">Can't access authenticator?</span>
+                <span className="link-btn" onClick={() => {
+                    load(true)
+                    setTimeout(() => {
+                        advance()
+                        load()
+                    })
+                }}>Can't access authenticator?</span>
                 <span className="link-btn" onClick={() => window.location.reload()}>Restart login</span>
             </div>
         </div>
