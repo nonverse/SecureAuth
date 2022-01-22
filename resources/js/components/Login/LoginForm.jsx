@@ -5,6 +5,7 @@ import ProgressiveForm from "../ProgressiveForm";
 import TwoFactorCheckpoint from "./TwoFactorCheckpoint";
 import user from "../../scripts/api/user";
 import api from "../../scripts/api/api";
+import TwoFactorRecovery from "./TwoFactorRecovery";
 
 const LoginForm = ({load, setInitialised}) => {
 
@@ -50,7 +51,8 @@ const LoginForm = ({load, setInitialised}) => {
         <ProgressiveForm state={state} views={{
             1: <Email load={load} updateUser={updateUser} advance={advance}/>,
             2: <Password load={load} userData={userData} updateUser={updateUser} advance={advance} back={previous}/>,
-            3: <TwoFactorCheckpoint load={load} user={userData}/>
+            3: <TwoFactorCheckpoint load={load} user={userData} advance={advance}/>,
+            4: <TwoFactorRecovery load={load} user={userData}/>
         }}/>
     )
 }
