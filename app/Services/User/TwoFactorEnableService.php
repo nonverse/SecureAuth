@@ -4,6 +4,7 @@ namespace App\Services\User;
 
 use App\Contracts\Repository\UserRepositoryInterface;
 use App\Models\User;
+use App\Notifications\TotpEnabled;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Hash;
@@ -73,9 +74,18 @@ class TwoFactorEnableService
             'totp_authenticated_at' => Carbon::now()
         ]);
 
+        try {
+            $user->notify(new TotpEnabled($user, $token));
+        } catch (Exception $e) {
+            $this->repository->update($user->uuid, [
+                'use_totp' => false,
+                'totp_recovery_token' => null,
+                'totp_authenticated_at' => Carbon::now()
+            ]);
+        }
+
         return [
             'uuid' => $user->uuid,
-            'recovery_token' => $token,
             'enabled' => true
         ];
     }
