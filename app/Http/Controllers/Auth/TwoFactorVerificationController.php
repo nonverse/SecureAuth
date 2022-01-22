@@ -3,16 +3,20 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Contracts\Repository\UserRepositoryInterface;
+use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException;
 use PragmaRX\Google2FA\Exceptions\InvalidCharactersException;
 use PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException;
 use PragmaRX\Google2FA\Google2FA;
+use RuntimeException;
 
 class TwoFactorVerificationController extends AbstractAuthenticationController
 {
@@ -62,6 +66,24 @@ class TwoFactorVerificationController extends AbstractAuthenticationController
             $user = $this->repository->get($details['uuid']);
         } catch (ModelNotFoundException $e) {
             return response('Invalid user store', 400);
+        }
+
+        // 2FA Recovery Process
+        if ($request->has('recovery_token')) {
+            if (!Hash::check($request->input('recovery_token'), $user->totp_recovery_token)) {
+                return response('Invalid recovery token', 401);
+            }
+
+            try {
+                $user->update([
+                    'use_totp' => false,
+                    'totp_authenticated_at' => Carbon::now()
+                ]);
+            } catch (Exception $e) {
+                throw new RuntimeException($e->getMessage());
+            }
+
+            return $this->sendLoginSuccessResponse($request, $user);
         }
 
         $secret = $this->encrypter->decrypt($user->totp_secret);

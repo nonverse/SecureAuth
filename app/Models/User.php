@@ -19,6 +19,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property bool $admin
  * @property bool $use_totp
  * @property string $totp_secret
+ * @property string $totp_recovery_token
  * @property Carbon $email_verified_at
  * @property Carbon $totp_authenticated_at
  * @property string $remember_token
@@ -62,6 +63,7 @@ class User extends Authenticatable
         'password',
         'use_totp',
         'totp_secret',
+        'totp_recovery_token',
         'admin'
     ];
 
