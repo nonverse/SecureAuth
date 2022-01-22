@@ -28,12 +28,22 @@ class auth {
         return await axios.post(`${this.url}login?host=${this.host}&resource=${this.resource}`, credentials)
     }
 
-    async twofactor(token, code) {
+    async twofactor(token, code, recovery_token) {
+
+        let data = {
+            code: code
+        }
+        if (recovery_token) {
+            data = {
+                recovery_token: recovery_token
+            }
+        }
+
         return axios.post(
             `${this.url}login/two-factor?host=${this.host}&resource=${this.resource}`,
             {
                 auth_token: token,
-                code: code
+                ...data
             }
         )
     }
