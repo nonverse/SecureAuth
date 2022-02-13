@@ -38,10 +38,20 @@ class validate {
         return error
     }
 
-    require(value) {
+    require(value, min, max) {
         let error;
         if (!value) {
             error = "This field is required"
+        }
+        if (min) {
+            if (value.length < min) {
+                error = `At least ${min} characters are required`
+            }
+        }
+        if (max) {
+            if (value.length > max) {
+                error = `No more than ${max} characters are allowed`
+            }
         }
         return error
     }
