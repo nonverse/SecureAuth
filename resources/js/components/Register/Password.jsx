@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Formik} from "formik";
 import Form from "../elements/Form";
 import Field from "../elements/Field";
@@ -6,6 +6,8 @@ import validate from "../../scripts/validate";
 import user from "../../scripts/api/user";
 
 const Password = ({load, userData, back}) => {
+
+    const [error, setError] = useState('')
 
     function previous() {
         load(true)
@@ -26,9 +28,14 @@ const Password = ({load, userData, back}) => {
                 return window.location.replace('http://my.nonverse.test/account')
             }
         }).catch((e) => {
-            // TODO Error handling if post fails
+            setError(e.response.data.errors.password)
         })
         load(false)
+    }
+
+    function validatePassword(value) {
+        setError('')
+        return validate.require(value, 8)
     }
 
     return (
@@ -50,11 +57,11 @@ const Password = ({load, userData, back}) => {
             }}>
                 {({errors, values}) => (
                     <Form submitCta={"Submit"}>
-                        <Field password placeholder={"Password"} validate={validate.require} name={"password"}
-                               error={errors.password}/>
+                        <Field password placeholder={"Password"} validate={validatePassword} name={"password"}
+                               error={errors.password ? errors.password : error}/>
                         <Field password placeholder={"Confirm Password"}
                                validate={value => validate.confirmation(value, values.password)}
-                               name={"password_confirmation"} error={errors.password_confirmation}/>
+                               name={"password_confirmation"} error={errors.password ? '' : errors.password_confirmation}/>
                     </Form>
                 )}
             </Formik>

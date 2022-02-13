@@ -5753,6 +5753,18 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -5766,6 +5778,11 @@ var Password = function Password(_ref) {
   var load = _ref.load,
       userData = _ref.userData,
       back = _ref.back;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      error = _useState2[0],
+      setError = _useState2[1];
 
   function previous() {
     load(true);
@@ -5793,7 +5810,8 @@ var Password = function Password(_ref) {
                 if (data.complete) {
                   return window.location.replace('http://my.nonverse.test/account');
                 }
-              })["catch"](function (e) {// TODO Error handling if post fails
+              })["catch"](function (e) {
+                setError(e.response.data.errors.password);
               });
 
             case 3:
@@ -5807,6 +5825,11 @@ var Password = function Password(_ref) {
       }, _callee);
     }));
     return _submit.apply(this, arguments);
+  }
+
+  function validatePassword(value) {
+    setError('');
+    return _scripts_validate__WEBPACK_IMPORTED_MODULE_5__["default"].require(value, 8);
   }
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
@@ -5853,9 +5876,9 @@ var Password = function Password(_ref) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_elements_Field__WEBPACK_IMPORTED_MODULE_4__["default"], {
             password: true,
             placeholder: "Password",
-            validate: _scripts_validate__WEBPACK_IMPORTED_MODULE_5__["default"].require,
+            validate: validatePassword,
             name: "password",
-            error: errors.password
+            error: errors.password ? errors.password : error
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_elements_Field__WEBPACK_IMPORTED_MODULE_4__["default"], {
             password: true,
             placeholder: "Confirm Password",
@@ -5863,7 +5886,7 @@ var Password = function Password(_ref) {
               return _scripts_validate__WEBPACK_IMPORTED_MODULE_5__["default"].confirmation(value, values.password);
             },
             name: "password_confirmation",
-            error: errors.password_confirmation
+            error: errors.password ? '' : errors.password_confirmation
           })]
         });
       }
@@ -6849,11 +6872,23 @@ var validate = /*#__PURE__*/function () {
     }
   }, {
     key: "require",
-    value: function require(value) {
+    value: function require(value, min, max) {
       var error;
 
       if (!value) {
         error = "This field is required";
+      }
+
+      if (min) {
+        if (value.length < min) {
+          error = "At least ".concat(min, " characters are required");
+        }
+      }
+
+      if (max) {
+        if (value.length > max) {
+          error = "No more than ".concat(max, " characters are allowed");
+        }
       }
 
       return error;
