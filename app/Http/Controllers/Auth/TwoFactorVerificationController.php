@@ -68,12 +68,14 @@ class TwoFactorVerificationController extends AbstractAuthenticationController
             return response('Invalid user store', 400);
         }
 
-        // 2FA Recovery Process
+        // 2FA recovery process if a user has lost access to their authenticator app
         if ($request->has('recovery_token')) {
+            // Check if a valid recovery token was provided
             if (!Hash::check($request->input('recovery_token'), $user->totp_recovery_token)) {
                 return response('Invalid recovery token', 401);
             }
 
+            // Disable 2FA on user's account
             try {
                 $user->update([
                     'use_totp' => false,
@@ -86,6 +88,7 @@ class TwoFactorVerificationController extends AbstractAuthenticationController
             return $this->sendLoginSuccessResponse($request, $user);
         }
 
+        // Verify user using the authenticator code provided
         $secret = $this->encrypter->decrypt($user->totp_secret);
         if (!$this->google2FA->verifyKey($secret, $request->input('code'))) {
             return response('Invalid code', 401);

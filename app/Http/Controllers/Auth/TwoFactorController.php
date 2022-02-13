@@ -51,6 +51,8 @@ class TwoFactorController extends Controller
     }
 
     /**
+     * Enable 2FA on a user's account
+     *
      * @throws IncompatibleWithGoogleAuthenticatorException
      * @throws SecretKeyTooShortException
      * @throws InvalidCharactersException
@@ -61,6 +63,7 @@ class TwoFactorController extends Controller
             'code' => 'required|min:6|max:6'
         ]);
 
+        // Attempt to toggle 2FA using the user provided authenticator code
         return new JsonResponse([
             'data' => $this->enableService->handle($request->user(), $request->input('code'))
         ]);
