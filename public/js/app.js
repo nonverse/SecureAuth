@@ -5319,15 +5319,15 @@ var ResetPassword = function ResetPassword(_ref) {
               load(true);
               _context.next = 3;
               return _scripts_api_auth__WEBPACK_IMPORTED_MODULE_6__["default"].reset(values).then(function (response) {
-                var data = response.data.data;
+                var data = response.data;
 
-                if (data.success) {
+                if (data.data.success) {
                   advance();
                 } else {
-                  setError(data.error);
+                  setError(data.errors.password);
                 }
               })["catch"](function (e) {
-                setError('Something went wrong');
+                setError(e.response.data.errors.password);
               });
 
             case 3:
@@ -5372,7 +5372,7 @@ var ResetPassword = function ResetPassword(_ref) {
             placeholder: "Password",
             validate: _scripts_validate__WEBPACK_IMPORTED_MODULE_5__["default"].require,
             name: "password",
-            error: errors.password
+            error: errors.password ? errors.password : error
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_elements_Field__WEBPACK_IMPORTED_MODULE_4__["default"], {
             password: true,
             placeholder: "Confirm Password",
@@ -5380,7 +5380,7 @@ var ResetPassword = function ResetPassword(_ref) {
               return validateConfirm(value, values.password);
             },
             name: "password_confirmation",
-            error: errors.password_confirmation ? errors.password_confirmation : error
+            error: errors.password_confirmation
           })]
         });
       }

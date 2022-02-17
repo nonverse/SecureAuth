@@ -86,6 +86,17 @@ class PasswordController extends Controller
             'password' => 'required|min:8|confirmed'
         ]);
 
+        // Check if a user's password contains any part of their name(s)
+        $password = $request->input('password');
+        $user = $this->repository->get($request->input('email'));
+        if (str_contains($password, $user->name_first) || str_contains($password, $user->name_last)) {
+            return new JsonResponse([
+                'errors' => [
+                    'password' => 'Password cannot contain your name'
+                ]
+            ], 422);
+        }
+
         $status = $this->broker->reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user, $password) {
@@ -101,7 +112,9 @@ class PasswordController extends Controller
             return new JsonResponse([
                 'data' => [
                     'success' => false,
-                    'error' => __($status)
+                ],
+                'errors' => [
+                    'password' => __($status)
                 ]
             ]);
         }

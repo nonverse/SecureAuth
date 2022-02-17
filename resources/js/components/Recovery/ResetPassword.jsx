@@ -13,14 +13,14 @@ const ResetPassword = ({load, advance}) => {
         load(true)
         await auth.reset(values)
             .then((response) => {
-                let data = response.data.data
-                if (data.success) {
+                let data = response.data
+                if (data.data.success) {
                     advance()
                 } else {
-                    setError(data.error)
+                    setError(data.errors.password)
                 }
             }).catch((e) => {
-                setError('Something went wrong')
+                setError(e.response.data.errors.password)
             })
         load(false)
     }
@@ -43,12 +43,12 @@ const ResetPassword = ({load, advance}) => {
                 {({errors, values}) => (
                     <Form submitCta={"Submit"}>
                         <Field password placeholder={"Password"} validate={validate.require} name={"password"}
-                               error={errors.password}/>
+                               error={errors.password ? errors.password : error}/>
                         <Field password placeholder={"Confirm Password"} validate={value =>
                             validateConfirm(value, values.password)
                         }
                                name={"password_confirmation"}
-                               error={errors.password_confirmation ? errors.password_confirmation : error}/>
+                               error={errors.password_confirmation}/>
                     </Form>
                 )}
             </Formik>
