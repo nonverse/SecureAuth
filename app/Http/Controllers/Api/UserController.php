@@ -6,6 +6,7 @@ use App\Contracts\Repository\UserRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Profile;
 use App\Models\User;
+use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -19,11 +20,18 @@ class UserController extends Controller
      */
     private $repository;
 
+    /**
+     * @var Encrypter
+     */
+    private $encrypter;
+
     public function __construct(
-        UserRepositoryInterface $repository
+        UserRepositoryInterface $repository,
+        Encrypter $encrypter
     )
     {
         $this->repository = $repository;
+        $this->encrypter = $encrypter;
     }
 
     /**
@@ -36,20 +44,11 @@ class UserController extends Controller
     {
         $user = $request->user();
 
-        $hasProfile = false;
-        if (Profile::query()->where('uuid', $user->uuid)->exists() && Profile::query()->where('uuid', $user->uuid)->first()->profile_verified_at !== null) {
-            $hasProfile = true;
-        }
-
         return new JsonResponse([
             'data' => [
                 'authenticated' => true,
-                'uuid' => $user->uuid
-            ],
-            'meta' => [
-                'two_factor_enabled' => $user->use_totp,
-                'email_verified_at' => $user->email_verified_at,
-                'has_valid_profile' => $hasProfile,
+                'uuid' => $user->uuid,
+                'api_token' => $this->encrypter->decryptString($user->api_encryption)
             ]
         ]);
     }
