@@ -64,6 +64,7 @@ class User extends Authenticatable
         'use_totp',
         'totp_secret',
         'totp_recovery_token',
+        'api_encryption',
         'admin'
     ];
 

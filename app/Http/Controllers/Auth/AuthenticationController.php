@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Contracts\Repository\UserRepositoryInterface;
+use App\Services\Api\FrontEndTokenCreationService;
 use Carbon\CarbonImmutable;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -31,9 +31,12 @@ class AuthenticationController extends AbstractAuthenticationController
 
     public function __construct(
         UserRepositoryInterface $repository,
-        Encrypter               $encrypter
+        Encrypter               $encrypter,
+        FrontEndTokenCreationService $tokenCreationService
     )
     {
+        parent::__construct($tokenCreationService);
+
         $this->repository = $repository;
         $this->encrypter = $encrypter;
     }

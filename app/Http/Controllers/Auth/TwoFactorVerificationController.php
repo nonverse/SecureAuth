@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Contracts\Repository\UserRepositoryInterface;
+use App\Services\Api\FrontEndTokenCreationService;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
@@ -38,9 +39,12 @@ class TwoFactorVerificationController extends AbstractAuthenticationController
     public function __construct(
         UserRepositoryInterface $repository,
         Encrypter               $encrypter,
-        Google2FA               $google2FA
+        Google2FA               $google2FA,
+        FrontEndTokenCreationService $tokenCreationService
     )
     {
+        parent::__construct($tokenCreationService);
+
         $this->repository = $repository;
         $this->encrypter = $encrypter;
         $this->google2FA = $google2FA;
