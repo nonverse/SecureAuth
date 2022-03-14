@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\MessageBag;
 
 class FirstPartyTokenController extends Controller
 {
@@ -31,14 +33,18 @@ class FirstPartyTokenController extends Controller
 
     /**
      * @param Request $request
-     * @return JsonResponse
+     * @return MessageBag|JsonResponse
      */
-    public function verify(Request $request): JsonResponse
+    public function verify(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'uuid' => 'required',
             'token' => 'required|min:64|max:64'
         ]);
+
+        if ($validator->fails()) {
+            abort(422);
+        }
 
         $user = $this->repository->get($request->input('uuid'));
         $token = $this->encrypter->decryptString($user->api_encryption);
