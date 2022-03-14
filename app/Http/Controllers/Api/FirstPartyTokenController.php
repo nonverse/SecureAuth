@@ -36,10 +36,11 @@ class FirstPartyTokenController extends Controller
     public function verify(Request $request): JsonResponse
     {
         $request->validate([
+            'uuid' => 'required',
             'token' => 'required|min:64|max:64'
         ]);
 
-        $user = $request->user();
+        $user = $this->repository->get($request->input('uuid'));
         $token = $this->encrypter->decryptString($user->api_encryption);
 
         if ($request->input('token') !== $token) {
