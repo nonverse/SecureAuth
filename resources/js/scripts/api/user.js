@@ -20,11 +20,16 @@ class user {
         return await axios.post(`${auth.url}api/user/cookie`)
     }
 
+    async activate(data) {
+        return await axios.post(`${this.url}user/activate`, data)
+    }
+
     // Create a new user
     async create(data) {
         //console.log(data)
         return await axios.post(`${this.url}user`, data)
     }
+
 }
 
 export default new user()
