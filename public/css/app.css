@@ -20,6 +20,10 @@
   color: orangered;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -10078,6 +10082,16 @@ h3 {
 #root .link-btn {
   color: #0064ff;
   cursor: pointer;
+}
+
+.reg-button .button-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 5% 0 10% 0;
+}
+.reg-button .button-wrapper .button {
+  width: 40%;
 }
 
 form input {

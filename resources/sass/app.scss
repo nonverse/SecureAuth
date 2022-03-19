@@ -53,6 +53,7 @@
             align-items: center;
             flex-direction: column;
             top: 0;
+
             .loader {
                 position: absolute;
                 top: 50%;
@@ -64,6 +65,19 @@
     .link-btn {
         color: #0064ff;
         cursor: pointer;
+    }
+}
+
+.reg-button {
+    .button-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 5% 0 10% 0;
+
+        .button {
+            width: 40%;
+        }
     }
 }
 
