@@ -48,7 +48,7 @@ class UserController extends Controller
             'data' => [
                 'authenticated' => true,
                 'uuid' => $user->uuid,
-                'api_token' => $this->encrypter->decryptString($user->api_encryption)
+                //'api_token' => $this->encrypter->decryptString($user->api_encryption)
             ]
         ]);
     }

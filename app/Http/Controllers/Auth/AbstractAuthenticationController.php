@@ -52,13 +52,13 @@ class AbstractAuthenticationController extends Controller
 
         $intended = $this->retrieveIntended($request);
         $cookie = cookie('uuid', $user->uuid, 2628000);
-        $token = $this->tokenCreationService->handle($user);
-
-        if (!$token) {
-            return response()->json([
-                'complete' => false
-            ]);
-        }
+//        $token = $this->tokenCreationService->handle($user);
+//
+//        if (!$token) {
+//            return response()->json([
+//                'complete' => false
+//            ]);
+//        }
 
         Auth::login($user, $request->input('remember'));
 
