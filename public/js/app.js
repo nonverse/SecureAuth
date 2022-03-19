@@ -5922,7 +5922,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Name__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Name */ "./resources/js/components/Register/Name.jsx");
 /* harmony import */ var _Username__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Username */ "./resources/js/components/Register/Username.jsx");
 /* harmony import */ var _Password__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Password */ "./resources/js/components/Register/Password.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _VerifyEmail__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./VerifyEmail */ "./resources/js/components/Register/VerifyEmail.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -5934,6 +5935,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -5969,30 +5971,35 @@ var RegisterForm = function RegisterForm(_ref) {
     setState(state - 1);
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ProgressiveForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ProgressiveForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
     state: state,
     views: {
-      1: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Email__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      1: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Email__WEBPACK_IMPORTED_MODULE_2__["default"], {
         load: load,
         userData: user,
         updateUser: updateUser,
         advance: advance
       }),
-      2: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Name__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      2: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_VerifyEmail__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        load: load,
+        userData: user,
+        advance: advance
+      }),
+      3: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Name__WEBPACK_IMPORTED_MODULE_3__["default"], {
         load: load,
         user: user,
         updateUser: updateUser,
         advance: advance,
         back: previous
       }),
-      3: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Username__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      4: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Username__WEBPACK_IMPORTED_MODULE_4__["default"], {
         load: load,
         user: user,
         updateUser: updateUser,
         advance: advance,
         back: previous
       }),
-      4: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Password__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      5: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Password__WEBPACK_IMPORTED_MODULE_5__["default"], {
         load: load,
         userData: user,
         updateUser: updateUser,
@@ -6158,6 +6165,122 @@ var Username = function Username(_ref) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Username);
+
+/***/ }),
+
+/***/ "./resources/js/components/Register/VerifyEmail.jsx":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/Register/VerifyEmail.jsx ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var _elements_Form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../elements/Form */ "./resources/js/components/elements/Form.jsx");
+/* harmony import */ var _elements_Field__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../elements/Field */ "./resources/js/components/elements/Field.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+var VerifyEmail = function VerifyEmail(_ref) {
+  var load = _ref.load,
+      userData = _ref.userData,
+      advance = _ref.advance;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      error = _useState2[0],
+      setError = _useState2[1];
+
+  function submit(_x) {
+    return _submit.apply(this, arguments);
+  }
+
+  function _submit() {
+    _submit = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(values) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return _submit.apply(this, arguments);
+  }
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    className: "content-wrapper",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h4", {
+      children: "Activate your account"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+      children: userData.email
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(formik__WEBPACK_IMPORTED_MODULE_2__.Formik, {
+      initialValues: {
+        email_otp: ''
+      },
+      onSubmit: function onSubmit(values) {
+        submit(values);
+      },
+      children: function children(_ref2) {
+        var errors = _ref2.errors;
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_elements_Form__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_elements_Field__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            placeholder: "Activation Key",
+            error: errors.email_otp,
+            name: "email_otp"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+            className: "default",
+            children: "Please enter the activation key that was included in your email invitation."
+          })]
+        });
+      }
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: "links",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+        className: "link-btn",
+        href: "http://nonverse.net/request-invitation",
+        target: "_blank",
+        rel: "noreferrer",
+        children: "Don't have an invite?"
+      })
+    })]
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VerifyEmail);
 
 /***/ }),
 

@@ -5,6 +5,7 @@ import Email from "./Email";
 import Name from "./Name";
 import Username from "./Username";
 import Password from "./Password";
+import VerifyEmail from "./VerifyEmail";
 
 const RegisterForm = ({load, setInitialised}) => {
 
@@ -26,9 +27,10 @@ const RegisterForm = ({load, setInitialised}) => {
     return (
         <ProgressiveForm state={state} views={{
             1: <Email load={load} userData={user} updateUser={updateUser} advance={advance}/>,
-            2: <Name load={load} user={user} updateUser={updateUser} advance={advance} back={previous}/>,
-            3: <Username load={load} user={user} updateUser={updateUser} advance={advance} back={previous}/>,
-            4: <Password load={load} userData={user} updateUser={updateUser} advance={advance} back={previous}/>
+            2: <VerifyEmail load={load} userData={user} advance={advance}/>,
+            3: <Name load={load} user={user} updateUser={updateUser} advance={advance} back={previous}/>,
+            4: <Username load={load} user={user} updateUser={updateUser} advance={advance} back={previous}/>,
+            5: <Password load={load} userData={user} updateUser={updateUser} advance={advance} back={previous}/>
         }}/>
     )
 }
