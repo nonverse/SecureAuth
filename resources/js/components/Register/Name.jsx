@@ -4,13 +4,13 @@ import Form from "../elements/Form";
 import Field from "../elements/Field";
 import validate from "../../scripts/validate";
 
-const Name = ({load, user, updateUser, advance, back}) => {
+const Name = ({load, user, updateUser, advance}) => {
 
     function previous() {
         load(true)
         setTimeout(() => {
             load(false);
-            back()
+            window.location.reload()
         }, 500)
     }
 
