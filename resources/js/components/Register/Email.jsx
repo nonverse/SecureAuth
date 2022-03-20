@@ -3,12 +3,11 @@ import {Formik} from "formik";
 import Form from "../elements/Form";
 import Field from "../elements/Field";
 import validate from "../../scripts/validate";
-import {useHistory} from "react-router-dom";
 
-const Email = ({load, userData, updateUser, advance}) => {
+const Email = ({load, updateUser, advance}) => {
 
-    const history = useHistory()
     const [error, setError] = useState('')
+    const query = new URLSearchParams(window.location.search);
 
     async function submit(values) {
         load(true)
@@ -34,7 +33,7 @@ const Email = ({load, userData, updateUser, advance}) => {
             <h4>Create an account</h4>
             <span>Nonverse Studios</span>
             <Formik initialValues={{
-                email: userData.email ? userData.email : '',
+                email: query.get('email'),
             }} onSubmit={(values) => {
                 submit(values)
             }}>
