@@ -34,8 +34,8 @@ const Password = ({load, userData, updateUser, advance, back}) => {
                 })
                 advance();
             }
-        }).catch(() => {
-            setError('Password is incorrect')
+        }).catch((e) => {
+            setError(e.response.data)
         })
         load(false)
     }

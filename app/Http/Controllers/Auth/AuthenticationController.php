@@ -68,6 +68,11 @@ class AuthenticationController extends AbstractAuthenticationController
             return response('Invalid password', 401);
         }
 
+        // Verify that the user does not have any violations recorded on their account
+        if ($user->violations) {
+            return response('You account has been ' . $user->violations . ' for violating the Nonverse terms and conditions', 403);
+        }
+
         if ($user->use_totp) {
             $token = Str::random(64);
 
