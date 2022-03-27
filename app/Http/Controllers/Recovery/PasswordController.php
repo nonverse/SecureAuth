@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Recovery;
 
+use App\Contracts\Repository\AuthMeRepositoryInterface;
 use App\Contracts\Repository\UserRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Notifications\PasswordReset;
@@ -19,6 +20,11 @@ class PasswordController extends Controller
     private $repository;
 
     /**
+     * @var AuthMeRepositoryInterface
+     */
+    private $authMeRepository;
+
+    /**
      * @var PasswordBroker
      */
     private $broker;
@@ -31,13 +37,15 @@ class PasswordController extends Controller
     private $dispatcher;
 
     public function __construct(
-        UserRepositoryInterface $repository,
-        PasswordBroker          $broker,
-        Hasher                  $hasher,
-        Dispatcher              $dispatcher
+        UserRepositoryInterface   $repository,
+        AuthMeRepositoryInterface $authMeRepository,
+        PasswordBroker            $broker,
+        Hasher                    $hasher,
+        Dispatcher                $dispatcher
     )
     {
         $this->repository = $repository;
+        $this->authMeRepository = $authMeRepository;
         $this->broker = $broker;
         $this->hasher = $hasher;
         $this->dispatcher = $dispatcher;
@@ -100,9 +108,14 @@ class PasswordController extends Controller
         $status = $this->broker->reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user, $password) {
-                $user = $this->repository->update($user->uuid, [
-                    'password' => $this->hasher->make($password)
+                $hash = $this->hasher->make($password);
+                $this->authMeRepository->update($user->uuid, [
+                    'password' => $hash
                 ]);
+                $user = $this->repository->update($user->uuid, [
+                    'password' => $hash
+                ]);
+
 
                 $this->dispatcher->dispatch(new PasswordReset($user));
             }

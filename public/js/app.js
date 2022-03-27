@@ -4529,8 +4529,8 @@ var Password = function Password(_ref) {
                   }));
                   advance();
                 }
-              })["catch"](function () {
-                setError('Password is incorrect');
+              })["catch"](function (e) {
+                setError(e.response.data);
               });
 
             case 3:
@@ -5543,7 +5543,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _elements_Form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../elements/Form */ "./resources/js/components/elements/Form.jsx");
 /* harmony import */ var _elements_Field__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../elements/Field */ "./resources/js/components/elements/Field.jsx");
 /* harmony import */ var _scripts_validate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../scripts/validate */ "./resources/js/scripts/validate.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -5571,18 +5570,17 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 var Email = function Email(_ref) {
   var load = _ref.load,
-      userData = _ref.userData,
       updateUser = _ref.updateUser,
       advance = _ref.advance;
-  var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useHistory)();
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
       error = _useState2[0],
       setError = _useState2[1];
+
+  var query = new URLSearchParams(window.location.search);
 
   function submit(_x) {
     return _submit.apply(this, arguments);
@@ -5631,7 +5629,7 @@ var Email = function Email(_ref) {
       children: "Nonverse Studios"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(formik__WEBPACK_IMPORTED_MODULE_2__.Formik, {
       initialValues: {
-        email: userData.email ? userData.email : ''
+        email: query.get('email')
       },
       onSubmit: function onSubmit(values) {
         submit(values);
@@ -5704,14 +5702,13 @@ var Name = function Name(_ref) {
   var load = _ref.load,
       user = _ref.user,
       updateUser = _ref.updateUser,
-      advance = _ref.advance,
-      back = _ref.back;
+      advance = _ref.advance;
 
   function previous() {
     load(true);
     setTimeout(function () {
       load(false);
-      back();
+      window.location.reload();
     }, 500);
   }
 
