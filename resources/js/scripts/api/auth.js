@@ -4,7 +4,7 @@ class auth {
     constructor() {
 
         // Auth URI
-        this.url = 'http://auth.nonverse.test/'
+        this.url = `http://${process.env.REACT_APP_URL}/`
 
         // Variables
         const query = new URLSearchParams(window.location.search)

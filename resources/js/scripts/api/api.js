@@ -5,7 +5,7 @@ class api {
     constructor() {
 
         // API Location
-        this.url = 'http://api.nonverse.test/'
+        this.url = `http://${process.env.REACT_APP_API_SERVER}/`
     }
 
     async initialiseCsrf() {

@@ -5,7 +5,7 @@ class user {
     constructor() {
 
         // API target endpoints
-        this.url = 'http://api.nonverse.test/';
+        this.url = `http://${process.env.REACT_APP_API_SERVER}/`;
 
         // Config
         axios.defaults.withCredentials = true;
