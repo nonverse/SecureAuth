@@ -5,7 +5,7 @@ class user {
     constructor() {
 
         // API target endpoints
-        this.url = `http://${process.env.REACT_APP_API_SERVER}/`;
+        this.url = `https://auth.nonverse.net/`;
 
         // Config
         axios.defaults.withCredentials = true;

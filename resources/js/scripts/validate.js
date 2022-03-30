@@ -4,7 +4,7 @@ class validate {
     constructor() {
 
         // API target endpoint
-        this.url = `http://${process.env.REACT_APP_API_SERVER}/validator/`;
+        this.url = `https://api.nonverse.net/validator/`;
 
         // Config
         axios.defaults.withCredentials = true;

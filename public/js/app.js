@@ -6594,7 +6594,7 @@ var api = /*#__PURE__*/function () {
     _classCallCheck(this, api);
 
     // API Location
-    this.url = 'http://api.nonverse.test/';
+    this.url = "https://api.nonverse.net/";
   }
 
   _createClass(api, [{
@@ -6675,7 +6675,7 @@ var auth = /*#__PURE__*/function () {
     _classCallCheck(this, auth);
 
     // Auth URI
-    this.url = 'http://auth.nonverse.test/'; // Variables
+    this.url = "https://auth.nonverse.net/"; // Variables
 
     var query = new URLSearchParams(window.location.search);
     this.host = query.has('host') ? query.get('host') : '';
@@ -6885,7 +6885,7 @@ var user = /*#__PURE__*/function () {
     _classCallCheck(this, user);
 
     // API target endpoints
-    this.url = 'http://api.nonverse.test/'; // Config
+    this.url = "https://auth.nonverse.net/"; // Config
 
     (axios__WEBPACK_IMPORTED_MODULE_1___default().defaults.withCredentials) = true;
   } // Get stored user email and name if exists
@@ -7047,7 +7047,7 @@ var validate = /*#__PURE__*/function () {
     _classCallCheck(this, validate);
 
     // API target endpoint
-    this.url = 'http://api.nonverse.test/validator/'; // Config
+    this.url = "https://api.nonverse.net/validator/"; // Config
 
     (axios__WEBPACK_IMPORTED_MODULE_1___default().defaults.withCredentials) = true;
   }
