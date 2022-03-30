@@ -32,7 +32,7 @@ class AbstractAuthenticationController extends Controller
     public function retrieveIntended($request): array
     {
         return array(
-            'host' => $request->input('host') ?: env('BASE_APP'),
+            'host' => $request->input('host') ?: env('MIX_BASE_APP'),
             'resource' => $request->input('resource') ?: ''
         );
 

@@ -4,7 +4,7 @@ class auth {
     constructor() {
 
         // Auth URI
-        this.url = `https://auth.nonverse.net/`
+        this.url = `http${process.env.MIX_DEV ? '' : 's'}://${process.env.MIX_AUTH_SERVER}/`
 
         // Variables
         const query = new URLSearchParams(window.location.search)

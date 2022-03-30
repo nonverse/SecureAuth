@@ -5,7 +5,7 @@ class api {
     constructor() {
 
         // API Location
-        this.url = `https://api.nonverse.net/`
+        this.url = `http${process.env.MIX_DEV ? '' : 's'}://${process.env.MIX_API_SERVER}/`
     }
 
     async initialiseCsrf() {

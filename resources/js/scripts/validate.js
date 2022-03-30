@@ -1,10 +1,11 @@
 import axios from "axios";
+import api from "./api/api";
 
 class validate {
     constructor() {
 
         // API target endpoint
-        this.url = `https://api.nonverse.net/validator/`;
+        this.url = `${api.url}validator`;
 
         // Config
         axios.defaults.withCredentials = true;
