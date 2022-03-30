@@ -6,6 +6,8 @@ import AuthRouter from "../Routers/AuthRouter";
 import LogoDark from "./elements/LogoDark";
 import api from "../scripts/api/api";
 import Loader from "./Loader";
+import {isMobile} from "react-device-detect";
+import NoMobile from "./NoMobile";
 
 function Index() {
 
@@ -17,14 +19,20 @@ function Index() {
     }, [])
 
     return (
-        <div className="fluid-container">
-            <div className="fluid">
-                <LogoDark/>
-                <AuthRouter load={setLoading} setInitialised={setInitialised}/>
-                {loading ? <FluidLoader/> : ''}
-            </div>
-            {initialised ? '' : <Loader/>}
-        </div>
+        <>
+            {isMobile ? (
+                <NoMobile/>
+            ) : (
+                <div className="fluid-container">
+                    <div className="fluid">
+                        <LogoDark/>
+                        <AuthRouter load={setLoading} setInitialised={setInitialised}/>
+                        {loading ? <FluidLoader/> : ''}
+                    </div>
+                    {initialised ? '' : <Loader/>}
+                </div>
+            )}
+        </>
     );
 }
 

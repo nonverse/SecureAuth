@@ -10215,3 +10215,33 @@ form .error {
   align-items: center;
   justify-content: center;
 }
+
+.page-block {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.page-block .error span {
+  font-size: 2rem;
+}
+.page-block .error .error-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.page-block .error .error-stack #under-construction {
+  font-size: 1.25rem;
+  opacity: 0.5;
+  margin-top: 3%;
+}
+
+.no-mobile {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+}
