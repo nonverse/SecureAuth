@@ -30,8 +30,8 @@ class AuthenticationController extends AbstractAuthenticationController
     private $encrypter;
 
     public function __construct(
-        UserRepositoryInterface $repository,
-        Encrypter               $encrypter,
+        UserRepositoryInterface      $repository,
+        Encrypter                    $encrypter,
         FrontEndTokenCreationService $tokenCreationService
     )
     {
@@ -74,6 +74,13 @@ class AuthenticationController extends AbstractAuthenticationController
         }
 
         if ($user->use_totp) {
+
+            // Skip 2FA if user was timed out of previous session
+            $uuid = $request->cookie('uuid');
+            if ($uuid === $user->uuid) {
+                return $this->sendLoginSuccessResponse($request, $user);
+            }
+
             $token = Str::random(64);
 
             $request->session()->put('two_factor_token', [
@@ -112,7 +119,8 @@ class AuthenticationController extends AbstractAuthenticationController
      * @param Request $request
      * @return bool|Application|ResponseFactory|Response|null
      */
-    public function revokeAllAuthentication(Request $request) {
+    public function revokeAllAuthentication(Request $request)
+    {
 
         if (!Hash::check($request->input('password'), $request->user()->password)) {
             return response('Invalid password', 401);
