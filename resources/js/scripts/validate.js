@@ -5,7 +5,7 @@ class validate {
     constructor() {
 
         // API target endpoint
-        this.url = `${api.url}validator`;
+        this.url = `${api.url}validator/`;
 
         // Config
         axios.defaults.withCredentials = true;
