@@ -51,7 +51,7 @@ class AbstractAuthenticationController extends Controller
         $request->session()->regenerate();
 
         $intended = $this->retrieveIntended($request);
-        $cookie = cookie('uuid', $user->uuid, 2628000);
+        $cookie = cookie('uuid', $user->uuid, 43800);
 //        $token = $this->tokenCreationService->handle($user);
 //
 //        if (!$token) {
