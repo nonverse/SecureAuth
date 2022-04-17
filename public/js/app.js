@@ -6726,7 +6726,7 @@ var api = /*#__PURE__*/function () {
     _classCallCheck(this, api);
 
     // API Location
-    this.url = "http".concat( true ? '' : 0, "://").concat("api.nonverse.test", "/");
+    this.url = "".concat( true ? 'http' : 0, "://").concat("api.nonverse.test", "/");
   }
 
   _createClass(api, [{
@@ -6807,7 +6807,7 @@ var auth = /*#__PURE__*/function () {
     _classCallCheck(this, auth);
 
     // Auth URI
-    this.url = "http".concat( true ? '' : 0, "://").concat("auth.nonverse.test", "/"); // Variables
+    this.url = "".concat( true ? 'http' : 0, "://").concat("auth.nonverse.test", "/"); // Variables
 
     var query = new URLSearchParams(window.location.search);
     this.host = query.has('host') ? query.get('host') : '';
@@ -6997,7 +6997,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./auth */ "./resources/js/scripts/api/auth.js");
-/* provided dependency */ var process = __webpack_require__(/*! process/browser.js */ "./node_modules/process/browser.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -7018,7 +7017,7 @@ var user = /*#__PURE__*/function () {
     _classCallCheck(this, user);
 
     // API target endpoints
-    this.url = "http".concat( true ? '' : 0, "://").concat(process.env.MIX_API_SERVER, "/"); // Config
+    this.url = "".concat( true ? 'http' : 0, "://").concat("api.nonverse.test", "/"); // Config
 
     (axios__WEBPACK_IMPORTED_MODULE_1___default().defaults.withCredentials) = true;
   } // Get stored user email and name if exists
@@ -7182,7 +7181,7 @@ var validate = /*#__PURE__*/function () {
     _classCallCheck(this, validate);
 
     // API target endpoint
-    this.url = "".concat(_api_api__WEBPACK_IMPORTED_MODULE_2__["default"].url, "validator"); // Config
+    this.url = "".concat(_api_api__WEBPACK_IMPORTED_MODULE_2__["default"].url, "validator/"); // Config
 
     (axios__WEBPACK_IMPORTED_MODULE_1___default().defaults.withCredentials) = true;
   }

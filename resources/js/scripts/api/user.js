@@ -5,7 +5,7 @@ class user {
     constructor() {
 
         // API target endpoints
-        this.url = `http${process.env.MIX_DEV ? '' : 's'}://${process.env.MIX_API_SERVER}/`;
+        this.url = `${(process.env.MIX_DEV === 'true') ? 'http' : 'https'}://${process.env.MIX_API_SERVER}/`;
 
         // Config
         axios.defaults.withCredentials = true;
