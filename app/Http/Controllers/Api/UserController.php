@@ -14,26 +14,6 @@ use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
-
-    /**
-     * @var UserRepositoryInterface
-     */
-    private $repository;
-
-    /**
-     * @var Encrypter
-     */
-    private $encrypter;
-
-    public function __construct(
-        UserRepositoryInterface $repository,
-        Encrypter $encrypter
-    )
-    {
-        $this->repository = $repository;
-        $this->encrypter = $encrypter;
-    }
-
     /**
      * Return the UUID of the currently authenticated user
      *
@@ -48,7 +28,6 @@ class UserController extends Controller
             'data' => [
                 'authenticated' => true,
                 'uuid' => $user->uuid,
-                //'api_token' => $this->encrypter->decryptString($user->api_encryption)
             ]
         ]);
     }

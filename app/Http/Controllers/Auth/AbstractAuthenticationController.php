@@ -4,25 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Services\Api\FrontEndTokenCreationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AbstractAuthenticationController extends Controller
 {
-    /**
-     * @var FrontEndTokenCreationService
-     */
-    private $tokenCreationService;
-
-    public function __construct(
-        FrontEndTokenCreationService $tokenCreationService
-    )
-    {
-        $this->tokenCreationService = $tokenCreationService;
-    }
-
     /**
      * Retrieve the intended target URI following login
      *
@@ -52,13 +39,6 @@ class AbstractAuthenticationController extends Controller
 
         $intended = $this->retrieveIntended($request);
         $cookie = cookie('uuid', $user->uuid, 43800);
-//        $token = $this->tokenCreationService->handle($user);
-//
-//        if (!$token) {
-//            return response()->json([
-//                'complete' => false
-//            ]);
-//        }
 
         Auth::login($user, $request->input('remember'));
 

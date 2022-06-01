@@ -14,4 +14,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 // First party front end API authentication
-Route::post('/authenticate', [\App\Http\Controllers\Api\FirstPartyTokenController::class, 'verify']);
+
