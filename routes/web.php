@@ -13,14 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
-Route::group(['middleware' => 'guest'], function() {
-    Route::get('/', function () {return view('app');});
-    Route::get('/login', function() {return view('app');});
-    Route::get('/register', function() {return view('app');});
-    Route::get('/logout', function() {return abort(404);});
-
-    Route::get('/forgot', function() {return view('app');});
-    Route::get('/reset', function() {return view('app');}) ->middleware('token.reset');
+Route::get('/', function () {
+    return view('welcome');
 });

@@ -5,13 +5,15 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| CORS and auth protected user API routes
-| These routes can only be access by apps on the .nonverse.net domain by
-| a session authenticated user
+| API Routes
 |--------------------------------------------------------------------------
-| Endpoint: /api
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
 |
 */
 
-// First party front end API authentication
-
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
