@@ -1,0 +1,13 @@
+.fluid-container {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    top: 50%;
+    transform: translateY(-50%);
+    height: min-content;
+    padding-left: 4vw;
+    .fluid {
+        display: flex;
+        flex-direction: column;
+    }
+}
