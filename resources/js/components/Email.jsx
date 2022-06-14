@@ -2,11 +2,8 @@ import {Formik} from "formik";
 import Form from "./elements/Form";
 import Field from "./elements/Field";
 import validate from "../../scripts/validate";
-import {useState} from "react";
 
-const Email = () => {
-
-    const [user, setUser] = useState({})
+const Email = ({setUser}) => {
 
     async function submit(values) {
         setUser({
