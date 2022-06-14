@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Logo from "./elements/Logo";
 
 function Index() {
     return (
         <div className="container">
-            <h1>Hello</h1>
+            <Logo color={"#333344"}/>
         </div>
     );
 }
