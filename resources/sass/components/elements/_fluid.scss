@@ -14,5 +14,19 @@
                 width: 20vw;
             }
         }
+        .fluid-text {
+            margin-bottom: 3vh;
+            width: max-content;
+            span {
+                color: $font-color;
+            }
+            h1 {
+                font-weight: normal;
+                color: $font-color;
+            }
+            .link-button {
+                float: right;
+            }
+        }
     }
 }

@@ -10,3 +10,10 @@
         opacity: .8;
     }
 }
+
+.link-button {
+    cursor: pointer;
+    &:hover {
+        color: $splash !important;
+    }
+}
