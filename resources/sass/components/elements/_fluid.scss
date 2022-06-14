@@ -9,5 +9,10 @@
     .fluid {
         display: flex;
         flex-direction: column;
+        form {
+            input {
+                width: 20vw;
+            }
+        }
     }
 }
