@@ -1,0 +1,12 @@
+.button {
+    background-color: $splash;
+    border: none;
+    outline: none;
+    color: $main;
+    padding: .3em .5em;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+        opacity: .8;
+    }
+}
