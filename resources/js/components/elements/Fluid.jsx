@@ -1,11 +1,18 @@
+import {Outlet} from "react-router-dom";
+import {motion} from "framer-motion";
+
 const Fluid = () => {
 
     return (
-        <div className="fluid-container">
+        <motion.div className="fluid-container"
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    transition={{duration: .5}}
+        >
             <div className="fluid">
-
+                <Outlet/>
             </div>
-        </div>
+        </motion.div>
     )
 }
 
