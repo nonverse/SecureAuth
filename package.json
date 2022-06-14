@@ -26,6 +26,7 @@
         "sass-loader": "^11.0.1"
     },
     "dependencies": {
+        "formik": "^2.2.9",
         "framer-motion": "^6.3.11",
         "react-router-dom": "^6.3.0"
     }
