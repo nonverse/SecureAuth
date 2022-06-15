@@ -1,8 +1,6 @@
-import react from "react";
+const LinkButton = ({children, action}) => (
 
-const LinkButton = ({children}) => (
-
-    <span className="link link-button">
+    <span className="link link-button" onClick={() => {action()}}>
         {children}
     </span>
 )
