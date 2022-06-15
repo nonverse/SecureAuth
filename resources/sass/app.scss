@@ -17,6 +17,10 @@
     }
 }
 
+.action-cover {
+    pointer-events: none;
+}
+
 // Components
 @import "components/elements/fluid";
 @import "components/elements/buttons";
