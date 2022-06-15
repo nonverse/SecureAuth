@@ -13,6 +13,7 @@
             height: 3vh;
             font-size: 1.5rem;
             border-bottom: solid 3px $splash;
+            margin-bottom: 5%;
         }
 
         .field-error {
@@ -21,8 +22,14 @@
         }
 
         .button {
-            margin-top: 3%;
+            margin-top: -2%;
             float: right;
+        }
+
+        .link-button {
+            margin-top: -3%;
+            float: right;
+            margin-left: auto;
         }
     }
 
