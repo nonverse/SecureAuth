@@ -17,7 +17,7 @@ const Username = ({user, setUser, advance}) => {
         <>
             <div className="fluid-text">
                 <span>Hello</span>
-                <h1>{`${user.first_name} ${user.last_name}`}</h1>
+                <h1>{`${user.name_first} ${user.name_last}`}</h1>
                 <LinkButton action={() => {
                     advance(1)
                 }}>Back</LinkButton>

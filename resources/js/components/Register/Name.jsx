@@ -12,8 +12,8 @@ const Name = ({user, setUser, advance}) => {
     async function submit(values) {
         setUser({
             ...user,
-            first_name: values.first_name,
-            last_name: values.last_name
+            name_first: values.name_first,
+            name_last: values.name_last
         })
     }
 
@@ -27,15 +27,15 @@ const Name = ({user, setUser, advance}) => {
                 }}>Use a different email</LinkButton>
             </div>
             <Formik initialValues={{
-                first_name: '',
-                last_name: ''
+                name_first: '',
+                name_last: ''
             }} onSubmit={(values) => {
                 submit(values)
             }}>
                 {({errors}) => (
                     <Form cta={"Continue"}>
                         <Field name={"name_first"} placeholder={"What's your first name"} error={errors.first_name} validate={validate.require}/>
-                        <Field name={"name_lasts"} placeholder={"...and your surname"} error={errors.last_name} validate={validate.require}/>
+                        <Field name={"name_last"} placeholder={"...and your surname"} error={errors.last_name} validate={validate.require}/>
                     </Form>
                 )}
             </Formik>
