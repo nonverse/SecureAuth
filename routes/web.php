@@ -13,5 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/{path?}', 'app')
-    ->where('path', '.*');
+//Route::view('/{path?}', 'app')
+//    ->where('path', '.*');
+
+Route::view('/', 'app');
+Route::view('/login', 'app');
+Route::view('/register', 'app');
