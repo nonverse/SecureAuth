@@ -3,7 +3,7 @@ import Form from "../elements/Form";
 import Field from "../elements/Field";
 import validate from "../../../scripts/validate";
 
-const Confirm = ({user, setUser}) => {
+const Confirm = ({user, setUser, advance}) => {
 
     async function submit(values) {
         setUser({
@@ -30,10 +30,10 @@ const Confirm = ({user, setUser}) => {
                             <Field name={"email_display"} label={"Email"} value={"isuru2003a@gmail.com"}/>
                         </div>
                         <Field change={() => {
-                            //
+                            advance(1)
                         }} name={"name_display"} label={"Name"} value={"Isuru Abhayaratne"}/>
                         <Field change={() => {
-                            //
+                           advance(2)
                         }} name={"username_display"} label={"Username"} value={"IsuruA"}/>
                         <br/>
                         <Field password name={"password"} placeholder={"Set a password"} error={errors.password}

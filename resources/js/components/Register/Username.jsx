@@ -4,7 +4,7 @@ import Form from "../elements/Form";
 import Field from "../elements/Field";
 import validate from "../../../scripts/validate";
 
-const Username = (user, setUser) => {
+const Username = ({user, setUser, advance}) => {
 
     async function submit(values) {
         setUser({
@@ -18,7 +18,9 @@ const Username = (user, setUser) => {
             <div className="fluid-text">
                 <span>Hello</span>
                 <h1>{`${user.first_name} ${user.last_name}`}</h1>
-                <LinkButton>Back</LinkButton>
+                <LinkButton action={() => {
+                    advance(1)
+                }}>Back</LinkButton>
             </div>
             <Formik initialValues={{
                 username: ''

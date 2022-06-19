@@ -6,7 +6,7 @@ import Confirm from "./Confirm";
 
 const Register = ({user, setUser}) => {
 
-    const [state, setState] = useState(0)
+    const [state, setState] = useState(1)
 
     function advance(target) {
         if (!target) {
@@ -20,9 +20,9 @@ const Register = ({user, setUser}) => {
         <ProgressiveForm
             state={state}
             forms={{
-                0: <Name user={user} setUser={setUser} advance={advance}/>,
-                1: <Username user={user} setUser={setUser} advance={advance}/>,
-                2: <Confirm user={user} setUser={setUser} advance={advance}/>,
+                1: <Name user={user} setUser={setUser} advance={advance}/>,
+                2: <Username user={user} setUser={setUser} advance={advance}/>,
+                3: <Confirm user={user} setUser={setUser} advance={advance}/>,
             }}
         />
     )

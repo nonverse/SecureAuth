@@ -5,7 +5,7 @@ import TwoFactor from "./TwoFactor";
 
 const Login = ({user, setUser}) => {
 
-    const [state, setState] = useState(0)
+    const [state, setState] = useState(1)
 
     function advance(target) {
         if (!target) {
@@ -19,8 +19,8 @@ const Login = ({user, setUser}) => {
         <ProgressiveForm
             state={state}
             forms={{
-                0: <Password user={user} setUser={setUser} advance={advance}/>,
-                1: <TwoFactor user={user} setUser={setUser}/>
+                1: <Password user={user} setUser={setUser} advance={advance}/>,
+                2: <TwoFactor user={user} setUser={setUser}/>
             }}
         />
     )

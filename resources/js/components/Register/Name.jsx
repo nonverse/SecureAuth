@@ -3,8 +3,11 @@ import {Formik} from "formik";
 import Field from "../elements/Field";
 import Form from "../elements/Form";
 import validate from "../../../scripts/validate";
+import {useNavigate} from "react-router-dom";
 
-const Name = ({user, setUser}) => {
+const Name = ({user, setUser, advance}) => {
+
+    const navigate = useNavigate()
 
     async function submit(values) {
         setUser({
@@ -19,7 +22,9 @@ const Name = ({user, setUser}) => {
             <div className="fluid-text">
                 <span>Hello</span>
                 <h1>Looks like you're new here!</h1>
-                <LinkButton>Use a different email</LinkButton>
+                <LinkButton action={() => {
+                    navigate('/')
+                }}>Use a different email</LinkButton>
             </div>
             <Formik initialValues={{
                 first_name: '',
