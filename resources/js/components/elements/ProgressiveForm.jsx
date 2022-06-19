@@ -1,7 +1,11 @@
 const ProgressiveForm = ({state, forms}) => {
 
     let form
-    form = forms[state]
+    if (forms[state]) {
+        form = forms[state]
+    } else {
+        form = "Form not found"
+    }
 
     return (form)
 }
