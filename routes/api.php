@@ -19,3 +19,4 @@ use Illuminate\Support\Facades\Route;
  */
 Route::post('initialize-email', [\App\Http\Controllers\User\UserController::class, 'email']);
 Route::get('user-cookie', [\App\Http\Controllers\User\UserController::class, 'cookie']);
+Route::delete('user-cookie', [\App\Http\Controllers\User\UserController::class, 'clearCookie']);

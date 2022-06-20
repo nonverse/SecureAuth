@@ -73,9 +73,8 @@ class UserController extends Controller
      * @param Request $request
      * @return JsonResponse|Response
      */
-    public function cookie(Request $request): Response|JsonResponse
+    public function getCookie(Request $request): Response|JsonResponse
     {
-
         if (!$request->cookie('user')) {
             return response('No user cookie found', 404);
         }
@@ -90,5 +89,15 @@ class UserController extends Controller
                 'name_last' => $user->name_last,
             ]
         ]);
+    }
+
+    /**
+     * Clear user browser cookie
+     *
+     * @return Response
+     */
+    public function clearCookie(): Response
+    {
+        return response('User cookie cleared')->withoutCookie('user');
     }
 }
