@@ -18,3 +18,4 @@ use Illuminate\Support\Facades\Route;
  * Verify a pre-login email request from client
  */
 Route::post('initialize-email', [\App\Http\Controllers\User\UserController::class, 'email']);
+Route::get('user-cookie', [\App\Http\Controllers\User\UserController::class, 'cookie']);
