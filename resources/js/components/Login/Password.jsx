@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import {auth} from "../../../scripts/api/auth";
 
-const Password = ({user, setUser, setInitialized,advance}) => {
+const Password = ({user, setUser, setInitialized, advance}) => {
 
     const navigate = useNavigate()
 
@@ -40,8 +40,13 @@ const Password = ({user, setUser, setInitialized,advance}) => {
             <div className="fluid-text">
                 <span>Welcome back</span>
                 <h1>{`${user.name_first} ${user.name_last}`}</h1>
-                <LinkButton action={() => {
-                    navigate('/')
+                <LinkButton action={async () => {
+                    await auth.post('api/user-cookie', {
+                        _method: 'delete'
+                    })
+                        .then(() => {
+                            navigate('/')
+                        })
                 }}>Not You?</LinkButton>
             </div>
             <Formik initialValues={{
@@ -51,7 +56,8 @@ const Password = ({user, setUser, setInitialized,advance}) => {
             }}>
                 {({errors}) => (
                     <Form>
-                        <Field password name={"password"} placeholder={"Enter Your Password"} error={errors.password} validate={validate.require}/>
+                        <Field password name={"password"} placeholder={"Enter Your Password"} error={errors.password}
+                               validate={validate.require}/>
                     </Form>
                 )}
             </Formik>
