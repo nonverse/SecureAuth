@@ -4,10 +4,15 @@ import Field from "./elements/Field";
 import validate from "../../scripts/validate";
 import {useNavigate} from "react-router-dom";
 import {auth} from "../../scripts/api/auth";
+import {useEffect} from "react";
 
-const Email = ({setUser}) => {
+const Email = ({setUser, setInitialized}) => {
 
     const navigate = useNavigate()
+
+    useEffect(() => {
+        setInitialized(true)
+    })
 
     async function submit(values) {
 

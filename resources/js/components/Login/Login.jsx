@@ -3,7 +3,7 @@ import ProgressiveForm from "../elements/ProgressiveForm";
 import Password from "./Password";
 import TwoFactor from "./TwoFactor";
 
-const Login = ({user, setUser}) => {
+const Login = ({user, setUser, setInitialized}) => {
 
     const [state, setState] = useState(1)
 
@@ -19,7 +19,7 @@ const Login = ({user, setUser}) => {
         <ProgressiveForm
             state={state}
             forms={{
-                1: <Password user={user} setUser={setUser} advance={advance}/>,
+                1: <Password user={user} setUser={setUser} setInitialized={setInitialized} advance={advance}/>,
                 2: <TwoFactor user={user} setUser={setUser}/>
             }}
         />

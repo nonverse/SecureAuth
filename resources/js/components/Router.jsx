@@ -6,7 +6,7 @@ import {useState} from "react";
 import Login from "./Login/Login";
 import Register from "./Register/Register";
 
-const Router = () => {
+const Router = ({setInitialized}) => {
 
     const [user, setUser] = useState({})
     const location = useLocation()
@@ -15,8 +15,8 @@ const Router = () => {
         <AnimatePresence exitBeforeEnter>
             <Routes location={location} key={location.pathname}>
                 <Route path={'/'} element={<Fluid/>}>
-                    <Route exact path={'/'} element={<Email setUser={setUser}/>}/>
-                    <Route path={'/login'} element={<Login user={user} setUser={setUser}/>}/>
+                    <Route exact path={'/'} element={<Email setUser={setUser} setInitialized={setInitialized}/>}/>
+                    <Route path={'/login'} element={<Login user={user} setUser={setUser} setInitialized={setInitialized}/>}/>
                     <Route path={'/register'} element={<Register user={user} setUser={setUser}/>}/>
                 </Route>
             </Routes>
