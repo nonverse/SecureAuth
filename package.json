@@ -28,6 +28,7 @@
     "dependencies": {
         "formik": "^2.2.9",
         "framer-motion": "^6.3.11",
-        "react-router-dom": "^6.3.0"
+        "react-router-dom": "^6.3.0",
+        "react-spinners": "^0.12.0"
     }
 }
