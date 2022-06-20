@@ -20,7 +20,7 @@ const Password = ({user, setUser, advance}) => {
         <>
             <div className="fluid-text">
                 <span>Welcome back</span>
-                <h1>Isuru Abhayaratne</h1>
+                <h1>{`${user.name_first} ${user.name_last}`}</h1>
                 <LinkButton action={() => {
                     navigate('/')
                 }}>Not You?</LinkButton>
