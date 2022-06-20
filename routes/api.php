@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+/*
+ * Verify a pre-login email request from client
+ */
+Route::post('initialize-email', [\App\Http\Controllers\User\UserController::class, 'email']);
