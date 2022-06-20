@@ -10,7 +10,7 @@ interface UserRepositoryInterface
      * Get a specific user by UUID or Email
      *
      * @param $uuid
-     * @return User
+     * @return User|null
      */
-    public function get($uuid): User;
+    public function get($uuid): mixed;
 }
