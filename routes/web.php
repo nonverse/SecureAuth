@@ -17,5 +17,5 @@ use Illuminate\Support\Facades\Route;
 //    ->where('path', '.*');
 
 Route::view('/', 'app');
-Route::view('/login', 'app');
+Route::view('/login', 'app')->middleware('usercookie');
 Route::view('/register', 'app');
