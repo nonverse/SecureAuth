@@ -14,9 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 /*
- * Verify a pre-login email request from client
+ * Initialize a user's email
  */
 Route::post('initialize-email', [\App\Http\Controllers\User\UserController::class, 'email']);
-Route::get('user-cookie', [\App\Http\Controllers\User\UserController::class, 'cookie']);
+/*
+ * Get the decrypted value of user cookie
+ */
+Route::get('user-cookie', [\App\Http\Controllers\User\UserController::class, 'getCookie']);
+/*
+ * Clear user cookie
+ */
 Route::delete('user-cookie', [\App\Http\Controllers\User\UserController::class, 'clearCookie']);
