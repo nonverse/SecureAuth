@@ -14,7 +14,7 @@ class UserController extends Controller
     /**
      * @var UserRepositoryInterface
      */
-    private $repository;
+    private UserRepositoryInterface $repository;
 
     public function __construct(
         UserRepositoryInterface $repository
@@ -35,12 +35,11 @@ class UserController extends Controller
             'email' => 'required|email'
         ]);
 
-        try {
-            /*
-             * Check if a user account exists with the requested email
-             */
-            $user = $this->repository->get($request->input('email'));
-        } catch (ModelNotFoundException $e) {
+        /*
+         * Attempt to get the user associated with the requested email
+         */
+        $user = $this->repository->get($request->input('email'));
+        if (!$user) {
             /*
              * If an account is not found, return HTTP error 404
              */
