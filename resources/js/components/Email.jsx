@@ -3,16 +3,33 @@ import Form from "./elements/Form";
 import Field from "./elements/Field";
 import validate from "../../scripts/validate";
 import {useNavigate} from "react-router-dom";
+import {auth} from "../../scripts/api/auth";
 
 const Email = ({setUser}) => {
 
     const navigate = useNavigate()
 
     async function submit(values) {
-        setUser({
+
+        await auth.post('api/initialize-email', {
             email: values.email
         })
-        navigate('login')
+            .then(response => {
+                setUser({
+                    uuid: response.data.data.uuid,
+                    email: values.email,
+                    name_first: response.data.data.name_first,
+                    name_last: response.data.data.name_last
+                })
+                navigate('login')
+            })
+            .catch(() => {
+                setUser({
+                    email: values.email
+                })
+                navigate('register')
+            })
+
     }
 
     return (
