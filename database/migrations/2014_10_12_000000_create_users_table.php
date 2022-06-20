@@ -15,16 +15,16 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->uuid();
-            $table->string('username');
+            $table->uuid()->unique();
+            $table->string('username')->unique();
             $table->string('name_first');
             $table->string('name_last');
             $table->string('email')->unique();
             $table->string('password');
-            $table->boolean('admin');
-            $table->boolean('use_totp');
-            $table->string('totp_secret');
-            $table->string('violations');
+            $table->boolean('admin')->default(0);
+            $table->boolean('use_totp')->default(0);
+            $table->string('totp_secret')->nullable();
+            $table->string('violations')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('totp_authenticated_at')->nullable();
             $table->timestamp('violation_ends_at')->nullable();
