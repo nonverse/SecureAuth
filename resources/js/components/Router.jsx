@@ -17,7 +17,7 @@ const Router = ({setInitialized}) => {
                 <Route path={'/'} element={<Fluid/>}>
                     <Route exact path={'/'} element={<Email setUser={setUser} setInitialized={setInitialized}/>}/>
                     <Route path={'/login'} element={<Login user={user} setUser={setUser} setInitialized={setInitialized}/>}/>
-                    <Route path={'/register'} element={<Register user={user} setUser={setUser}/>}/>
+                    <Route path={'/register'} element={<Register user={user} setUser={setUser} setInitialized={setInitialized}/>}/>
                 </Route>
             </Routes>
         </AnimatePresence>

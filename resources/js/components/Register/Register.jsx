@@ -1,12 +1,22 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import ProgressiveForm from "../elements/ProgressiveForm";
 import Name from "./Name";
 import Username from "./Username";
 import Confirm from "./Confirm";
+import {useNavigate} from "react-router-dom";
 
-const Register = ({user, setUser}) => {
+const Register = ({user, setUser, setInitialized}) => {
 
     const [state, setState] = useState(1)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!user.email) {
+            navigate('/')
+        } else {
+            setInitialized(true)
+        }
+    }, [])
 
     function advance(target) {
         if (!target) {
