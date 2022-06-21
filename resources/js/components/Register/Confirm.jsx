@@ -27,14 +27,14 @@ const Confirm = ({user, setUser, advance}) => {
                 {({errors, values}) => (
                     <Form>
                         <div className="op-05 action-cover">
-                            <Field name={"email_display"} label={"Email"} value={"isuru2003a@gmail.com"}/>
+                            <Field name={"email_display"} label={"Email"} value={user.email}/>
                         </div>
                         <Field change={() => {
                             advance(1)
-                        }} name={"name_display"} label={"Name"} value={"Isuru Abhayaratne"}/>
+                        }} name={"name_display"} label={"Name"} value={`${user.name_first} ${user.name_last}`}/>
                         <Field change={() => {
                            advance(2)
-                        }} name={"username_display"} label={"Username"} value={"IsuruA"}/>
+                        }} name={"username_display"} label={"Username"} value={user.username}/>
                         <br/>
                         <Field password name={"password"} placeholder={"Set a password"} error={errors.password}
                                validate={value =>
