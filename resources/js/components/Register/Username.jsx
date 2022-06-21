@@ -11,6 +11,7 @@ const Username = ({user, setUser, advance}) => {
             ...user,
             username: values.username
         })
+        advance()
     }
 
     return (

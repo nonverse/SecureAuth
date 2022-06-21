@@ -1,19 +1,18 @@
 import LinkButton from "../elements/LinkButton";
-import {Formik} from "formik";
-import Field from "../elements/Field";
-import Form from "../elements/Form";
-import validate from "../../../scripts/validate";
 import {useNavigate} from "react-router-dom";
+import {Formik} from "formik";
+import Form from "../elements/Form";
+import Field from "../elements/Field";
+import validate from "../../../scripts/validate";
 
-const Name = ({user, setUser, advance}) => {
+const Activate = ({user, setUser, advance}) => {
 
     const navigate = useNavigate()
 
     async function submit(values) {
         setUser({
             ...user,
-            name_first: values.name_first,
-            name_last: values.name_last
+            activation_key: values.activation_key
         })
         advance()
     }
@@ -21,22 +20,20 @@ const Name = ({user, setUser, advance}) => {
     return (
         <>
             <div className="fluid-text">
-                <span>Welcome To Nonverse</span>
-                <h1>Let's get your account ready</h1>
+                <span>Hello</span>
+                <h1>Looks like you're new here!</h1>
                 <LinkButton action={() => {
                     navigate('/')
                 }}>Use a different email</LinkButton>
             </div>
             <Formik initialValues={{
-                name_first: '',
-                name_last: ''
+                activation_key: '',
             }} onSubmit={(values) => {
                 submit(values)
             }}>
                 {({errors}) => (
                     <Form cta={"Continue"}>
-                        <Field name={"name_first"} placeholder={"What's your first name"} error={errors.first_name} validate={validate.require}/>
-                        <Field name={"name_last"} placeholder={"...and your surname"} error={errors.last_name} validate={validate.require}/>
+                        <Field name={"activation_key"} placeholder={"Enter your activation key"} error={errors.activation_key} validate={validate.require}/>
                     </Form>
                 )}
             </Formik>
@@ -44,4 +41,4 @@ const Name = ({user, setUser, advance}) => {
     )
 }
 
-export default Name;
+export default Activate;

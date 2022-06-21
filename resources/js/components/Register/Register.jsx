@@ -4,6 +4,7 @@ import Name from "./Name";
 import Username from "./Username";
 import Confirm from "./Confirm";
 import {useNavigate} from "react-router-dom";
+import Activate from "./Activate";
 
 const Register = ({user, setUser, setInitialized}) => {
 
@@ -11,11 +12,7 @@ const Register = ({user, setUser, setInitialized}) => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!user.email) {
-            navigate('/')
-        } else {
-            setInitialized(true)
-        }
+        setInitialized(true)
     }, [])
 
     function advance(target) {
@@ -30,9 +27,10 @@ const Register = ({user, setUser, setInitialized}) => {
         <ProgressiveForm
             state={state}
             forms={{
-                1: <Name user={user} setUser={setUser} advance={advance}/>,
-                2: <Username user={user} setUser={setUser} advance={advance}/>,
-                3: <Confirm user={user} setUser={setUser} advance={advance}/>,
+                1: <Activate user={user} setUser={setUser} advance={advance}/>,
+                2: <Name user={user} setUser={setUser} advance={advance}/>,
+                3: <Username user={user} setUser={setUser} advance={advance}/>,
+                4: <Confirm user={user} setUser={setUser} advance={advance}/>,
             }}
         />
     )
