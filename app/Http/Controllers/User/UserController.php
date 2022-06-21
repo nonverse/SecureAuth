@@ -36,7 +36,6 @@ class UserController extends Controller
 
         return new JsonResponse([
             'data' => [
-                'authenticated' => true,
                 'uuid' => $request->user()->uuid
             ]
         ]);

@@ -20,7 +20,7 @@ const Password = ({user, setUser, setInitialized, advance}) => {
 
     useEffect(async () => {
         if (!user.uuid) {
-            await auth.get('api/user-cookie')
+            await auth.get('api/user/cookie')
                 .then(response => {
                     setUser({
                         uuid: response.data.data.uuid,
@@ -41,7 +41,7 @@ const Password = ({user, setUser, setInitialized, advance}) => {
                 <span>Welcome back</span>
                 <h1>{`${user.name_first} ${user.name_last}`}</h1>
                 <LinkButton action={async () => {
-                    await auth.post('api/user-cookie', {
+                    await auth.post('api/user/cookie', {
                         _method: 'delete'
                     })
                         .then(() => {

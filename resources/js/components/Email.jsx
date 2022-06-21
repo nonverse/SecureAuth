@@ -16,7 +16,7 @@ const Email = ({setUser, setInitialized}) => {
 
     async function submit(values) {
 
-        await auth.post('api/initialize-email', {
+        await auth.post('api/user/initialize', {
             email: values.email
         })
             .then(response => {
