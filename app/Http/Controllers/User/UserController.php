@@ -23,6 +23,26 @@ class UserController extends Controller
     }
 
     /**
+     * Return the UUID of the currently logged in user
+     *
+     * @param Request $request
+     * @return Response|JsonResponse
+     */
+    public function get(Request $request): Response|JsonResponse
+    {
+        if (!$request->user()) {
+            return response('No authenticated user found', 401);
+        }
+
+        return new JsonResponse([
+            'data' => [
+                'authenticated' => true,
+                'uuid' => $request->user()->uuid
+            ]
+        ]);
+    }
+
+    /**
      * Check if the email requested is associated with an user account
      *
      * @param Request $request
