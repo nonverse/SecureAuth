@@ -65,15 +65,6 @@ class UserController extends Controller
         }
 
         /*
-         * Create an unauthenticated browser cookie containing the user's UUID
-         * This cookie expires in 5 minutes
-         */
-        $cookie = cookie('user', json_encode([
-            'uuid' => $user->uuid,
-            'has_authed' => false
-        ]), 5);
-
-        /*
          * If an account is found, return the user's UUID,
          * first name and last name
          */
@@ -83,7 +74,7 @@ class UserController extends Controller
                 'name_first' => $user->name_first,
                 'name_last' => $user->name_last,
             ]
-        ])->withCookie($cookie);
+        ]);
     }
 
     /**
