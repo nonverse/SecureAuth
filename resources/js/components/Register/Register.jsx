@@ -12,8 +12,12 @@ const Register = ({user, setUser, setInitialized}) => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        setInitialized(true)
-    }, [])
+        if (!user.email) {
+            navigate('/')
+        } else {
+            setInitialized(true)
+        }
+    })
 
     function advance(target) {
         if (!target) {
