@@ -4,6 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Contracts\Repository\UserRepositoryInterface;
 use App\Http\Controllers\Controller;
+use App\Services\User\UserCreationService;
+use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,11 +17,18 @@ class UserController extends Controller
      */
     private UserRepositoryInterface $repository;
 
+    /**
+     * @var UserCreationService
+     */
+    private UserCreationService $creationService;
+
     public function __construct(
-        UserRepositoryInterface $repository
+        UserRepositoryInterface $repository,
+        UserCreationService $creationService
     )
     {
         $this->repository = $repository;
+        $this->creationService = $creationService;
     }
 
     /**
@@ -39,6 +48,27 @@ class UserController extends Controller
                 'uuid' => $request->user()->uuid
             ]
         ]);
+    }
+
+    /**
+     *
+     * Request new user registration from API
+     *
+     * @param Request $request
+     * @return PromiseInterface|\Illuminate\Http\Client\Response
+     */
+    public function store(Request $request): PromiseInterface|\Illuminate\Http\Client\Response
+    {
+        $request->validate([
+            'email' => 'required|email|unique:users,email',
+            'username' => 'required|unique:users,username',
+            'name_first' => 'required',
+            'name_last' => 'required',
+            'password' => 'required|min:8|confirmed',
+            'activation_key' => 'required'
+        ]);
+
+        return $this->creationService->handle($request->all());
     }
 
     /**
