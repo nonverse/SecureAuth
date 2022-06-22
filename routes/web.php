@@ -21,10 +21,14 @@ Route::view('/', 'app')->middleware('nousercookie');
 /*
  * Login
  */
-Route::view('/login', 'app')->middleware('usercookie');
+Route::prefix('login')->group(function() {
+    Route::view('/', 'app')->middleware('usercookie');
+});
 
 /*
- * Register
+ * Registration
  */
-Route::view('/register', 'app');
-Route::post('/register', [\App\Http\Controllers\User\UserController::class, 'store']);
+Route::prefix('register')->group(function() {
+    Route::view('/', 'app');
+    Route::post('/', [\App\Http\Controllers\User\UserController::class, 'store']);
+});
