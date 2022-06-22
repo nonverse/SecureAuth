@@ -14,10 +14,13 @@ use Illuminate\Notifications\Notifiable;
  * @property string $name_first
  * @property string $name_last
  * @property string $email
+ * @property string $phone
+ * @property Carbon $dob
  * @property string $password
  * @property bool $admin
  * @property bool $use_totp
  * @property string $totp_secret
+ * @property string $totp_recovery_token
  * @property string $violations
  * @property Carbon $email_verified_at
  * @property Carbon $totp_authenticated_at
