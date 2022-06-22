@@ -2,15 +2,23 @@ import {Formik} from "formik";
 import Form from "../elements/Form";
 import Field from "../elements/Field";
 import validate from "../../../scripts/validate";
+import {auth} from "../../../scripts/api/auth";
 
 const Confirm = ({user, setUser, advance}) => {
 
     async function submit(values) {
-        setUser({
+
+        await auth.post('register', {
             ...user,
             password: values.password,
             password_confirmation: values.password_confirmation
         })
+            .then((response) => {
+                // Post registration logic
+            })
+            .catch(() => {
+                // Handle errors
+            })
     }
 
     return (
