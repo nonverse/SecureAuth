@@ -4,17 +4,37 @@ import {Formik} from "formik";
 import Form from "../elements/Form";
 import Field from "../elements/Field";
 import validate from "../../../scripts/validate";
+import {useState} from "react";
+import {auth} from "../../../scripts/api/auth";
 
 const Activate = ({user, setUser, advance}) => {
 
     const navigate = useNavigate()
+    const [error, setError] = useState('')
 
     async function submit(values) {
-        setUser({
-            ...user,
+
+        await auth.post('api/validator/activation-key', {
+            email: user.email,
             activation_key: values.activation_key
         })
-        advance()
+            .then((response) => {
+                if (response.data.data.success) {
+                    setUser({
+                        ...user,
+                        activation_key: values.activation_key
+                    })
+                    advance()
+                }
+            })
+            .catch((e) => {
+                setError(e.response.data.errors.activation_key)
+            })
+    }
+
+    function validateKey(value) {
+        setError('')
+        return validate.require(value)
     }
 
     return (
@@ -33,7 +53,8 @@ const Activate = ({user, setUser, advance}) => {
             }}>
                 {({errors}) => (
                     <Form cta={"Continue"}>
-                        <Field name={"activation_key"} placeholder={"Enter your activation key"} error={errors.activation_key} validate={validate.require}/>
+                        <Field name={"activation_key"} placeholder={"Enter your activation key"}
+                               error={errors.activation_key ? errors.activation_key : error} validate={validateKey}/>
                     </Form>
                 )}
             </Formik>
