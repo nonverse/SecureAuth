@@ -17,7 +17,7 @@ const Register = ({user, setUser, setInitialized}) => {
         } else {
             setInitialized(true)
         }
-    })
+    }, [])
 
     function advance(target) {
         if (!target) {
