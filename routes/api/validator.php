@@ -15,4 +15,4 @@ use Illuminate\Support\Facades\Route;
 /*
  * Validate an activation key
  */
-Route::get('/activation-key', [\App\Http\Controllers\Api\ApiValidationController::class, 'activationKey']);
+Route::post('/activation-key', [\App\Http\Controllers\Api\ApiValidationController::class, 'activationKey']);
