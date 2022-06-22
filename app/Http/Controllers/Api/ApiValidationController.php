@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use GuzzleHttp\Promise\PromiseInterface;
-use Illuminate\Http\Client\Response;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -23,15 +25,29 @@ class ApiValidationController extends Controller
      * Validate an activation key via API
      *
      * @param Request $request
-     * @return PromiseInterface|Response
+     * @return JsonResponse|Response
      */
-    public function activationKey(Request $request): PromiseInterface|Response
+    public function activationKey(Request $request): JsonResponse|Response
     {
         $request->validate([
             'email' => 'required|email',
             'activation_key' => 'required'
         ]);
 
-        return Http::withToken(env('API_ACCESS_KEY'))->post($this->endpoint . 'activation-key', $request->all());
+        $response = Http::withToken(env('API_ACCESS_KEY'))->post($this->endpoint . 'activation-key', $request->all());
+
+        if ($response->failed()) {
+            return new JsonResponse([
+                'errors' => [
+                    'activation_key' => $response['errors']['activation_key']
+                ]
+            ], 422);
+        }
+
+        return new JsonResponse([
+            'data' => [
+                'success' => true
+            ]
+        ]);
     }
 }
