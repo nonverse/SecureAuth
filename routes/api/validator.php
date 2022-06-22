@@ -5,19 +5,14 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| User API Routes
 |--------------------------------------------------------------------------
 |
-| Endpoint: /api
+| Endpoint: /api/validator
 |
 */
 
 /*
- * User API routes
+ * Validate an activation key
  */
-Route::prefix('user')->group(base_path('routes/api/user.php'));
-
-/*
- * API validation routes
- */
-Route::prefix('validator')->group(base_path('routes/api/validator.php'));
+Route::get('/activation-key', [\App\Http\Controllers\Api\ApiValidationController::class, 'activationKey']);
