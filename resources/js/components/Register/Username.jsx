@@ -41,6 +41,11 @@ const Username = ({user, setUser, advance}) => {
             })
     }
 
+    function validateUsername(value) {
+        setError('')
+        return validate.require(value)
+    }
+
     return (
         <>
             <div className="fluid-text">
@@ -57,8 +62,8 @@ const Username = ({user, setUser, advance}) => {
             }}>
                 {({errors}) => (
                     <Form cta={"Continue"}>
-                        <Field doesLoad name={"username"} placeholder={"Create a username"} error={errors.username}
-                               validate={validate.require}/>
+                        <Field doesLoad name={"username"} placeholder={"Create a username"} error={errors.username ? errors.username : error}
+                               validate={validateUsername}/>
                     </Form>
                 )}
             </Formik>
