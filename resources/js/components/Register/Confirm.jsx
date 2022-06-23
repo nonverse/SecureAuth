@@ -41,14 +41,15 @@ const Confirm = ({user, setUser, advance}) => {
                             advance(2)
                         }} name={"name_display"} label={"Name"} value={`${user.name_first} ${user.name_last}`}/>
                         <Field change={() => {
-                           advance(3)
+                            advance(3)
                         }} name={"username_display"} label={"Username"} value={user.username}/>
                         <br/>
-                        <Field password name={"password"} placeholder={"Set a password"} error={errors.password}
+                        <Field password doesLoad name={"password"} placeholder={"Set a password"}
+                               error={errors.password}
                                validate={value =>
                                    validate.require(value, 8)
                                }/>
-                        <Field password name={"password_confirmation"} placeholder={"Confirm your password"}
+                        <Field password doesLoad name={"password_confirmation"} placeholder={"Confirm your password"}
                                error={errors.password_confirmation} validate={value =>
                             validate.confirmation(value, values.password)
                         }/>

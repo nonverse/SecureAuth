@@ -30,7 +30,7 @@ const Username = ({user, setUser, advance}) => {
             }}>
                 {({errors}) => (
                     <Form cta={"Continue"}>
-                        <Field name={"username"} placeholder={"Create a username"} error={errors.username}
+                        <Field doesLoad name={"username"} placeholder={"Create a username"} error={errors.username}
                                validate={validate.require}/>
                     </Form>
                 )}

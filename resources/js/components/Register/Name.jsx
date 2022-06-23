@@ -35,8 +35,8 @@ const Name = ({user, setUser, advance}) => {
             }}>
                 {({errors}) => (
                     <Form cta={"Continue"}>
-                        <Field name={"name_first"} placeholder={"What's your first name"} error={errors.first_name} validate={validate.require}/>
-                        <Field name={"name_last"} placeholder={"...and your surname"} error={errors.last_name} validate={validate.require}/>
+                        <Field doesLoad name={"name_first"} placeholder={"What's your first name"} error={errors.first_name} validate={validate.require}/>
+                        <Field doesLoad name={"name_last"} placeholder={"...and your surname"} error={errors.last_name} validate={validate.require}/>
                     </Form>
                 )}
             </Formik>
