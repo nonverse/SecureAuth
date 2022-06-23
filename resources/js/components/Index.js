@@ -4,10 +4,12 @@ import Logo from "./elements/Logo";
 import {BrowserRouter} from "react-router-dom";
 import Router from "./Router";
 import Loader from "./Loader";
+import {Provider} from "react-redux";
+import store from "../state/store";
 
 function Index() {
 
-    const[initialized, setInitialized] = useState(false)
+    const [initialized, setInitialized] = useState(false)
 
     return (
         <div className="container">
@@ -23,5 +25,10 @@ function Index() {
 export default Index;
 
 if (document.getElementById('root')) {
-    ReactDOM.render(<Index/>, document.getElementById('root'));
+    ReactDOM.render(
+        <Provider store={store}>
+            <Index/>
+        </Provider>
+        , document.getElementById('root')
+    );
 }
