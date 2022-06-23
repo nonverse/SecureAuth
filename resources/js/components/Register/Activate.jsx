@@ -29,6 +29,7 @@ const Activate = ({user, setUser, advance}) => {
                         ...user,
                         activation_key: values.activation_key
                     })
+                    dispatch(endLoad())
                     advance()
                 }
             })
