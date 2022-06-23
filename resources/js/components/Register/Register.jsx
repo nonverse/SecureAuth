@@ -9,17 +9,16 @@ import {useSelector} from "react-redux";
 
 const Register = ({user, setUser, setInitialized}) => {
 
-    const [state, setState] = useState(4)
+    const [state, setState] = useState(1)
     const load = useSelector((state) => state.loader.value)
     const navigate = useNavigate()
 
     useEffect(() => {
-        // if (!user.email) {
-        //     navigate('/')
-        // } else {
-        //     setInitialized(true)
-        // }
-        setInitialized(true)
+        if (!user.email) {
+            navigate('/')
+        } else {
+            setInitialized(true)
+        }
     }, [])
 
     function advance(target) {
