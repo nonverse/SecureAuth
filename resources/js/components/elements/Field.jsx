@@ -23,13 +23,20 @@ const Field = ({password, name, label, placeholder, value, error, validate, chan
     return (
         <div className="field-wrapper">
             <span className={"op-05"}>{label}</span>
-            <FormikField type={password ? 'password' : 'text'} className={error ? 'field-error' : ''} id={name}
+            <FormikField type={password ? 'password' : 'text'} id={name}
                          name={name} placeholder={placeholder}
                          value={value}
                          validate={validator}/>
             {doesLoad
-                ? <BarLoader color={"#6951FF"} width={"100%"} css={css} height={"3px"} loading={load}/>
-                : <div className="fluid-slice"/>
+                ? (
+                    <>
+                        {load
+                            ? <BarLoader color={"#6951FF"} width={"100%"} css={css} height={"3px"} loading={load}/>
+                            : <div className={`fluid-slice ${error ? 'field-error' : ''}`}/>
+                        }
+                    </>
+                )
+                : <div className={`fluid-slice ${error ? 'field-error' : ''}`}/>
             }
             {error ? <span className="error">{error}</span> : ''}
             {change ? (<LinkButton action={change}>Change</LinkButton>) : ''}
