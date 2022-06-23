@@ -3,10 +3,16 @@ import Form from "../elements/Form";
 import Field from "../elements/Field";
 import validate from "../../../scripts/validate";
 import {auth} from "../../../scripts/api/auth";
+import {useDispatch} from "react-redux";
+import {endLoad, startLoad} from "../../state/load";
 
 const Confirm = ({user, setUser, advance}) => {
 
+    const dispatch = useDispatch()
+
     async function submit(values) {
+
+        dispatch(startLoad())
 
         await auth.post('register', {
             ...user,
@@ -14,7 +20,7 @@ const Confirm = ({user, setUser, advance}) => {
             password_confirmation: values.password_confirmation
         })
             .then((response) => {
-                // Post registration logic
+                dispatch(endLoad())
             })
             .catch(() => {
                 // Handle errors
