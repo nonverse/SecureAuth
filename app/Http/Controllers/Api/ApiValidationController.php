@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Validator;
 
 class ApiValidationController extends Controller
 {
@@ -17,7 +18,8 @@ class ApiValidationController extends Controller
      */
     private string $endpoint;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->endpoint = env('API_SERVER') . '/validator/';
     }
 
@@ -49,5 +51,23 @@ class ApiValidationController extends Controller
                 'success' => true
             ]
         ]);
+    }
+
+    /**
+     *
+     *
+     * @param Request $request
+     * @return Response|Application|ResponseFactory
+     */
+    public function username(Request $request): Response|Application|ResponseFactory
+    {
+        {
+            $rule = array('username' => 'unique:users,username');
+            $validator = Validator::make($request->all(), $rule);
+
+            return $validator->fails()
+                ? response('username exists', 422)
+                : response('email available', 200);
+        }
     }
 }
