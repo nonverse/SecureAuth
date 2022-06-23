@@ -12,13 +12,20 @@
             background-color: $main;
             height: 3vh;
             font-size: 1.5rem;
-            border-bottom: solid 3px $splash;
-            margin-bottom: 5%;
+            //border-bottom: solid 3px $splash;
+            //margin-bottom: 5%;
         }
 
         .field-error {
             border-bottom: solid 3px orangered;
             margin-bottom: 1%;
+        }
+
+        .fluid-slice {
+            width: 100%;
+            height: 3px;
+            background-color: $splash;
+            margin-bottom: 5%;
         }
 
         .button {
@@ -32,5 +39,13 @@
             margin-left: auto;
         }
     }
+}
 
+.form-loading {
+    .form-wrapper {
+        input {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+    }
 }
