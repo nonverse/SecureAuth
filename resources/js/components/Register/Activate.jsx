@@ -6,13 +6,18 @@ import Field from "../elements/Field";
 import validate from "../../../scripts/validate";
 import {useState} from "react";
 import {auth} from "../../../scripts/api/auth";
+import {useDispatch} from "react-redux";
+import {startLoad, endLoad} from "../../state/load";
 
 const Activate = ({user, setUser, advance}) => {
 
     const navigate = useNavigate()
     const [error, setError] = useState('')
+    const dispatch = useDispatch()
 
     async function submit(values) {
+
+        dispatch(startLoad())
 
         await auth.post('api/validator/activation-key', {
             email: user.email,
@@ -29,6 +34,7 @@ const Activate = ({user, setUser, advance}) => {
             })
             .catch((e) => {
                 setError(e.response.data.errors.activation_key)
+                dispatch(endLoad())
             })
     }
 
@@ -53,7 +59,7 @@ const Activate = ({user, setUser, advance}) => {
             }}>
                 {({errors}) => (
                     <Form cta={"Continue"}>
-                        <Field name={"activation_key"} placeholder={"Enter your activation key"}
+                        <Field doesLoad name={"activation_key"} placeholder={"Enter your activation key"}
                                error={errors.activation_key ? errors.activation_key : error} validate={validateKey}/>
                     </Form>
                 )}
