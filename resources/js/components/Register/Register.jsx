@@ -11,11 +11,19 @@ const Register = ({user, setUser, setInitialized}) => {
 
     const [state, setState] = useState(1)
     const load = useSelector((state) => state.loader.value)
+    const query = new URLSearchParams(window.location.search)
     const navigate = useNavigate()
 
     useEffect(() => {
         if (!user.email) {
-            navigate('/')
+            if (query.get('email')) {
+                setUser({
+                    email: query.get('email')
+                })
+                setInitialized(true)
+            } else {
+                navigate('/')
+            }
         } else {
             setInitialized(true)
         }
