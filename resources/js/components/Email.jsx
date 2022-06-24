@@ -11,6 +11,7 @@ import {endLoad, startLoad} from "../state/load";
 const Email = ({setUser, setInitialized}) => {
 
     const load = useSelector((state) => state.loader.value)
+    const query = new URLSearchParams(window.location.search)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -32,8 +33,11 @@ const Email = ({setUser, setInitialized}) => {
                     name_first: response.data.data.name_first,
                     name_last: response.data.data.name_last
                 })
+                let host = encodeURIComponent(query.get('host') ? query.get('host') : 'my.nonverse.net')
+                let resource = encodeURIComponent(query.get('resource') ? query.get('resource') : '/')
+
                 dispatch(endLoad())
-                navigate('login')
+                navigate(`login?host=${host}&resource=${resource}`)
             })
             .catch(() => {
                 setUser({
