@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Contracts\Repository\UserRepositoryInterface;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Encryption\Encrypter;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Hashing\Hasher;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class AuthenticationController extends AbstractAuthenticationController
@@ -107,5 +110,35 @@ class AuthenticationController extends AbstractAuthenticationController
         }
 
         return $this->sendLoginSuccessResponse($request, $user);
+    }
+
+    /**
+     * Log out currently authenticated user
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function logout(Request $request): JsonResponse
+    {
+        return $this->sendLogoutSuccessResponse($request);
+    }
+
+    /**
+     * Log user out of all devices expect current one
+     *
+     * @param Request $request
+     * @return bool|Application|ResponseFactory|Response|null
+     */
+    public function logoutAll(Request $request): Response|bool|Application|ResponseFactory|null
+    {
+        $request->validate([
+            'password' => 'required'
+        ]);
+
+        if (!$this->hasher->check($request->input('password'), $request->user()->password)) {
+            return response('Invalid password', 401);
+        }
+
+        return Auth::logoutOtherDevices($request->input('password'));
     }
 }
