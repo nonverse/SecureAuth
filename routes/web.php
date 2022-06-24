@@ -22,7 +22,8 @@ Route::view('/', 'app')->middleware('nousercookie');
  * Login
  */
 Route::prefix('login')->group(function() {
-    Route::view('/', 'app')->middleware('usercookie');
+    Route::view('/', 'app')->middleware('usercookie')->name('login');
+    Route::post('/', [\App\Http\Controllers\Auth\AuthenticationController::class, 'login']);
 });
 
 /*
