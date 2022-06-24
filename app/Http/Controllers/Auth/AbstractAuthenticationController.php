@@ -33,7 +33,7 @@ class AbstractAuthenticationController extends Controller
         $cookie = cookie('user', json_encode([
             'uuid' => $user->uuid,
             'authed_at' => CarbonImmutable::now()
-        ]));
+        ]), 43800);
 
         /*
          * Log user in
