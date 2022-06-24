@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 /*
  * Get the currently logged in user
  */
-Route::get('/', [\App\Http\Controllers\User\UserController::class, 'get']);
+Route::get('/', [\App\Http\Controllers\User\UserController::class, 'get'])->middleware('auth');
 /*
  * Initialize a user's email
  */
