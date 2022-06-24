@@ -21,15 +21,23 @@ Route::view('/', 'app')->middleware(['guest']);
 /*
  * Login
  */
-Route::prefix('login')->group(function() {
+Route::prefix('login')->group(function () {
     Route::view('/', 'app')->middleware(['usercookie', 'guest'])->name('login');
     Route::post('/', [\App\Http\Controllers\Auth\AuthenticationController::class, 'login']);
 });
 
 /*
+ * Logout
+ */
+Route::prefix('logout')->group(function () {
+    Route::post('/', [\App\Http\Controllers\Auth\AuthenticationController::class, 'logout']);
+    Route::post('/all', [\App\Http\Controllers\Auth\AuthenticationController::class, 'logoutAll']);
+});
+
+/*
  * Registration
  */
-Route::prefix('register')->group(function() {
+Route::prefix('register')->group(function () {
     Route::view('/', 'app')->middleware('guest');
     Route::post('/', [\App\Http\Controllers\User\UserController::class, 'store']);
 });
