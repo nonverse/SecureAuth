@@ -16,13 +16,13 @@ use Illuminate\Support\Facades\Route;
 /*
  * Base email request
  */
-Route::view('/', 'app')->middleware('nousercookie');
+Route::view('/', 'app')->middleware(['guest']);
 
 /*
  * Login
  */
 Route::prefix('login')->group(function() {
-    Route::view('/', 'app')->middleware('usercookie')->name('login');
+    Route::view('/', 'app')->middleware(['usercookie', 'guest'])->name('login');
     Route::post('/', [\App\Http\Controllers\Auth\AuthenticationController::class, 'login']);
 });
 
@@ -30,6 +30,6 @@ Route::prefix('login')->group(function() {
  * Registration
  */
 Route::prefix('register')->group(function() {
-    Route::view('/', 'app');
+    Route::view('/', 'app')->middleware('guest');
     Route::post('/', [\App\Http\Controllers\User\UserController::class, 'store']);
 });
