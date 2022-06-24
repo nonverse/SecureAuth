@@ -23,7 +23,11 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                $intended = [
+                    'host' => $request->input('host') ?: env('BASE_APP_URL'),
+                    'resource' => $request->input('resource') ?: '/'
+                ];
+                return redirect('http://' . $intended['host'] . $intended['resource']);
             }
         }
 
