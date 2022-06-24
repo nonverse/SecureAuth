@@ -47,7 +47,7 @@ const Activate = ({user, setUser, advance}) => {
     return (
         <>
             <div className="fluid-text">
-                <span>Hello</span>
+                <span>Hello <span className="op-05">{user.email}</span></span>
                 <h1>Looks like you're new here!</h1>
                 <LinkButton action={() => {
                     navigate('/')
