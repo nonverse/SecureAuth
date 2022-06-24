@@ -17,7 +17,12 @@ class UserCookie
     public function handle(Request $request, Closure $next)
     {
         if (!$request->cookie('user')) {
-            return redirect('/');
+            $intended = [
+                'host' => urlencode($request->input('host') ?: urlencode(env('BASE_APP_URL'))),
+                'resource' => urlencode($request->input('resource')  ?: urlencode('/'))
+            ];
+
+            return redirect('/?host=' . $intended['host'] . '&resource=' . $intended['resource']);
         }
 
         return $next($request);
