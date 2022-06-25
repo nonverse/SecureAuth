@@ -45,27 +45,35 @@
     }
 }
 
-.form-info {
-    background-color: $foreground-darker;
-    padding: 2%;
-    width: 96%;
-    margin-top: 5%;
-}
+.form-info-wrapper {
+    .form-info {
+        background-color: $foreground-darker;
+        padding: 2%;
+        width: 96%;
+        margin-top: 5%;
+    }
 
-.form-info-danger {
-    border-left: solid 3px orangered;
-}
+    .link-button {
+        color: $splash !important;
+        float: right;
+        margin-top: 1%;
+    }
 
-.form-info-warning {
-    border-left: solid 3px orange;
-}
+    .form-info-danger {
+        border-left: solid 3px orangered;
+    }
 
-.form-info-success {
-    border-left: solid 3px lime;
-}
+    .form-info-warning {
+        border-left: solid 3px orange;
+    }
 
-.form-info-default {
-    border-left: solid 3px blue;
+    .form-info-success {
+        border-left: solid 3px lime;
+    }
+
+    .form-info-default {
+        border-left: solid 3px blue;
+    }
 }
 
 .form-loading {
