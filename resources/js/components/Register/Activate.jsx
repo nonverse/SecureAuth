@@ -8,10 +8,12 @@ import {useState} from "react";
 import {auth} from "../../../scripts/api/auth";
 import {useDispatch} from "react-redux";
 import {startLoad, endLoad} from "../../state/load";
+import FormInformation from "../elements/FormInformation";
 
 const Activate = ({user, setUser, advance}) => {
 
     const navigate = useNavigate()
+    const [showInfo, setShowInfo] = useState(false)
     const [error, setError] = useState('')
     const dispatch = useDispatch()
 
@@ -59,12 +61,25 @@ const Activate = ({user, setUser, advance}) => {
                 submit(values)
             }}>
                 {({errors}) => (
-                    <Form cta={"Continue"}>
-                        <Field doesLoad name={"activation_key"} placeholder={"Enter your activation key"}
-                               error={errors.activation_key ? errors.activation_key : error} validate={validateKey}/>
-                    </Form>
+                    <div>
+                        <Form cta={"Continue"}>
+                            <Field doesLoad name={"activation_key"} placeholder={"Enter your activation key"}
+                                   error={errors.activation_key ? errors.activation_key : error} validate={validateKey}/>
+                        </Form>
+                        <LinkButton action={() => {
+                            setShowInfo(true)
+                        }}>I don't have an activation key</LinkButton>
+                    </div>
                 )}
             </Formik>
+            {showInfo ? (
+                <FormInformation weight={"warning"} close={() => {
+                    setShowInfo(false)
+                }}>
+                    Your account activation key was included in your email invitation. If you did not receive an invitation, you can request one <a
+                    href="https://www.nonverse.net" target="_blank" rel="noreferrer">here</a>
+                </FormInformation>
+            ) : ''}
         </>
     )
 }

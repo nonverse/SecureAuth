@@ -51,6 +51,7 @@
         padding: 2%;
         width: 96%;
         margin-top: 5%;
+        color: rgba($font-color, 0.8);
     }
 
     .link-button {
@@ -72,7 +73,7 @@
     }
 
     .form-info-default {
-        border-left: solid 3px blue;
+        border-left: solid 3px $splash;
     }
 }
 
