@@ -3,7 +3,7 @@ import Form from "../elements/Form";
 import Field from "../elements/Field";
 import validate from "../../../scripts/validate";
 import LinkButton from "../elements/LinkButton";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {auth} from "../../../scripts/api/auth";
 import {useState} from "react";
 import {useDispatch} from "react-redux";
@@ -12,6 +12,7 @@ import {endLoad, startLoad} from "../../state/load";
 const Password = ({user, setUser, setInitialized, intended, advance}) => {
 
     const [error, setError] = useState('')
+    const query = new URLSearchParams(window.location.search)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -64,7 +65,9 @@ const Password = ({user, setUser, setInitialized, intended, advance}) => {
                         _method: 'delete'
                     })
                         .then(() => {
-                            navigate('/')
+                            let host = encodeURIComponent(query.get('host') ? query.get('host') : 'my.nonverse.net')
+                            let resource = encodeURIComponent(query.get('resource') ? query.get('resource') : '/')
+                            navigate(`/?host=${host}&resource=${resource}`)
                         })
                 }}>Not You?</LinkButton>
             </div>
@@ -74,10 +77,15 @@ const Password = ({user, setUser, setInitialized, intended, advance}) => {
                 submit(values)
             }}>
                 {({errors}) => (
-                    <Form>
-                        <Field doesLoad password name={"password"} placeholder={"Enter Your Password"} error={errors.password ? errors.password : error}
-                               validate={validatePassword}/>
-                    </Form>
+                    <div>
+                        <Form>
+                            <Field doesLoad password name={"password"} placeholder={"Enter Your Password"} error={errors.password ? errors.password : error}
+                                   validate={validatePassword}/>
+                        </Form>
+                        <LinkButton action={() => {
+                            navigate('/forgot')
+                        }}>Forgot Password?</LinkButton>
+                    </div>
                 )}
             </Formik>
         </>
