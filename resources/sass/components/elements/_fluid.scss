@@ -9,6 +9,7 @@
     .fluid {
         display: flex;
         flex-direction: column;
+        max-width: 20vw;
         form {
             input {
                 width: 20vw;

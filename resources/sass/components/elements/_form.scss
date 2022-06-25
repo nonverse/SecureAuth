@@ -45,6 +45,29 @@
     }
 }
 
+.form-info {
+    background-color: $foreground-darker;
+    padding: 2%;
+    width: 96%;
+    margin-top: 5%;
+}
+
+.form-info-danger {
+    border-left: solid 3px orangered;
+}
+
+.form-info-warning {
+    border-left: solid 3px orange;
+}
+
+.form-info-success {
+    border-left: solid 3px lime;
+}
+
+.form-info-default {
+    border-left: solid 3px blue;
+}
+
 .form-loading {
     .form-wrapper {
         input {
