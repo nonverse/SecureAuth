@@ -4,12 +4,15 @@ import Field from "./elements/Field";
 import validate from "../../scripts/validate";
 import {useNavigate} from "react-router-dom";
 import {auth} from "../../scripts/api/auth";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {endLoad, startLoad} from "../state/load";
+import LinkButton from "./elements/LinkButton";
+import FormInformation from "./elements/FormInformation";
 
 const Email = ({setUser, setInitialized}) => {
 
+    const [showInfo, setShowInfo] = useState(false)
     const load = useSelector((state) => state.loader.value)
     const query = new URLSearchParams(window.location.search)
     const dispatch = useDispatch()
@@ -50,19 +53,35 @@ const Email = ({setUser, setInitialized}) => {
     }
 
     return (
-        <Formik initialValues={{
-            email: ''
-        }} onSubmit={(values) => {
-            submit(values)
-        }}>
-            {({errors}) => (
-                <div className={load ? 'form-loading action-cover op-05' : ''}>
-                    <Form cta={"Continue"}>
-                        <Field doesLoad name={"email"} placeholder={"What's your email?"} error={errors.email} validate={validate.email}/>
-                    </Form>
-                </div>
-            )}
-        </Formik>
+        <>
+            <div className="fluid-text">
+                <span>Nonverse Studios</span>
+                <h1>Login to continue</h1>
+            </div>
+            <Formik initialValues={{
+                email: ''
+            }} onSubmit={(values) => {
+                submit(values)
+            }}>
+                {({errors}) => (
+                    <div className={load ? 'form-loading action-cover op-05' : ''}>
+                        <Form cta={"Continue"}>
+                            <Field doesLoad name={"email"} placeholder={"What's your email?"} error={errors.email} validate={validate.email}/>
+                        </Form>
+                        <LinkButton action={() => {
+                            setShowInfo(true)
+                        }}>Don't have an account?</LinkButton>
+                    </div>
+                )}
+            </Formik>
+            {showInfo ? (
+                <FormInformation weight={'warning'} close={() => {
+                    setShowInfo(false)
+                }}>
+                You will be asked to create an account before logging in
+            </FormInformation>
+            ) : ''}
+        </>
     )
 }
 
