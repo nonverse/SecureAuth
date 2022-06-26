@@ -45,7 +45,9 @@ class UserController extends Controller
 
         return new JsonResponse([
             'data' => [
-                'uuid' => $request->user()->uuid
+                'uuid' => $request->user()->uuid,
+                'name_first' => $request->user()->name_first,
+                'name_last' => $request->user()->name_last
             ]
         ]);
     }
