@@ -1,7 +1,10 @@
 import {Outlet} from "react-router-dom";
 import {motion} from "framer-motion";
+import {useSelector} from "react-redux";
 
 const Fluid = () => {
+
+    const load = useSelector((state) => state.loader.value)
 
     return (
         <motion.div className="fluid-container"
@@ -11,7 +14,9 @@ const Fluid = () => {
                     transition={{duration: .5}}
         >
             <div className="fluid">
-                <Outlet/>
+                <div className={load ? 'form-loading action-cover op-05' : ''}>
+                    <Outlet/>
+                </div>
             </div>
         </motion.div>
     )

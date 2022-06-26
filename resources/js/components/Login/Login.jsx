@@ -3,12 +3,10 @@ import ProgressiveForm from "../elements/ProgressiveForm";
 import Password from "./Password";
 import TwoFactor from "./TwoFactor";
 import {auth} from "../../../scripts/api/auth";
-import {useSelector} from "react-redux";
 
 const Login = ({user, setUser, setInitialized}) => {
 
     const [state, setState] = useState(1)
-    const load = useSelector((state) => state.loader.value)
     const query = new URLSearchParams(window.location.search)
     const intended = {
         host: query.get('host'),
@@ -37,16 +35,14 @@ const Login = ({user, setUser, setInitialized}) => {
     }
 
     return (
-        <div className={load ? 'form-loading action-cover op-05' : ''}>
-            <ProgressiveForm
-                state={state}
-                forms={{
-                    1: <Password user={user} setUser={setUser} setInitialized={setInitialized} intended={intended}
-                                 advance={advance}/>,
-                    2: <TwoFactor user={user} setUser={setUser} setInitialized={setInitialized} intended={intended}/>
-                }}
-            />
-        </div>
+        <ProgressiveForm
+            state={state}
+            forms={{
+                1: <Password user={user} setUser={setUser} setInitialized={setInitialized} intended={intended}
+                             advance={advance}/>,
+                2: <TwoFactor user={user} setUser={setUser} setInitialized={setInitialized} intended={intended}/>
+            }}
+        />
     )
 }
 
