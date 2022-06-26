@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 /*
  * Base email request
  */
-Route::view('/', 'app')->middleware(['guest']);
+Route::view('/', 'app')->middleware(['guest', 'nousercookie']);
 
 /*
  * Login
@@ -24,6 +24,7 @@ Route::view('/', 'app')->middleware(['guest']);
 Route::prefix('login')->group(function () {
     Route::view('/', 'app')->middleware(['usercookie', 'guest'])->name('login');
     Route::post('/', [\App\Http\Controllers\Auth\AuthenticationController::class, 'login']);
+    Route::post('/two-factor', [\App\Http\Controllers\Auth\TwoFactorController::class, 'verify']);
 });
 
 /*
