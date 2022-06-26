@@ -13,4 +13,13 @@ interface UserRepositoryInterface
      * @return User|null
      */
     public function get($uuid): mixed;
+
+    /**
+     * Update a user's account store
+     *
+     * @param $uuid
+     * @param array $data
+     * @return mixed
+     */
+    public function update($uuid, array $data): mixed;
 }
