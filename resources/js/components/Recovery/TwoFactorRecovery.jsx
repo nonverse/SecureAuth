@@ -88,8 +88,8 @@ const TwoFactorRecovery = ({user, setInitialized, intended}) => {
                 <FormInformation weight={'warning'} close={() => {
                     setShowInfo(false)
                 }}>
-                    Your account recovery token was emailed to you when you enabled 2FA on your account. If you cannot find your recovery token, please contact <a
-                    href="https://www.nonverse.net/support">Nonverse Support</a>
+                    Your recovery token was emailed to you when you enabled 2FA on your account. If you cannot find your recovery token, please contact <a
+                    href="https://www.nonverse.net/support" target={"_blank"} rel={"noreferrer"}>Nonverse Support</a>
                 </FormInformation>
             ) : ''}
         </>
