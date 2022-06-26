@@ -71,7 +71,7 @@ class PasswordConfirmationController extends AbstractAuthenticationController
             $token = Str::random(64);
             $request->session()->put('two_factor_authentication', [
                 'uuid' => $user->uuid,
-                'token_value' => $this->encrypter->encrypt($token),
+                'token_value' => $token,
                 'token_expiry' => CarbonImmutable::now()->addMinutes(10)
             ]);
 
@@ -83,13 +83,14 @@ class PasswordConfirmationController extends AbstractAuthenticationController
             ]);
         }
 
+        // TODO Issue action authorization token (Service)
+
         return new JsonResponse([
             'data' => [
                 'complete' => true
             ]
         ]);
     }
-
 
     /**
      * Verify a user's 2FA code
@@ -103,26 +104,15 @@ class PasswordConfirmationController extends AbstractAuthenticationController
     public function twoFactor(Request $request): Response|JsonResponse
     {
         $request->validate([
-            'one_time_password' => 'required'
+            'one_time_password' => 'required',
+            'authentication_token' => 'required'
         ]);
-
-        $store = $request->session()->get('two_factor_authentication');
-
-        /*
-         * Check for a valid authentication store
-         */
-        if (!$store) {
-            return response('No authentication token found, please restart login', 401);
-        }
-        if (!$this->validateSessionDetails($store)) {
-            return response('Authentication token expired, please restart login', 401);
-        }
 
         /*
          * Verify authentication token
          */
-        if ($request->input('authentication_token') !== $this->encrypter->decrypt($store['token_value'])) {
-            return response('Invalid Authentication token, please restart login', 401);
+        if (!$this->validateAuthenticationToken($request, $request->input('authentication_token'))) {
+            return response('Invalid authentication token', 401);
         }
 
         $user = $request->user();
@@ -135,6 +125,7 @@ class PasswordConfirmationController extends AbstractAuthenticationController
             return response('Invalid OTP', 401);
         }
 
+        // TODO Issue action authorization token (Service)
 
         return new JsonResponse([
             'data' => [
