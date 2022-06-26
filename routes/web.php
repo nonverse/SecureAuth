@@ -21,8 +21,16 @@ Route::view('/', 'app')->middleware(['guest', 'nousercookie']);
 /*
  * Recovery
  */
-Route::prefix('recovery')->middleware(['guest'])->group(function() {
-    Route::view('/password', 'app');
+Route::prefix('recovery')->middleware(['guest'])->group(function () {
+    /*
+     * Password recovery
+     */
+    Route::view('/password', 'app')->name('password.reset');
+    Route::post('/password', [\App\Http\Controllers\Recovery\PasswordRecoveryController::class, 'forgot']);
+    Route::post('/password/reset', [\App\Http\Controllers\Recovery\PasswordRecoveryController::class, 'reset']);
+    /*
+     * 2FA recovery
+     */
     Route::view('/two-factor', 'app');
 });
 
@@ -38,7 +46,7 @@ Route::prefix('login')->group(function () {
 /*
  * Confirm Action
  */
-Route::prefix('confirm')->middleware(['auth'])->group(function() {
+Route::prefix('confirm')->middleware(['auth'])->group(function () {
     Route::view('/', 'app');
     Route::post('/', [\App\Http\Controllers\Auth\PasswordConfirmationController::class, 'password']);
     Route::post('/two-factor', [\App\Http\Controllers\Auth\PasswordConfirmationController::class, 'twoFactor']);
