@@ -47,8 +47,7 @@ class UserController extends Controller
             'data' => [
                 'uuid' => $request->user()->uuid,
                 'name_first' => $request->user()->name_first,
-                'name_last' => $request->user()->name_last,
-                'use_totp' => $request->user()->use_totp
+                'name_last' => $request->user()->name_last
             ]
         ]);
     }
