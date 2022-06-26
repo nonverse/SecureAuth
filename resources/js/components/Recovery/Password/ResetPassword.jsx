@@ -7,11 +7,13 @@ import validate from "../../../../scripts/validate";
 import {useDispatch} from "react-redux";
 import {endLoad, startLoad} from "../../../state/load";
 import {auth} from "../../../../scripts/api/auth";
+import {useNavigate} from "react-router-dom";
 
 const ResetPassword = () => {
 
     const [error, setError] = useState('')
     const query = new URLSearchParams(window.location.search)
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     async function submit(values) {
@@ -27,7 +29,7 @@ const ResetPassword = () => {
             .then((response) => {
                 if (response.data.data.success) {
                     dispatch(endLoad())
-                    console.log('Done')
+                    navigate('/login')
                 }
             })
             .catch((e) => {
