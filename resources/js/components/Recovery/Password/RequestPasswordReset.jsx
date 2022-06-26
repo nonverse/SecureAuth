@@ -1,22 +1,43 @@
-import LinkButton from "../elements/LinkButton";
-import {Formik} from "formik";
-import Form from "../elements/Form";
-import Field from "../elements/Field";
-import validate from "../../../scripts/validate";
 import {useEffect, useState} from "react";
-import FormInformation from "../elements/FormInformation";
+import {useDispatch} from "react-redux";
+import {endLoad, startLoad} from "../../../state/load";
+import {auth} from "../../../../scripts/api/auth";
+import validate from "../../../../scripts/validate";
+import LinkButton from "../../elements/LinkButton";
+import FormInformation from "../../elements/FormInformation";
+import {Formik} from "formik";
+import Form from "../../elements/Form";
+import Field from "../../elements/Field";
 
-const PasswordRecovery = ({user, setInitialized}) => {
+const RequestPasswordReset = () => {
 
     const [error, setError] = useState('')
     const [sent, setSent] = useState(false)
-
-    useEffect(() => {
-        setInitialized(true)
-    })
+    const dispatch = useDispatch()
 
     async function submit(values) {
 
+        dispatch(startLoad())
+
+        await auth.post('recovery/password', {
+            email: values.email
+        })
+            .then((response) => {
+                if (response.data.data.success) {
+                    dispatch(endLoad())
+                    setSent(true)
+                }
+            })
+            .catch((e) => {
+                switch (e.response.status) {
+                    case 400:
+                        setError(e.response.data.errors.email)
+                        break;
+                    default:
+                        setError('Something went wrong')
+                }
+                dispatch(endLoad())
+            })
     }
 
     function validateEmail(value) {
@@ -57,4 +78,4 @@ const PasswordRecovery = ({user, setInitialized}) => {
     )
 }
 
-export default PasswordRecovery;
+export default RequestPasswordReset;
