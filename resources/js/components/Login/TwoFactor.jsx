@@ -70,7 +70,7 @@ const TwoFactor = ({user, setUser, setInitialized, intended}) => {
                                    validate={validateCode}/>
                         </Form>
                         <LinkButton action={() => {
-                            navigate('/recovery/two-factor')
+                            navigate(`/recovery/two-factor?host=my.nonverse.net&resource=${encodeURIComponent('/account/security')}`)
                         }}>Can't access authenticator</LinkButton>
                     </div>
                 )}
