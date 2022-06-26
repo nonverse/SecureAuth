@@ -61,7 +61,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        //
+        'use_totp',
+        'totp_secret',
+        'totp_recovery_token',
+        'totp_authenticated_at'
     ];
 
     /**
