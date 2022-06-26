@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AbstractAuthenticationController extends Controller
 {
@@ -73,5 +75,38 @@ class AbstractAuthenticationController extends Controller
                 'success' => true
             ]
         ])->withoutCookie('user');
+    }
+
+    /**
+     * Verify that the authentication session store is valid
+     *
+     * @param array $details
+     * @return bool
+     */
+    protected function validateSessionDetails(array $details): bool
+    {
+        /*
+         * Check if session store contains all required values
+         */
+        $validator = Validator::make($details, [
+            'uuid' => 'required|string',
+            'token_value' => 'required|string',
+            'token_expiry' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return false;
+        }
+
+        /*
+         * Check if authentication token has expired
+         */
+        if (!$details['token_expiry'] instanceof CarbonInterface) {
+            return false;
+        }
+        if ($details['token_expiry']->isBefore(CarbonImmutable::now())) {
+            return false;
+        }
+
+        return true;
     }
 }
