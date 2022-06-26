@@ -40,24 +40,17 @@ class TwoFactorController extends AbstractAuthenticationController
      */
     private Google2FA $google2FA;
 
-    /**
-     * @var Validator
-     */
-    private Validator $validator;
-
     public function __construct(
         UserRepositoryInterface $repository,
         Encrypter               $encrypter,
         Hasher                  $hasher,
-        Google2FA               $google2FA,
-        Validator               $validator
+        Google2FA               $google2FA
     )
     {
         $this->repository = $repository;
         $this->encrypter = $encrypter;
         $this->hasher = $hasher;
         $this->google2FA = $google2FA;
-        $this->validator = $validator;
     }
 
 
@@ -91,7 +84,7 @@ class TwoFactorController extends AbstractAuthenticationController
         /*
          * Verify authentication token
          */
-        if (!$this->encrypter->decrypt($request->input('authentication_token')) !== $this->encrypter->decrypt($store['token_value'])) {
+        if ($request->input('authentication_token') !== $this->encrypter->decrypt($store['token_value'])) {
             return response('Invalid Authentication token, please restart login', 401);
         }
 
@@ -152,7 +145,7 @@ class TwoFactorController extends AbstractAuthenticationController
         /*
          * Check if session store contains all required values
          */
-        $validator = $this->validator->make($details, [
+        $validator = Validator::make($details, [
             'uuid' => 'required|string',
             'token_value' => 'required|string',
             'token_expiry' => 'required'
