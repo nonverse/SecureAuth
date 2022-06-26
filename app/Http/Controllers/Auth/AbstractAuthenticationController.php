@@ -77,14 +77,21 @@ class AbstractAuthenticationController extends Controller
         ])->withoutCookie('user');
     }
 
+
     /**
-     * Verify that the authentication session store is valid
+     * Verify a user's authentication token
      *
-     * @param array $details
+     * @param Request $request
+     * @param $token
      * @return bool
      */
-    protected function validateSessionDetails(array $details): bool
+    protected function validateAuthenticationToken(Request $request, $token): bool
     {
+        $details = $request->session()->get('two_factor_authentication');
+        if (!$details) {
+            return false;
+        }
+
         /*
          * Check if session store contains all required values
          */
@@ -104,6 +111,10 @@ class AbstractAuthenticationController extends Controller
             return false;
         }
         if ($details['token_expiry']->isBefore(CarbonImmutable::now())) {
+            return false;
+        }
+
+        if ($token !== $details['token_value']) {
             return false;
         }
 

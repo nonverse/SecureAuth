@@ -72,20 +72,10 @@ class TwoFactorController extends AbstractAuthenticationController
         $store = $request->session()->get('two_factor_authentication');
 
         /*
-         * Check for a valid authentication store
-         */
-        if (!$store) {
-            return response('No authentication token found, please restart login', 401);
-        }
-        if (!$this->validateSessionDetails($store)) {
-            return response('Authentication token expired, please restart login', 401);
-        }
-
-        /*
          * Verify authentication token
          */
-        if ($request->input('authentication_token') !== $this->encrypter->decrypt($store['token_value'])) {
-            return response('Invalid Authentication token, please restart login', 401);
+        if (!$this->validateAuthenticationToken($request, $request->input('authentication_token'))) {
+            return response('Invalid authentication token, please restart login', 401);
         }
 
         /*
