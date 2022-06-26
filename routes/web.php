@@ -36,6 +36,13 @@ Route::prefix('login')->group(function () {
 });
 
 /*
+ * Confirm Action
+ */
+Route::prefix('confirm')->middleware(['auth'])->group(function() {
+    Route::view('/', 'app');
+});
+
+/*
  * Logout
  */
 Route::prefix('logout')->group(function () {
