@@ -83,7 +83,7 @@ const Password = ({user, setUser, setInitialized, intended, advance}) => {
                                    validate={validatePassword}/>
                         </Form>
                         <LinkButton action={() => {
-                            navigate('/forgot')
+                            navigate('/recovery/password')
                         }}>Forgot Password?</LinkButton>
                     </div>
                 )}
