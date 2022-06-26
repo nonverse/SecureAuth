@@ -7,11 +7,13 @@ import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {endLoad, startLoad} from "../../state/load";
 import {auth} from "../../../scripts/api/auth";
+import {useNavigate} from "react-router-dom";
 
 const TwoFactor = ({user, setUser, setInitialized, intended}) => {
 
     const [error, setError] = useState('')
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     async function submit(values) {
         dispatch(startLoad())
@@ -52,7 +54,9 @@ const TwoFactor = ({user, setUser, setInitialized, intended}) => {
             <div className="fluid-text">
                 <span>Two Factor Authentication</span>
                 <h1>Your account is protected</h1>
-                <LinkButton>Restart Login</LinkButton>
+                <LinkButton action={() => {
+                    window.location.reload()
+                }}>Restart Login</LinkButton>
             </div>
             <Formik initialValues={{
                 code: ''
@@ -60,10 +64,15 @@ const TwoFactor = ({user, setUser, setInitialized, intended}) => {
                 submit(values)
             }}>
                 {({errors}) => (
-                    <Form>
-                        <Field doesLoad name={"code"} placeholder={"2FA Code"} error={errors.code ? errors.code : error}
-                               validate={validateCode}/>
-                    </Form>
+                    <div>
+                        <Form>
+                            <Field doesLoad name={"code"} placeholder={"2FA Code"} error={errors.code ? errors.code : error}
+                                   validate={validateCode}/>
+                        </Form>
+                        <LinkButton action={() => {
+                            navigate('/recovery/two-factor')
+                        }}>Can't access authenticator</LinkButton>
+                    </div>
                 )}
             </Formik>
         </>
