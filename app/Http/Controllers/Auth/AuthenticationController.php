@@ -99,7 +99,7 @@ class AuthenticationController extends AbstractAuthenticationController
             $token = Str::random(64);
             $request->session()->put('two_factor_authentication', [
                 'uuid' => $user->uuid,
-                'token_value' => $this->encrypter->encrypt($token),
+                'token_value' => $token,
                 'token_expiry' => CarbonImmutable::now()->addMinutes(10)
             ]);
 
