@@ -73,7 +73,6 @@ class TwoFactorController extends AbstractAuthenticationController
     public function verify(Request $request): Response|JsonResponse
     {
         $request->validate([
-            'one_time_password' => 'required',
             'authentication_token' => 'required'
         ]);
 
