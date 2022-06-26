@@ -19,6 +19,14 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'app')->middleware(['guest', 'nousercookie']);
 
 /*
+ * Recovery
+ */
+Route::prefix('recovery')->middleware(['guest'])->group(function() {
+    Route::view('/password', 'app');
+    Route::view('/two-factor', 'app');
+});
+
+/*
  * Login
  */
 Route::prefix('login')->group(function () {
