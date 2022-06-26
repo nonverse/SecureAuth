@@ -49,13 +49,10 @@ class PasswordRecoveryController extends Controller
             'email' => 'required|email'
         ]);
 
-        $reset = $this->broker->sendResetLink($request->input('email'));
+        $reset = $this->broker->sendResetLink($request->only('email'));
 
         if ($reset !== $this->broker::RESET_LINK_SENT) {
             return new JsonResponse([
-                'data' => [
-                    'success' => false
-                ],
                 'errors' => [
                     'email' => __($reset)
                 ]
@@ -93,7 +90,7 @@ class PasswordRecoveryController extends Controller
                 'errors' => [
                     'password' => 'Password cannot contain your name'
                 ]
-            ], 400);
+            ], 422);
         }
 
         /*
@@ -111,13 +108,10 @@ class PasswordRecoveryController extends Controller
 
         if ($status !== $this->broker::PASSWORD_RESET) {
             return new JsonResponse([
-                'data' => [
-                    'success' => false,
-                ],
                 'errors' => [
                     'password' => __($status)
                 ]
-            ]);
+            ], 400);
         }
 
         return new JsonResponse([
