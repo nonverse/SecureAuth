@@ -3,7 +3,7 @@ import {AnimatePresence} from "framer-motion";
 import Fluid from "../elements/Fluid";
 import {useEffect, useState} from "react";
 import {auth} from "../../../scripts/api/auth";
-import ConfirmPassword from "../ConfirmPassword";
+import Confirm from "../Confirm/Confirm";
 
 const AuthenticatedRouter = ({setInitialized}) => {
 
@@ -15,13 +15,13 @@ const AuthenticatedRouter = ({setInitialized}) => {
             .then((response) => {
                 setUser(response.data.data)
             })
-    })
+    }, [])
 
     return (
         <AnimatePresence exitBeforeEnter>
             <Routes location={location} key={location.pathname}>
                 <Route path={'/'} element={<Fluid/>}>
-                    <Route path={'/confirm'} element={<ConfirmPassword user={user} setInitialized={setInitialized}/>}/>
+                    <Route path={'/confirm'} element={<Confirm user={user} setUser={setUser} setInitialized={setInitialized}/>}/>
                 </Route>
             </Routes>
         </AnimatePresence>
