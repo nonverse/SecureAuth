@@ -13,6 +13,7 @@ const ConfirmTwoFactor = ({user, setInitialized}) => {
 
     const [error, setError] = useState('')
     const [showInfo, setShowInfo] = useState(false)
+    const query = new URLSearchParams(window.location.search)
     const dispatch = useDispatch()
 
     async function submit(values) {
@@ -56,7 +57,7 @@ const ConfirmTwoFactor = ({user, setInitialized}) => {
                 <span>Hello, <span className="op-05">{user.name_first} {user.name_last}</span></span>
                 <h1>Authenticate an action</h1>
                 <LinkButton action={() => {
-
+                    window.location.replace(`http://${decodeURIComponent(query.get('host'))}${decodeURIComponent(query.get('resource'))}`)
                 }}>Back to app</LinkButton>
             </div>
             <Formik initialValues={{
