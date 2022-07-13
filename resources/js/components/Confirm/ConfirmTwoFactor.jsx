@@ -28,7 +28,9 @@ const ConfirmTwoFactor = ({user, baseUrl, setInitialized}) => {
                 if (response.data.data.complete) {
                     dispatch(endLoad())
                     setInitialized(false)
-                    // TODO redirect to application
+
+                    let redirectUrl = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}confirmation_token=${response.data.data.confirmation_token}&token_expiry=${response.data.data.token_expiry}`
+                    window.location.replace(redirectUrl)
                 }
             })
             .catch((e) => {
