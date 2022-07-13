@@ -16,7 +16,7 @@ const PasswordRecovery = ({setInitialized}) => {
             {token ? (
                 <ResetPassword/>
             ) : (
-                <RequestPasswordReset token={token}/>
+                <RequestPasswordReset/>
             )}
         </>
     )

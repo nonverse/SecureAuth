@@ -46,7 +46,7 @@ const ResetPassword = () => {
     return (
         <>
             <div className="fluid-text">
-                <span>Account Recovery</span>
+                <span className="op-05">{query.get('email')}</span>
                 <h1>Reset your password</h1>
                 <LinkButton action={() => {
                     window.location.replace('/login')
