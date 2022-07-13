@@ -9,7 +9,7 @@ import {auth} from "../../../scripts/api/auth";
 import {useDispatch} from "react-redux";
 import {endLoad, startLoad} from "../../state/load";
 
-const ConfirmPassword = ({user, setUser, setInitialized, advance}) => {
+const ConfirmPassword = ({user, setUser, baseUrl, setInitialized, advance}) => {
 
     const [error, setError] = useState('')
     const [showInfo, setShowInfo] = useState(false)
@@ -60,7 +60,7 @@ const ConfirmPassword = ({user, setUser, setInitialized, advance}) => {
                 <span>Hello, <span className="op-05">{user.name_first} {user.name_last}</span></span>
                 <h1>Authenticate an action</h1>
                 <LinkButton action={() => {
-                    window.location.replace(`http://${decodeURIComponent(query.get('host'))}${decodeURIComponent(query.get('resource'))}`)
+                    window.location.replace(baseUrl)
                 }}>Back to app</LinkButton>
             </div>
             <Formik initialValues={{

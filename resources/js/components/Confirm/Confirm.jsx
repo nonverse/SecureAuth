@@ -8,6 +8,8 @@ const Confirm = ({user, setUser, setInitialized}) => {
 
     const [state, setState] = useState(1)
     const load = useSelector((state) => state.loader.value)
+    const query = new URLSearchParams(window.location.search)
+    const baseUrl = `http://${decodeURIComponent(query.get('host'))}${decodeURIComponent(query.get('resource'))}`
 
     useEffect(() => {
         setInitialized(true)
@@ -26,8 +28,8 @@ const Confirm = ({user, setUser, setInitialized}) => {
             <ProgressiveForm
                 state={state}
                 forms={{
-                    1: <ConfirmPassword user={user} setUser={setUser} setInitialized={setInitialized} advance={advance}/>,
-                    2: <ConfirmTwoFactor user={user} setUser={setUser} setInitialized={setInitialized} advance={advance}/>
+                    1: <ConfirmPassword user={user} setUser={setUser} baseUrl={baseUrl} setInitialized={setInitialized} advance={advance}/>,
+                    2: <ConfirmTwoFactor user={user} setUser={setUser} baseUrl={baseUrl} setInitialized={setInitialized} advance={advance}/>
                 }}
             />
         </div>

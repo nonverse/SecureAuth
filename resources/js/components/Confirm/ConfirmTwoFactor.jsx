@@ -9,7 +9,7 @@ import {auth} from "../../../scripts/api/auth";
 import {useDispatch} from "react-redux";
 import {endLoad, startLoad} from "../../state/load";
 
-const ConfirmTwoFactor = ({user, setInitialized}) => {
+const ConfirmTwoFactor = ({user, baseUrl, setInitialized}) => {
 
     const [error, setError] = useState('')
     const [showInfo, setShowInfo] = useState(false)
@@ -57,7 +57,7 @@ const ConfirmTwoFactor = ({user, setInitialized}) => {
                 <span>Hello, <span className="op-05">{user.name_first} {user.name_last}</span></span>
                 <h1>Authenticate an action</h1>
                 <LinkButton action={() => {
-                    window.location.replace(`http://${decodeURIComponent(query.get('host'))}${decodeURIComponent(query.get('resource'))}`)
+                    window.location.replace(baseUrl)
                 }}>Back to app</LinkButton>
             </div>
             <Formik initialValues={{
