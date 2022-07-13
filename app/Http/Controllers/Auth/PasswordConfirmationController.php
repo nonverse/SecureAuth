@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Contracts\Repository\UserRepositoryInterface;
+use App\Services\Auth\PasswordConfirmationService;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Contracts\Hashing\Hasher;
@@ -37,17 +38,24 @@ class PasswordConfirmationController extends AbstractAuthenticationController
      */
     private Google2FA $google2FA;
 
+    /**
+     * @var PasswordConfirmationService
+     */
+    private PasswordConfirmationService $confirmationService;
+
     public function __construct(
-        UserRepositoryInterface $repository,
-        Encrypter               $encrypter,
-        Hasher                  $hasher,
-        Google2FA               $google2FA
+        UserRepositoryInterface     $repository,
+        Encrypter                   $encrypter,
+        Hasher                      $hasher,
+        Google2FA                   $google2FA,
+        PasswordConfirmationService $confirmationService
     )
     {
         $this->repository = $repository;
         $this->encrypter = $encrypter;
         $this->hasher = $hasher;
         $this->google2FA = $google2FA;
+        $this->confirmationService = $confirmationService;
     }
 
     /**
@@ -83,11 +91,15 @@ class PasswordConfirmationController extends AbstractAuthenticationController
             ]);
         }
 
-        // TODO Issue action authorization token (Service)
+        /*
+         * Store confirmation token with expiry
+         */
+        $confirmation = $this->confirmationService->handle($request, $user, $request->input('authenticates'));
 
         return new JsonResponse([
             'data' => [
-                'complete' => true
+                'complete' => true,
+                ...$confirmation
             ]
         ]);
     }
@@ -125,7 +137,6 @@ class PasswordConfirmationController extends AbstractAuthenticationController
             return response('Invalid OTP', 401);
         }
 
-        // TODO Issue action authorization token (Service)
 
         return new JsonResponse([
             'data' => [
