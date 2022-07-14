@@ -10,7 +10,7 @@ import {useDispatch} from "react-redux";
 import {endLoad, startLoad} from "../../state/load";
 import dictionary from "../../../scripts/dictionary";
 
-const ConfirmTwoFactor = ({user, baseUrl, setInitialized}) => {
+const ConfirmTwoFactor = ({user, baseUrl, invalid, setInitialized}) => {
 
     const [error, setError] = useState('')
     const [showInfo, setShowInfo] = useState(false)
@@ -69,10 +69,11 @@ const ConfirmTwoFactor = ({user, baseUrl, setInitialized}) => {
                 submit(values)
             }}>
                 {({errors}) => (
-                    <div>
+                    <div className={invalid ? 'op-05 action-cover' : ''}>
                         <Form>
                             <Field doesLoad name={"one_time_password"} placeholder={"Enter Your 2FA Code"}
-                                   error={errors.one_time_password ? errors.one_time_password  : error} validate={validateCode}/>
+                                   error={errors.one_time_password ? errors.one_time_password : error}
+                                   validate={validateCode}/>
                         </Form>
                         <LinkButton action={() => {
                             setShowInfo(true)
@@ -80,12 +81,17 @@ const ConfirmTwoFactor = ({user, baseUrl, setInitialized}) => {
                     </div>
                 )}
             </Formik>
-            {query.get('authenticates') ?
+            {invalid ?
                 (
-                    <FormInformation weight={'default'}>
-                        Authentication requested for: <span className="splash">{dictionary.actionByKey(query.get('authenticates'))}</span>
+                    <FormInformation weight={'danger'}>
+                        Invalid authentication request, please return to app
                     </FormInformation>
-                ) : ''}
+                ) : (
+                    <FormInformation weight={'default'}>
+                        Authentication requested for: <span
+                        className="splash">{dictionary.actionByKey(query.get('authenticates'))}</span>
+                    </FormInformation>
+                )}
             {showInfo ?
                 (
                     <FormInformation weight={'warning'} close={() => {

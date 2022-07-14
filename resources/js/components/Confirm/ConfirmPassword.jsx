@@ -10,7 +10,7 @@ import {useDispatch} from "react-redux";
 import {endLoad, startLoad} from "../../state/load";
 import dictionary from "../../../scripts/dictionary";
 
-const ConfirmPassword = ({user, setUser, baseUrl, setInitialized, advance}) => {
+const ConfirmPassword = ({user, setUser, baseUrl, invalid, setInitialized, advance}) => {
 
     const [error, setError] = useState('')
     const [showInfo, setShowInfo] = useState(false)
@@ -72,7 +72,7 @@ const ConfirmPassword = ({user, setUser, baseUrl, setInitialized, advance}) => {
                 submit(values)
             }}>
                 {({errors}) => (
-                    <div>
+                    <div className={invalid ? 'op-05 action-cover' : ''}>
                         <Form>
                             <Field doesLoad password name={"password"} placeholder={"Enter Your Password"}
                                    error={errors.password ? errors.password : error} validate={validatePassword}/>
@@ -83,12 +83,17 @@ const ConfirmPassword = ({user, setUser, baseUrl, setInitialized, advance}) => {
                     </div>
                 )}
             </Formik>
-            {query.get('authenticates') ?
+            {invalid ?
                 (
-                    <FormInformation weight={'default'}>
-                        Authentication requested for: <span className="splash">{dictionary.actionByKey(query.get('authenticates'))}</span>
+                    <FormInformation weight={'danger'}>
+                        Invalid authentication request, please return to app
                     </FormInformation>
-                ) : ''}
+                ) : (
+                    <FormInformation weight={'default'}>
+                        Authentication requested for: <span
+                        className="splash">{dictionary.actionByKey(query.get('authenticates'))}</span>
+                    </FormInformation>
+                )}
             {showInfo ?
                 (
                     <FormInformation weight={'warning'} close={() => {
