@@ -80,7 +80,8 @@ class PasswordConfirmationController extends AbstractAuthenticationController
             $request->session()->put('two_factor_authentication', [
                 'uuid' => $user->uuid,
                 'token_value' => $token,
-                'token_expiry' => CarbonImmutable::now()->addMinutes(10)
+                'token_expiry' => CarbonImmutable::now()->addMinutes(10),
+                'authenticates' => $request->input('authenticates')
             ]);
 
             return new JsonResponse([
@@ -137,10 +138,17 @@ class PasswordConfirmationController extends AbstractAuthenticationController
             return response('Invalid OTP', 401);
         }
 
+        /*
+         * Store confirmation token with expiry
+         */
+        $confirmation = $this->confirmationService->handle($request, $user, $request->session()->get('two_factor_authentication')['authenticates']);
+
+        $request->session()->forget('two_factor_authentication');
 
         return new JsonResponse([
             'data' => [
-                'complete' => true
+                'complete' => true,
+                ...$confirmation
             ]
         ]);
     }

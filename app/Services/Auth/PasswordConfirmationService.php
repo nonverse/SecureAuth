@@ -18,7 +18,7 @@ class PasswordConfirmationService
      * @param string|null $authenticates
      * @return array
      */
-    #[ArrayShape(['confirmation_token' => "string", 'token_expiry' => "\Carbon\CarbonImmutable"])]
+    #[ArrayShape(['confirmation_token' => "string", 'token_expiry' => "\Carbon\CarbonImmutable", 'token_authenticates' => "string"])]
     public function handle(Request $request, User $user, string $authenticates = null): array
     {
         /*
@@ -35,7 +35,8 @@ class PasswordConfirmationService
 
         return [
             'confirmation_token' => $token,
-            'token_expiry' => CarbonImmutable::now()->addMinutes(5)
+            'token_expiry' => CarbonImmutable::now()->addMinutes(5),
+            'token_authenticates' => $authenticates
         ];
     }
 }

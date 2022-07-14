@@ -22,14 +22,15 @@ const ConfirmPassword = ({user, setUser, baseUrl, invalid, setInitialized, advan
         dispatch(startLoad())
 
         await auth.post('confirm', {
-            password: values.password
+            password: values.password,
+            authenticates: query.get('authenticates')
         })
             .then((response) => {
                 if (response.data.data.complete) {
                     dispatch(endLoad())
                     setInitialized(false)
 
-                    let redirectUrl = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}confirmation_token=${response.data.data.confirmation_token}&token_expiry=${response.data.data.token_expiry}`
+                    let redirectUrl = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}confirmation_token=${response.data.data.confirmation_token}&token_expiry=${response.data.data.token_expiry}&token_authenticates=${response.data.data.token_authenticates}`
                     window.location.replace(redirectUrl)
                 } else if (response.data.data.authentication_token) {
                     setUser({
