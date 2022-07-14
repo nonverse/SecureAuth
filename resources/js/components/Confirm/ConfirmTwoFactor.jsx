@@ -8,6 +8,7 @@ import FormInformation from "../elements/FormInformation";
 import {auth} from "../../../scripts/api/auth";
 import {useDispatch} from "react-redux";
 import {endLoad, startLoad} from "../../state/load";
+import dictionary from "../../../scripts/dictionary";
 
 const ConfirmTwoFactor = ({user, baseUrl, setInitialized}) => {
 
@@ -79,6 +80,12 @@ const ConfirmTwoFactor = ({user, baseUrl, setInitialized}) => {
                     </div>
                 )}
             </Formik>
+            {query.get('authenticates') ?
+                (
+                    <FormInformation weight={'default'}>
+                        Authentication requested for: <span className="splash">{dictionary.actionByKey(query.get('authenticates'))}</span>
+                    </FormInformation>
+                ) : ''}
             {showInfo ?
                 (
                     <FormInformation weight={'warning'} close={() => {
