@@ -5,6 +5,7 @@ import validate from "../../../scripts/validate";
 import {auth} from "../../../scripts/api/auth";
 import {useDispatch} from "react-redux";
 import {endLoad, startLoad} from "../../state/load";
+import FormInformation from "../elements/FormInformation";
 
 const Confirm = ({user, setUser, advance}) => {
 
@@ -29,9 +30,11 @@ const Confirm = ({user, setUser, advance}) => {
 
     return (
         <>
-            <div className="fluid-text">
-                <span>Your account is almost ready, please check your <br/>details before submitting</span>
-            </div>
+            <FormInformation weight={'default'}>
+                Your account is almost ready. Please check your details before submitting
+            </FormInformation>
+            <br/>
+            <br/>
             <Formik initialValues={{
                 password: '',
                 password_confirmation: ''
