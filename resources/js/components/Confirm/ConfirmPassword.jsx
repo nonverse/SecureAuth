@@ -10,7 +10,7 @@ import {useDispatch} from "react-redux";
 import {endLoad, startLoad} from "../../state/load";
 import dictionary from "../../../scripts/dictionary";
 
-const ConfirmPassword = ({user, setUser, baseUrl, invalid, setInitialized, advance}) => {
+const ConfirmPassword = ({user, setUser, baseUrl, redirectUrl, invalid, setInitialized, advance}) => {
 
     const [error, setError] = useState('')
     const [showInfo, setShowInfo] = useState(false)
@@ -30,8 +30,9 @@ const ConfirmPassword = ({user, setUser, baseUrl, invalid, setInitialized, advan
                     dispatch(endLoad())
                     setInitialized(false)
 
-                    let redirectUrl = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}confirmation_token=${response.data.data.confirmation_token}&token_expiry=${response.data.data.token_expiry}&token_authenticates=${response.data.data.token_authenticates}`
-                    window.location.replace(redirectUrl)
+                    let {confirmation_token, token_expiry, token_authenticates} = response.data.data
+
+                    window.location.replace(redirectUrl(confirmation_token,token_expiry, token_authenticates))
                 } else if (response.data.data.authentication_token) {
                     setUser({
                         ...user,
@@ -42,6 +43,7 @@ const ConfirmPassword = ({user, setUser, baseUrl, invalid, setInitialized, advan
                 }
             })
             .catch((e) => {
+                xcd
                 switch (e.response.status) {
                     case 401:
                         setError('Password is incorrect')

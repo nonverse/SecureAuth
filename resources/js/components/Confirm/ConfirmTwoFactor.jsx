@@ -10,7 +10,7 @@ import {useDispatch} from "react-redux";
 import {endLoad, startLoad} from "../../state/load";
 import dictionary from "../../../scripts/dictionary";
 
-const ConfirmTwoFactor = ({user, baseUrl, invalid, setInitialized}) => {
+const ConfirmTwoFactor = ({user, baseUrl, redirectUrl, invalid, setInitialized}) => {
 
     const [error, setError] = useState('')
     const [showInfo, setShowInfo] = useState(false)
@@ -30,8 +30,9 @@ const ConfirmTwoFactor = ({user, baseUrl, invalid, setInitialized}) => {
                     dispatch(endLoad())
                     setInitialized(false)
 
-                    let redirectUrl = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}confirmation_token=${response.data.data.confirmation_token}&token_expiry=${response.data.data.token_expiry}&token_authenticates=${response.data.data.token_authenticates}`
-                    window.location.replace(redirectUrl)
+                    let {confirmation_token, token_expiry, token_authenticates} = response.data.data
+
+                    window.location.replace(redirectUrl(confirmation_token,token_expiry, token_authenticates))
                 }
             })
             .catch((e) => {
