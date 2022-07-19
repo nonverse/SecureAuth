@@ -43,7 +43,6 @@ const ConfirmPassword = ({user, setUser, baseUrl, redirectUrl, invalid, setIniti
                 }
             })
             .catch((e) => {
-                xcd
                 switch (e.response.status) {
                     case 401:
                         setError('Password is incorrect')
