@@ -123,6 +123,10 @@ class UserController extends Controller
 
         $user = $this->repository->get(json_decode($request->cookie('user'))->uuid);
 
+        if (!$user) {
+            return response('Invalid user cookie', 400);
+        }
+
         return new JsonResponse([
             'data' => [
                 'uuid' => $user->uuid,
