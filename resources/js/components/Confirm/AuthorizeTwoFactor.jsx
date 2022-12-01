@@ -10,7 +10,7 @@ import {useDispatch} from "react-redux";
 import {endLoad, startLoad} from "../../state/load";
 import dictionary from "../../../scripts/dictionary";
 
-const ConfirmPassword = ({user, setUser, baseUrl, redirectUrl, invalid, setInitialized, advance}) => {
+const AuthorizeTwoFactor = ({user, baseUrl, redirectUrl, invalid, setInitialized}) => {
 
     const [error, setError] = useState('')
     const [showInfo, setShowInfo] = useState(false)
@@ -21,9 +21,9 @@ const ConfirmPassword = ({user, setUser, baseUrl, redirectUrl, invalid, setIniti
 
         dispatch(startLoad())
 
-        await auth.post('confirm', {
-            password: values.password,
-            authenticates: query.get('authenticates')
+        await auth.post('confirm/two-factor', {
+            one_time_password: values.one_time_password,
+            authentication_token: user.authentication_token
         })
             .then((response) => {
                 if (response.data.data.complete) {
@@ -33,67 +33,64 @@ const ConfirmPassword = ({user, setUser, baseUrl, redirectUrl, invalid, setIniti
                     let {confirmation_token, token_expiry, token_authenticates} = response.data.data
 
                     window.location.replace(redirectUrl(confirmation_token,token_expiry, token_authenticates))
-                } else if (response.data.data.authentication_token) {
-                    setUser({
-                        ...user,
-                        authentication_token: response.data.data.authentication_token
-                    })
-                    dispatch(endLoad())
-                    advance()
                 }
             })
             .catch((e) => {
                 switch (e.response.status) {
-                    case 401:
-                        setError('Password is incorrect')
-                        break;
-                    default:
+                    case 422:
                         setError('Something went wrong')
+                        break
+                    case 500:
+                        setError('Something went wrong')
+                        break
+                    default:
+                        setError(e.response.data)
                 }
                 dispatch(endLoad())
             })
     }
 
-    function validatePassword(value) {
+    function validateCode(value) {
         setError('')
-        return validate.require(value)
+        return validate.require(value, 6, 6)
     }
 
     return (
         <>
             <div className="fluid-text">
                 <span>Hello, <span className="op-05">{user.name_first} {user.name_last}</span></span>
-                <h1>Authenticate an action</h1>
+                <h1>Authorize an action</h1>
                 <LinkButton action={() => {
                     window.location.replace(baseUrl)
                 }}>Back to app</LinkButton>
             </div>
             <Formik initialValues={{
-                password: ''
+                one_time_password: ''
             }} onSubmit={(values) => {
                 submit(values)
             }}>
                 {({errors}) => (
                     <div className={invalid ? 'op-05 action-cover' : ''}>
                         <Form>
-                            <Field doesLoad password name={"password"} placeholder={"Enter Your Password"}
-                                   error={errors.password ? errors.password : error} validate={validatePassword}/>
+                            <Field doesLoad name={"one_time_password"} placeholder={"Enter Your 2FA Code"}
+                                   error={errors.one_time_password ? errors.one_time_password : error}
+                                   validate={validateCode}/>
                         </Form>
                         <LinkButton action={() => {
                             setShowInfo(true)
-                        }}>Why do I need to authenticate?</LinkButton>
+                        }}>Why do I need to authorize?</LinkButton>
                     </div>
                 )}
             </Formik>
             {invalid ?
                 (
                     <FormInformation weight={'danger'}>
-                        Invalid authentication request, please return to app
+                        Invalid authorization request, please return to app
                     </FormInformation>
                 ) : (
                     <FormInformation weight={'default'}>
-                        Authentication requested for: <span
-                        className="splash">{dictionary.actionByKey(query.get('authenticates'))}</span>
+                        Authorization requested for: <span
+                        className="splash">{dictionary.actionByKey(query.get('action_id'))}</span>
                     </FormInformation>
                 )}
             {showInfo ?
@@ -101,7 +98,7 @@ const ConfirmPassword = ({user, setUser, baseUrl, redirectUrl, invalid, setIniti
                     <FormInformation weight={'warning'} close={() => {
                         setShowInfo(false)
                     }}>
-                        Some actions require manual authentication so we can verify that it's really you who is
+                        Some actions require manual authorization so we can verify that it's really you who is
                         executing them.
                     </FormInformation>
                 ) : ''}
@@ -109,4 +106,4 @@ const ConfirmPassword = ({user, setUser, baseUrl, redirectUrl, invalid, setIniti
     )
 }
 
-export default ConfirmPassword;
+export default AuthorizeTwoFactor

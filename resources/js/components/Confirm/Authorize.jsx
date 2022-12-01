@@ -1,11 +1,11 @@
 import {useEffect, useState} from "react";
 import ProgressiveForm from "../elements/ProgressiveForm";
 import {useSelector} from "react-redux";
-import ConfirmPassword from "./ConfirmPassword";
-import ConfirmTwoFactor from "./ConfirmTwoFactor";
 import dictionary from "../../../scripts/dictionary";
+import AuthorizePassword from "./AuthorizePassword";
+import AuthorizeTwoFactor from "./AuthorizeTwoFactor";
 
-const Confirm = ({user, setUser, setInitialized}) => {
+const Authorize = ({user, setUser, setInitialized}) => {
 
     const [state, setState] = useState(1)
     const [invalid, setInvalid] = useState(false)
@@ -14,7 +14,7 @@ const Confirm = ({user, setUser, setInitialized}) => {
     const baseUrl = `http://${decodeURIComponent(query.get('host'))}${decodeURIComponent(query.get('resource'))}`
 
     useEffect(() => {
-        if (!dictionary.actionByKey(query.get('authenticates'))) {
+        if (!dictionary.actionByKey(query.get('action_id'))) {
             setInvalid(true)
         }
         setInitialized(true)
@@ -29,7 +29,7 @@ const Confirm = ({user, setUser, setInitialized}) => {
     }
 
     function createRedirectUrl(token, token_expiry, token_authenticates) {
-        return `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}confirmation_token=${token}&token_expiry=${token_expiry}&token_authenticates=${token_authenticates}`
+        return `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}authorization_token=${token}&token_expiry=${token_expiry}&token_authenticates=${token_authenticates}`
     }
 
     return (
@@ -37,12 +37,12 @@ const Confirm = ({user, setUser, setInitialized}) => {
             <ProgressiveForm
                 state={state}
                 forms={{
-                    1: <ConfirmPassword user={user} setUser={setUser} baseUrl={baseUrl} redirectUrl={createRedirectUrl} invalid={invalid} setInitialized={setInitialized} advance={advance}/>,
-                    2: <ConfirmTwoFactor user={user} setUser={setUser} baseUrl={baseUrl} redirectUrl={createRedirectUrl} invalid={invalid} setInitialized={setInitialized} advance={advance}/>
+                    1: <AuthorizePassword user={user} setUser={setUser} baseUrl={baseUrl} redirectUrl={createRedirectUrl} invalid={invalid} setInitialized={setInitialized} advance={advance}/>,
+                    2: <AuthorizeTwoFactor user={user} setUser={setUser} baseUrl={baseUrl} redirectUrl={createRedirectUrl} invalid={invalid} setInitialized={setInitialized} advance={advance}/>
                 }}
             />
         </div>
     )
 }
 
-export default Confirm;
+export default Authorize;
