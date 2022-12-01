@@ -44,12 +44,10 @@ Route::prefix('login')->group(function () {
 });
 
 /*
- * Confirm Action
+ * Authorize Action
  */
-Route::prefix('confirm')->middleware(['auth'])->group(function () {
+Route::prefix('authorize')->middleware(['auth'])->group(function () {
     Route::view('/', 'app');
-    Route::post('/', [\App\Http\Controllers\Auth\PasswordConfirmationController::class, 'password']);
-    Route::post('/two-factor', [\App\Http\Controllers\Auth\PasswordConfirmationController::class, 'twoFactor']);
 });
 
 /*
