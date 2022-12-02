@@ -11,7 +11,7 @@ const Authorize = ({user, setUser, setInitialized}) => {
     const [invalid, setInvalid] = useState(false)
     const load = useSelector((state) => state.loader.value)
     const query = new URLSearchParams(window.location.search)
-    const baseUrl = `http://${decodeURIComponent(query.get('host'))}${decodeURIComponent(query.get('resource'))}`
+    const baseUrl = `https://${decodeURIComponent(query.get('host'))}${decodeURIComponent(query.get('resource'))}`
 
     useEffect(() => {
         if (!dictionary.actionByKey(query.get('action_id'))) {

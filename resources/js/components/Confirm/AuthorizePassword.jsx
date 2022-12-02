@@ -21,32 +21,18 @@ const AuthorizePassword = ({user, setUser, baseUrl, redirectUrl, invalid, setIni
 
         dispatch(startLoad())
 
-        await auth.post('confirm', {
+        await auth.post('authorize', {
             password: values.password,
-            authenticates: query.get('authenticates')
+            action_id: query.get('action_id'),
         })
             .then((response) => {
-                if (response.data.data.complete) {
-                    dispatch(endLoad())
-                    setInitialized(false)
-
-                    let {confirmation_token, token_expiry, token_authenticates} = response.data.data
-
-                    window.location.replace(redirectUrl(confirmation_token,token_expiry, token_authenticates))
-                } else if (response.data.data.authentication_token) {
-                    setUser({
-                        ...user,
-                        authentication_token: response.data.data.authentication_token
-                    })
-                    dispatch(endLoad())
-                    advance()
-                }
+                console.log(response.data.data.authorization_token)
             })
             .catch((e) => {
                 switch (e.response.status) {
                     case 401:
                         setError('Password is incorrect')
-                        break;
+                        break
                     default:
                         setError('Something went wrong')
                 }
