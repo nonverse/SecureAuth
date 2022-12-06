@@ -10,7 +10,7 @@ import {useDispatch} from "react-redux";
 import {endLoad, startLoad} from "../../state/load";
 import dictionary from "../../../scripts/dictionary";
 
-const AuthorizePassword = ({user, setUser, baseUrl, redirectUrl, invalid, setInitialized, advance}) => {
+const AuthorizePassword = ({user, setUser, baseUrl, invalid, setInitialized, advance}) => {
 
     const [error, setError] = useState('')
     const [showInfo, setShowInfo] = useState(false)
@@ -26,7 +26,16 @@ const AuthorizePassword = ({user, setUser, baseUrl, redirectUrl, invalid, setIni
             action_id: query.get('action_id'),
         })
             .then((response) => {
-                console.log(response.data.data.authorization_token)
+                const redirectQuery = new URLSearchParams({
+                    authorization_token: JSON.stringify(response.data.data.authorization_token),
+                    application_state: query.get('application_state')
+                })
+
+                const redirectURL = `${baseUrl}?${redirectQuery}`
+
+                //console.log(redirectURL)
+                setInitialized(false)
+                window.location.replace(redirectURL)
             })
             .catch((e) => {
                 switch (e.response.status) {
