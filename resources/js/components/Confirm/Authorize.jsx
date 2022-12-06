@@ -28,17 +28,15 @@ const Authorize = ({user, setUser, setInitialized}) => {
         }
     }
 
-    function createRedirectUrl(token, token_expiry, token_authenticates) {
-        return `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}authorization_token=${token}&token_expiry=${token_expiry}&token_authenticates=${token_authenticates}`
-    }
-
     return (
         <div className={load ? 'form-loading action-cover op-05' : ''}>
             <ProgressiveForm
                 state={state}
                 forms={{
-                    1: <AuthorizePassword user={user} setUser={setUser} baseUrl={baseUrl} redirectUrl={createRedirectUrl} invalid={invalid} setInitialized={setInitialized} advance={advance}/>,
-                    2: <AuthorizeTwoFactor user={user} setUser={setUser} baseUrl={baseUrl} redirectUrl={createRedirectUrl} invalid={invalid} setInitialized={setInitialized} advance={advance}/>
+                    1: <AuthorizePassword user={user} setUser={setUser} baseUrl={baseUrl} invalid={invalid}
+                                          setInitialized={setInitialized} advance={advance}/>,
+                    2: <AuthorizeTwoFactor user={user} setUser={setUser} baseUrl={baseUrl} invalid={invalid}
+                                           setInitialized={setInitialized} advance={advance}/>
                 }}
             />
         </div>
