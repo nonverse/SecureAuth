@@ -27,7 +27,7 @@ class RedirectIfAuthenticated
                     'host' => $request->input('host') ?: env('BASE_APP_URL'),
                     'resource' => $request->input('resource') ?: '/'
                 ];
-                return redirect('http://' . $intended['host'] . $intended['resource']);
+                return redirect('https://' . $intended['host'] . $intended['resource']);
             }
         }
 
