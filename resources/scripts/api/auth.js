@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let url = `http://auth.nonverse.test`
+let url = `https://auth.nonverse.test`
 
 class auth_base {
 
