@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 /*
  * Base email request
  */
+
+use Illuminate\Support\Facades\Route;
+
 Route::view('/', 'app')->middleware(['guest', 'nousercookie']);
 
 /*
@@ -56,7 +59,6 @@ Route::prefix('authorize')->middleware(['auth'])->group(function () {
  */
 Route::prefix('logout')->group(function () {
     Route::post('/', [\App\Http\Controllers\Auth\AuthenticationController::class, 'logout']);
-    Route::post('/all', [\App\Http\Controllers\Auth\AuthenticationController::class, 'logoutAll']);
 });
 
 /*

@@ -46,3 +46,13 @@ Route::prefix('two-factor-authentication')->middleware('auth')->group(function()
      */
     Route::delete('/', [\App\Http\Controllers\Auth\TwoFactorController::class, 'disable']);
 });
+
+/**
+ * Logout All
+ */
+Route::post('logout-all', [\App\Http\Controllers\Auth\AuthenticationController::class, 'logoutAll']);
+
+/**
+ * Verify authorization token
+ */
+Route::post('verify-token', [\App\Http\Controllers\Auth\AuthorizationController::class, 'verifyToken']);
