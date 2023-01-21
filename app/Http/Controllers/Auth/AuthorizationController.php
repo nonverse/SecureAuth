@@ -6,9 +6,12 @@ use App\Contracts\Repository\UserRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\Auth\AuthorizationService;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Hashing\Hasher;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class AuthorizationController extends Controller
 {
@@ -38,6 +41,12 @@ class AuthorizationController extends Controller
         $this->hasher = $hasher;
     }
 
+    /**
+     * Issue an authorization token for requested action
+     *
+     * @param Request $request
+     * @return Application|ResponseFactory|JsonResponse|Response|void
+     */
     public function authorizationToken(Request $request)
     {
 
@@ -71,5 +80,33 @@ class AuthorizationController extends Controller
                 ]
             ]);
         }
+    }
+
+    /**
+     * Verify authorization token
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function verifyToken(Request $request) {
+        $request->validate([
+            'action_id' => 'required|string',
+            'authorization_token' => 'required'
+        ]);
+
+        $authorization = $this->authorizationService->verify($request);
+        if (!$authorization['success']) {
+            return new JsonResponse([
+                'error' => [
+                    'token' => 'Invalid authorization token'
+                ]
+            ], 401);
+        }
+
+        return new JsonResponse([
+            'data' => [
+                ...$authorization['data']
+            ]
+        ]);
     }
 }
