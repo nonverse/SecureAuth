@@ -13,10 +13,8 @@ const Fluid = () => {
                     exit={{opacity: 0}}
                     transition={{duration: .5}}
         >
-            <div className="fluid">
-                <div className={load ? 'form-loading action-cover op-05' : ''}>
-                    <Outlet/>
-                </div>
+            <div className={`fluid ${load ? 'form-loading action-cover op-05' : ''}`}>
+                <Outlet/>
             </div>
         </motion.div>
     )
