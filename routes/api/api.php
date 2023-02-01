@@ -23,3 +23,9 @@ Route::prefix('user/auth')->group(base_path('routes/api/user/auth.php'))->middle
  */
 Route::prefix('validator')->group(base_path('routes/api/validator.php'));
 
+/**
+ * OAuth API Routes
+ */
+$guard = config('passport.guard', 'web');
+
+Route::prefix('oauth')->group(base_path('routes/api/oauth.php'))->middleware([$guard ? 'auth:'.$guard : 'auth']);
