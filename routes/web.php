@@ -1,7 +1,6 @@
 <?php
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,16 +54,19 @@ Route::prefix('authorize')->middleware(['auth'])->group(function () {
 });
 
 /*
- * Logout
- */
-Route::prefix('logout')->group(function () {
-    Route::post('/', [\App\Http\Controllers\Auth\AuthenticationController::class, 'logout']);
-});
-
-/*
  * Registration
  */
 Route::prefix('register')->group(function () {
     Route::view('/', 'app')->middleware('guest');
     Route::post('/', [\App\Http\Controllers\User\UserController::class, 'store']);
 });
+
+/*
+ * OAuth2
+ */
+$guard = config('passport.guard', 'web');
+
+Route::prefix('oauth')->middleware([$guard ? 'auth:'.$guard : 'auth'])->group(function () {
+    Route::view('/authorize', 'app')->name('authorizations.authorize');
+});
+
