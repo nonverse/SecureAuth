@@ -9,7 +9,7 @@
     .fluid {
         display: flex;
         flex-direction: column;
-        max-width: 20vw;
+        max-width: min-content;
         form {
             input {
                 width: 20vw;
@@ -28,6 +28,37 @@
             .link-button {
                 float: right;
             }
+        }
+        .fluid-body {
+            width: max-content;
+            span {
+                color: $font-color;
+            }
+            h1 {
+                font-weight: normal;
+                font-size: 1.5rem;
+                color: $font-color;
+                margin-bottom: .5rem;
+            }
+            ul {
+                opacity: .8;
+                margin-left: 1.5vw;
+            }
+        }
+        .fluid-actions {
+            margin-left: auto;
+            float: right;
+            margin-top: 2vh;
+            .link-button {
+                color: $font-color !important;
+            }
+            .button {
+                margin-left: .5rem;
+            }
+        }
+        .form-info-wrapper {
+            max-width: 100%;
+            overflow-wrap: break-word;
         }
     }
 }

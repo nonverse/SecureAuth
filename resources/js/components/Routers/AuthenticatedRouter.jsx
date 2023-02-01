@@ -4,6 +4,7 @@ import Fluid from "../elements/Fluid";
 import {useEffect, useState} from "react";
 import {auth} from "../../../scripts/api/auth";
 import Authorize from "../Confirm/Authorize";
+import OAuthAuthorize from "../OAuth/OAuthAuthorize";
 
 const AuthenticatedRouter = ({setInitialized}) => {
 
@@ -22,6 +23,7 @@ const AuthenticatedRouter = ({setInitialized}) => {
             <Routes location={location} key={location.pathname}>
                 <Route path={'/'} element={<Fluid/>}>
                     <Route path={'/authorize'} element={<Authorize user={user} setUser={setUser} setInitialized={setInitialized}/>}/>
+                    <Route path={'/oauth/authorize'} element={<OAuthAuthorize user={user} setInitialized={setInitialized}/>}/>}/>
                 </Route>
             </Routes>
         </AnimatePresence>
