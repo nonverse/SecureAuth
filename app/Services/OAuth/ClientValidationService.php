@@ -109,7 +109,7 @@ class ClientValidationService
                 'user' => $user,
                 'scopes' => $scopes,
                 'request' => $request,
-                'authToken' => $authToken,
+                'auth_token' => $authToken,
             ]
         ]);
     }
