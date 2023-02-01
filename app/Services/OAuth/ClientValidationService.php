@@ -104,11 +104,13 @@ class ClientValidationService
         $request->session()->put('authRequest', $authRequest);
 
         return new JsonResponse([
-            'client' => $client,
-            'user' => $user,
-            'scopes' => $scopes,
-            'request' => $request,
-            'authToken' => $authToken,
+            'data' => [
+                'client' => $client,
+                'user' => $user,
+                'scopes' => $scopes,
+                'request' => $request,
+                'authToken' => $authToken,
+            ]
         ]);
     }
 

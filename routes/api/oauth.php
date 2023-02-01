@@ -10,4 +10,4 @@ use Illuminate\Support\Facades\Route;
 | Endpoint: /api/oauth
 |
 */
-Route::get('authorize', [\App\Http\Controllers\OAuth\AuthorizationController::class, 'authorize']);
+Route::post('authorize', [\App\Http\Controllers\OAuth\AuthorizationController::class, 'authorize']);
