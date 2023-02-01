@@ -28,31 +28,3 @@ Route::get('cookie', [\App\Http\Controllers\User\UserController::class, 'getCook
  * Clear user cookie
  */
 Route::delete('cookie', [\App\Http\Controllers\User\UserController::class, 'clearCookie']);
-
-/**
- * Two-Factor Authentication
- */
-Route::prefix('two-factor-authentication')->middleware('auth')->group(function() {
-    /*
-     * Get 2FA setup data
-     */
-    Route::get('/', [\App\Http\Controllers\Auth\TwoFactorController::class, 'get']);
-    /*
-     * Enable 2FA
-     */
-    Route::post('/', [\App\Http\Controllers\Auth\TwoFactorController::class, 'enable']);
-    /*
-     * Disable 2FA
-     */
-    Route::delete('/', [\App\Http\Controllers\Auth\TwoFactorController::class, 'disable']);
-});
-
-/**
- * Logout All
- */
-Route::post('logout-all', [\App\Http\Controllers\Auth\AuthenticationController::class, 'logoutAll']);
-
-/**
- * Verify authorization token
- */
-Route::post('verify-token', [\App\Http\Controllers\Auth\AuthorizationController::class, 'verifyToken']);
