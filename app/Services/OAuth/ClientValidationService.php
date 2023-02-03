@@ -2,6 +2,7 @@
 
 namespace App\Services\OAuth;
 
+use App\Http\Controllers\OAuth\AbstractOAuthController;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\StatefulGuard;
@@ -20,8 +21,9 @@ use Laravel\Passport\TokenRepository;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
 use Psr\Http\Message\ServerRequestInterface;
+use Nyholm\Psr7\Response as Psr7Response;
 
-class ClientValidationService
+class ClientValidationService extends AbstractOAuthController
 {
     use HandlesOAuthErrors;
 
@@ -150,20 +152,26 @@ class ClientValidationService
      *
      * @param AuthorizationRequest $authRequest
      * @param Authenticatable $user
-     * @return Response
+     * @return JsonResponse
      * @throws OAuthServerException
      */
-    protected function approveRequest(AuthorizationRequest $authRequest, $user): Response
+    protected function approveRequest(AuthorizationRequest $authRequest, $user): JsonResponse
     {
         $authRequest->setUser(new User($user->getAuthIdentifier()));
 
         $authRequest->setAuthorizationApproved(true);
 
-        return $this->withErrorHandling(function () use ($authRequest) {
-            return $this->convertResponse(
+        $response = $this->withErrorHandling(function () use ($authRequest) {
+            return $this->convertResponseToJson(
                 $this->server->completeAuthorizationRequest($authRequest, new Psr7Response)
             );
         });
+
+        return new JsonResponse([
+            'data' => [
+                ...$response
+            ]
+        ]);
     }
 
     /**
