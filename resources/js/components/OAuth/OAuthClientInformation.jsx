@@ -22,7 +22,7 @@ const OAuthClientInformation = ({response, submit}) => {
                             ))
                         : (
                             <>
-                                <li>View all edit of your data</li>
+                                <li>View and edit all of your data</li>
                                 <li>Manage your account</li>
                             </>
                         )}
