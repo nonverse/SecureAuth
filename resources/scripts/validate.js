@@ -1,6 +1,5 @@
-import axios from "axios";
-
 class validate {
+
     email(value) {
         let error;
         if (!value) {
@@ -8,6 +7,26 @@ class validate {
         } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
             error = "Email is invalid"
         }
+        return error
+    }
+
+    password(value, blacklist) {
+        let error;
+        if (!value) {
+            error = "This field is required"
+        }
+        if (value.length < 8) {
+            error = "Password must contain at least 8 characters"
+        }
+
+        // TODO Other password integrity checks
+
+        blacklist.forEach(item => {
+            if (value.toLowerCase().includes(item.toLowerCase())) {
+                error = "Password must not contain personal information"
+            }
+        })
+
         return error
     }
 
