@@ -1,13 +1,26 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
+import Logo from "../elements/Logo";
+import {BrowserRouter} from "react-router-dom";
+import Loader from "./Loader";
 
 function Index() {
 
-    const [initialized, setInitialized] = useState(false)
+    const [initialised, setInitialised] = useState(true)
 
     return (
-        <div className="container">
-            TEst
+        <div className="app">
+            {initialised ?
+                <>
+                    <Logo/>
+                    <BrowserRouter>
+                        <div className="container">
+
+                        </div>
+                    </BrowserRouter>
+                </>
+                : <Loader/>
+            }
         </div>
     );
 }

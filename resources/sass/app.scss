@@ -1,35 +1,59 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nova+Round');
+@import url('https://fonts.googleapis.com/css?family=Inter');
 
 // Variables
 @import 'variables';
+
+// Classnames
+@import 'classnames';
 
 // App Config
 * {
     font-family: $font-family-sans-serif;
     margin: 0;
     padding: 0;
+
+    font-size: 16px;
+    @media (max-width: 1920px) {
+        font-size: 14px;
+    }
+    @media (max-width: 1280px) {
+        font-size: 10px;
+    }
+    @media (max-width: 640px) {
+        font-size: 8px;
+    }
+
     body {
         background-color: $body-bg;
-        .container {
+
+        .app {
             height: 100vh;
             width: 100vw;
-        }
-        .nv-logo {
-            margin: 3.5vh 0 0 2vw;
-            path {
-                cursor: pointer;
+
+            .container {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            a {
+                color: $splash;
             }
         }
     }
+
+    .element-disabled {
+        opacity: .25;
+        pointer-events: none;
+    }
 }
 
-.action-cover {
-    pointer-events: none;
-}
+// Elements
+@import "elements/elements";
 
 // Components
-@import "components/elements/fluid";
-@import "components/elements/buttons";
-@import "components/elements/form";
-@import "components/loader";
+@import "components/components";

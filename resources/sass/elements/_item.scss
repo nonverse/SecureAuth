@@ -1,0 +1,38 @@
+.item {
+  display: grid;
+  grid-template-columns: 1fr 3.5fr auto;
+  width: calc(100% - 3vw);
+  align-items: center;
+  padding: .5rem 0;
+  .item-name {
+    color: rgba($font-color, .5);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    padding-right: 3rem;
+    font-size: 1rem;
+  }
+  .item-value {
+    width: 100%;
+    display: flex;
+    font-size: 1rem;
+    span {
+      color: $font-color;
+      margin-right: .25rem;
+    }
+    .item-line {
+      flex-grow: 1;
+      border-bottom: solid 2px rgba($font-color, .25);
+      margin-right: .25rem;
+    }
+  }
+  .item-edit {
+    cursor: pointer;
+    font-size: 1rem;
+    stroke: $splash;
+    &:hover {
+      fill: $splash;
+    }
+    height: 1.5rem;
+  }
+}

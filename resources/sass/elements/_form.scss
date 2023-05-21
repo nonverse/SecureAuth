@@ -1,0 +1,60 @@
+.form-wrapper {
+  position: relative;
+
+  .form {
+    display: flex;
+    flex-direction: column;
+
+    .field-wrapper {
+      width: 100%;
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+
+      .field {
+        background-color: $main;
+        border: solid 1px rgba($font-color, .5);
+        width: calc(100% - 2rem - 2px);
+        border-radius: 5px;
+        outline: none;
+        padding: 1rem;
+        color: $font-color;
+      }
+
+      select {
+        width: 100% !important;
+        padding: calc(1rem - .5px) !important;
+        -webkit-appearance: none;
+        appearance: none;
+        cursor: pointer;
+      }
+
+      .field-label {
+        color: rgba($font-color, .5);
+        margin-left: 5px;
+        margin-bottom: .25rem;
+      }
+
+      .field-error {
+        color: orangered;
+        margin-left: 5px;
+        margin-top: .25rem;
+      }
+    }
+
+    .has-error {
+      .field-label {
+        color: rgba(orangered, .5);
+      }
+
+      .field {
+        border-color: rgba(orangered, .5);
+      }
+    }
+  }
+
+  .loader-wrapper {
+    position: absolute;
+    top: 0;
+  }
+}

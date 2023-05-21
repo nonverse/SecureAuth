@@ -1,62 +1,14 @@
 // Typography
-$font-family-sans-serif: 'Nova Round';
+$font-family-sans-serif: 'Inter';
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 $font-color: #333344;
 
 // App Theme
 $main: #ECF0F3;
-$main-dark: #303040;
-$main-darker: #272734;
-$foreground: #f1f5f8;
-$foreground-darker: #e5e7e9;
+$main-2: #D9D9D9;
+
 $splash: #6951FF;
 
 // Body
 $body-bg: $main;
-
-// Colors
-$blue: #3490dc;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #f66d9b;
-$red: #e3342f;
-$orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
-$teal: #4dc0b5;
-$cyan: #6cb2eb;
-
-
-// Classes
-.error {
-    color: orangered;
-}
-
-.warning {
-    color: goldenrod;
-}
-
-.op-05 {
-    opacity: .5;
-}
-
-.default {
-    color: #3f9ae5;
-}
-
-.splash {
-    color: $splash !important;
-}
-
-.danger {
-    color: orangered;
-}
-
-.link {
-    color: #2489fb !important;
-}
-
-.bold {
-    font-weight: bold;
-}
