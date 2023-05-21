@@ -1,13 +1,13 @@
 import {Form as FormikForm} from "formik";
 import Loader from "../components/Loader";
 
-const Form = ({id, loading, children}) => {
+const Form = ({id, loading, cta, children}) => {
 
     return (
         <div className="form-wrapper">
             <FormikForm className={`form ${loading ? 'element-disabled' : ''}`} id={id}>
                 {children}
-                <button type="submit">Done</button>
+                <button type="submit">{cta ? cta : 'Done'}</button>
             </FormikForm>
             {loading ? <Loader/> : <></>}
         </div>
