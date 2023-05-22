@@ -1,0 +1,19 @@
+#register-agreement {
+    .fluid-heading {
+        margin-left: 5px;
+    }
+
+    display: grid;
+    .fluid-text {
+        max-width: $max-width;
+        width: min-content;
+        p {
+            width: 19vw;
+            max-width: $max-width;
+        }
+    }
+    #agree-eula {
+        align-self: end;
+        justify-self: end;
+    }
+}
