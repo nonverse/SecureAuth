@@ -8,7 +8,7 @@ const Fluid = ({heading, subHeading, children}) => {
                     initial={{opacity: 0, x: 150}}
                     animate={{opacity: 1, x: 0}}
                     exit={{opacity: 0, x: -150}}
-                    transition={{duration: .1}}
+                    transition={{duration: .15}}
         >
             <div className="fluid-heading">
                 <h1>{heading}</h1>
