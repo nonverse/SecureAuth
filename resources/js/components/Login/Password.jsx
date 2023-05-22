@@ -8,8 +8,9 @@ import validate from "../../scripts/validate";
 import InLineButton from "../../elements/InLineButton";
 import {auth} from "../../scripts/api/auth";
 import {updateLoader} from "../../state/loader";
+import {updateUser} from "../../state/user";
 
-const Password = () => {
+const Password = ({advance}) => {
 
     const user = useSelector(state => state.user.value)
     const dispatch = useDispatch()
@@ -28,6 +29,17 @@ const Password = () => {
                     ...values,
                     email: user.email
                 })
+                    .then(response => {
+                        if (response.data.data.complete) {
+                            window.location.replace("https://apple.com/au")
+                        } else {
+                            dispatch(updateUser({
+                                ...user,
+                                authentication_token: response.data.data.authentication_token
+                            }))
+                            advance()
+                        }
+                    })
             }}>
                 {({errors}) => (
                     <Form id="fluid-form" cta="Continue">

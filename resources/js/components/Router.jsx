@@ -1,7 +1,7 @@
 import {AnimatePresence} from "framer-motion";
 import {Route, Routes, useLocation} from "react-router";
 import Email from "./Email";
-import Password from "./Login/Password";
+import Login from "./Login/Login";
 
 const Router = () => {
 
@@ -11,7 +11,7 @@ const Router = () => {
         <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
                 <Route path={"/"} element={<Email/>}/>
-                <Route path={"/login"} element={<Password/>}/>
+                <Route path={"/login"} element={<Login/>}/>
             </Routes>
         </AnimatePresence>
     )
