@@ -9,13 +9,13 @@ import {auth} from "../scripts/api/auth";
 import {useDispatch} from "react-redux";
 import {updateUser} from "../state/user";
 import {useNavigate} from "react-router-dom";
+import {updateLoader} from "../state/loader";
 
 const Email = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [error, setError] = useState('')
-    const [loading, setLoading] = useState(false)
 
     function validateEmail(value) {
         setError('')
@@ -27,7 +27,7 @@ const Email = () => {
             <Formik initialValues={{
                 email: ''
             }} onSubmit={async (values) => {
-                setLoading(true)
+                dispatch(updateLoader(true))
                 await auth.post('api/user/initialize', values)
                     .then(response => {
                         dispatch(updateUser({
@@ -48,7 +48,7 @@ const Email = () => {
                     })
             }}>
                 {({errors}) => (
-                    <Form id="fluid-form" cta="Continue" loading={loading}>
+                    <Form id="fluid-form" cta="Continue">
                         <Field name="email" label="E-Mail" validate={validateEmail}
                                error={errors.email ? errors.email : error}/>
                         <div className="fluid-actions">

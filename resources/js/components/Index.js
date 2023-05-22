@@ -12,6 +12,7 @@ import {updateUser} from "../state/user";
 function Index() {
 
     const [initialised, setInitialised] = useState(false)
+    const loading = useSelector(state => state.loader.value)
     const user = useSelector(state => state.user.value)
     const dispatch = useDispatch()
 
@@ -34,6 +35,7 @@ function Index() {
                     <Logo/>
                     <BrowserRouter>
                         <div className="container">
+                            {loading ? <Loader/> : ''}
                             <Router/>
                         </div>
                     </BrowserRouter>

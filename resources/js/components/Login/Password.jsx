@@ -1,17 +1,23 @@
 import Fluid from "../Fluid";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Formik} from "formik";
 import Form from "../../elements/Form";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Field from "../../elements/Field";
 import validate from "../../scripts/validate";
 import InLineButton from "../../elements/InLineButton";
 import {auth} from "../../scripts/api/auth";
+import {updateLoader} from "../../state/loader";
 
 const Password = () => {
 
     const user = useSelector(state => state.user.value)
     const [loading, setLoading] = useState(false)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(updateLoader(false))
+    })
 
     return (
         <Fluid heading={`Welcome back, ${user.name_first}`} subHeading="What's your password?">

@@ -37,6 +37,13 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+
+                .loader-wrapper {
+                    z-index: 1;
+                    width: 50vw;
+                    height: 50vh;
+                    background-color: rgba($main, .5);
+                }
             }
 
             a {
