@@ -13,11 +13,10 @@ function Index() {
 
     const [initialised, setInitialised] = useState(false)
     const loading = useSelector(state => state.loader.value)
-    const user = useSelector(state => state.user.value)
     const dispatch = useDispatch()
 
     useEffect(async () => {
-        if (window.location.pathname === '/login' && !user) {
+        if (window.location.pathname === '/login') {
             await auth.get('api/user/cookie')
                 .then(response => {
                     dispatch(updateUser(response.data.data))
