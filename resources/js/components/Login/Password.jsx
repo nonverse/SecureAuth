@@ -14,7 +14,7 @@ const Password = () => {
     const [loading, setLoading] = useState(false)
 
     return (
-        <Fluid heading={`Welcome back, ${user.name_first}`} subheading="What's your password?">
+        <Fluid heading={`Welcome back, ${user.name_first}`} subHeading="What's your password?">
             <Formik initialValues={{
                 password: ''
             }} onSubmit={async (values) => {

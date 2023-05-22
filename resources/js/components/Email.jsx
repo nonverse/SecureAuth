@@ -23,7 +23,7 @@ const Email = () => {
     }
 
     return (
-        <Fluid heading="Login to continue" subheading="What's your email?">
+        <Fluid heading="Login to continue" subHeading="What's your email?">
             <Formik initialValues={{
                 email: ''
             }} onSubmit={async (values) => {
