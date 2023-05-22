@@ -1,6 +1,6 @@
 import Fluid from "../Fluid";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {updateLoader} from "../../state/loader";
 import {Field, Formik} from "formik";
 import Form from "../../elements/Form";
@@ -11,6 +11,7 @@ import {auth} from "../../scripts/api/auth";
 const TwoStep = () => {
 
     const user = useSelector(state => state.user.value)
+    const [error, setError] = useState('')
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -44,12 +45,18 @@ const TwoStep = () => {
                         }
                     })
                     .catch(e => {
-                        
+                        switch (e.response.status) {
+                            case 401:
+                                setError('Code is incorrect')
+                                break
+                            default:
+                                setError('Something went wrong')
+                        }
                     })
             }}>
                 {({handleSubmit}) => (
                     <Form id="fluid-form" noSubmit>
-                        <DigitInput label="Code">
+                        <DigitInput label="Code" error={error}>
                             <Field name="digit_1" maxLength="1" onInput={(e) => {
                                 changeFocus(e)
                             }}/>
