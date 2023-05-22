@@ -38,6 +38,14 @@ const TwoStep = () => {
                     authentication_token: user.authentication_token,
                     one_time_password: `${values.digit_1}${values.digit_2}${values.digit_3}${values.digit_4}${values.digit_5}${values.digit_6}`
                 })
+                    .then(response => {
+                        if (response.data.data.complete) {
+                            return window.location.replace(process.env.REACT_APP_ACCOUNT_APP)
+                        }
+                    })
+                    .catch(e => {
+                        
+                    })
             }}>
                 {({handleSubmit}) => (
                     <Form id="fluid-form" noSubmit>

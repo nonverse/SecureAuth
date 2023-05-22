@@ -31,7 +31,7 @@ const Password = ({advance}) => {
                 })
                     .then(response => {
                         if (response.data.data.complete) {
-                            window.location.replace("https://apple.com/au")
+                            return window.location.replace(process.env.REACT_APP_ACCOUNT_APP)
                         } else {
                             dispatch(updateUser({
                                 ...user,
