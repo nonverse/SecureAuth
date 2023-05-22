@@ -39,6 +39,10 @@ const Email = () => {
                     .catch(e => {
                         switch (e.response.status) {
                             case 404: {
+                                dispatch(updateUser({
+                                    email: values.email
+                                }))
+                                navigate('/register')
                                 break
                             }
                             default: {
