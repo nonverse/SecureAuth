@@ -1,15 +1,31 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import Logo from "../elements/Logo";
 import {BrowserRouter} from "react-router-dom";
 import Loader from "./Loader";
-import Email from "./Email";
-import {Provider} from "react-redux";
+import {Provider, useDispatch, useSelector} from "react-redux";
 import store from "../state/store";
+import Router from "./Router";
+import {auth} from "../scripts/api/auth";
+import {updateUser} from "../state/user";
 
 function Index() {
 
-    const [initialised, setInitialised] = useState(true)
+    const [initialised, setInitialised] = useState(false)
+    const user = useSelector(state => state.user.value)
+    const dispatch = useDispatch()
+
+    useEffect(async () => {
+        if (window.location.pathname === '/login' && !user) {
+            await auth.get('api/user/cookie')
+                .then(response => {
+                    dispatch(updateUser(response.data.data))
+                    setInitialised(true)
+                })
+        } else {
+            setInitialised(true)
+        }
+    }, [])
 
     return (
         <div className="app">
@@ -18,7 +34,7 @@ function Index() {
                     <Logo/>
                     <BrowserRouter>
                         <div className="container">
-                            <Email/>
+                            <Router/>
                         </div>
                     </BrowserRouter>
                 </>
