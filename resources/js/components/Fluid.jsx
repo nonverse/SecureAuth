@@ -1,9 +1,10 @@
 import {motion} from "framer-motion";
 
-const Fluid = ({heading, subHeading, children}) => {
+const Fluid = ({heading, subHeading, id, children}) => {
 
     return (
         <motion.div className="fluid"
+                    id={id}
                     key={`${heading}-${subHeading}`}
                     initial={{opacity: 0, x: 150}}
                     animate={{opacity: 1, x: 0}}
