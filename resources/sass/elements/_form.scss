@@ -65,6 +65,31 @@
             }
         }
 
+        .digit-input-label {
+            color: rgba($font-color, .5);
+            margin-left: 5px;
+            margin-bottom: .25rem;
+        }
+
+        .digit-input {
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+            margin-bottom: 1rem;
+
+            input {
+                background-color: $main;
+                border: solid 1px rgba($font-color, .5);
+                width: 1rem;
+                border-radius: 5px;
+                outline: none;
+                padding: 1rem;
+                color: $font-color;
+                text-align: center;
+                aspect-ratio: 1 / 1;
+            }
+        }
+
     }
 
     .loader-wrapper {
