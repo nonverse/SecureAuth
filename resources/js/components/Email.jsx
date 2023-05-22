@@ -31,7 +31,8 @@ const Email = () => {
                 await auth.post('api/user/initialize', values)
                     .then(response => {
                         dispatch(updateUser({
-                            ...response.data.data
+                            ...response.data.data,
+                            email: values.email
                         }))
                         navigate('/login')
                     })
