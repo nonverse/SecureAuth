@@ -1,6 +1,5 @@
 .fluid {
     //background-color: #6951FF;
-    max-width: 20vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,11 +25,12 @@
     }
 
     .fluid-content {
+        display: grid;
         position: relative;
         margin-top: 1rem;
 
         .field-wrapper {
-            min-width: 20vw;
+            min-width: $max-width;
         }
 
         .fluid-actions {
