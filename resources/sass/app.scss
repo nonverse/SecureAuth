@@ -53,8 +53,8 @@
     }
 
     .element-disabled {
-        opacity: .25;
-        pointer-events: none;
+        opacity: .5 !important;
+        pointer-events: none !important;
     }
 }
 
