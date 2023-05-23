@@ -52,7 +52,9 @@ const Phone = ({advance}) => {
                             <InLineButton id="skip-phone" onClick={() => {
                                 advance()
                             }}>Skip for now</InLineButton>
-                            <InLineButton id="skip-phone">Don't have a phone number?</InLineButton>
+                            <InLineButton onClick={() => {
+                                advance(true)
+                            }}>Back</InLineButton>
                         </div>
                     </Form>
                 )}
