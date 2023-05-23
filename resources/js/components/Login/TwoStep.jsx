@@ -12,6 +12,7 @@ const TwoStep = () => {
 
     const user = useSelector(state => state.user.value)
     const [error, setError] = useState('')
+    const query = new URLSearchParams(window.location.search)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -41,7 +42,8 @@ const TwoStep = () => {
                 })
                     .then(response => {
                         if (response.data.data.complete) {
-                            return window.location.replace(process.env.REACT_APP_ACCOUNT_APP)
+                            const url = `${query.get('host') ? 'https://' + query.get('host') : process.env.MIX_ACCOUNT_APP}${query.get('resource') ? query.get('resource') : '/'}`
+                            return window.location.replace(url)
                         }
                     })
                     .catch(e => {

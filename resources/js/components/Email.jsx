@@ -34,7 +34,7 @@ const Email = () => {
                             ...response.data.data,
                             email: values.email
                         }))
-                        navigate('/login')
+                        navigate(`/login?${new URLSearchParams(window.location.search)}`)
                     })
                     .catch(e => {
                         switch (e.response.status) {
