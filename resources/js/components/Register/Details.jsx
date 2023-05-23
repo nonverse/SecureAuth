@@ -20,6 +20,7 @@ const Details = ({advance}) => {
                 name_first: '',
                 name_last: ''
             }} onSubmit={(values) => {
+                // TODO Check if username is being used with an API call
                 dispatch(
                     updateUser({
                         ...values
