@@ -16,7 +16,7 @@ const Password = ({advance}) => {
                 password: '',
                 password_confirmation: ''
             }} onSubmit={(values) => {
-
+                // TODO Register user
             }}>
                 {({values, errors}) => (
                     <Form id="fluid-form" cta="Finish">
