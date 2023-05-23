@@ -1,16 +1,14 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import Agreement from "./Agreement";
-import {useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
+import Details from "./Details";
 
 const Register = () => {
 
-    const [state, setState] = useState(0)
-    const user = useSelector(state => state.user.value)
-    const navigate = useNavigate()
+    const [state, setState] = useState(1)
 
     const views = {
-        0: <Agreement/>
+        0: <Agreement advance={advance}/>,
+        1: <Details advance={advance}/>
     }
 
     function advance() {

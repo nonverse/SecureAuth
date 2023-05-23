@@ -1,11 +1,22 @@
 import Fluid from "../Fluid";
 import {useDispatch, useSelector} from "react-redux";
 import InLineButton from "../../elements/InLineButton";
+import {updateUser} from "../../state/user";
 
-const Agreement = () => {
+const Agreement = ({advance}) => {
 
     const dispatch = useDispatch()
     const user = useSelector(state => state.user.value)
+
+    function progress() {
+        dispatch(updateUser({
+            ...user,
+            eula: true,
+            privacy_policy: true
+        }))
+
+        advance()
+    }
 
     return (
         <Fluid id="register-agreement" heading="Welcome" subHeading={user.email}>
@@ -22,7 +33,9 @@ const Agreement = () => {
                        target="_blank" rel="noreferrer">privacy policy</a>
                 </p>
             </div>
-            <InLineButton id="agree-eula">Continue</InLineButton>
+            <InLineButton id="agree-eula" onClick={() => {
+                progress()
+            }}>Continue</InLineButton>
         </Fluid>
     )
 }

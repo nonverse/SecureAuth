@@ -7,7 +7,8 @@ const Field = ({password, className, name, label, placeholder, error, validate, 
             {({field: {value}, form: {setFieldValue}}) => (
                 <div className={`field-wrapper ${error ? 'has-error' : ''}`}>
                     <span className="field-label">{label}</span>
-                    <input id={name} className={`field ${className} ${readOnly ? 'element-disabled' : ''}`} type={password ? 'password' : 'text'} placeholder={placeholder}
+                    <input id={name} className={`field ${className} ${readOnly ? 'element-disabled' : ''}`}
+                           type={password ? 'password' : 'text'} placeholder={placeholder}
                            defaultValue={value}
                            maxLength={maxLength}
                            readOnly={readOnly}
