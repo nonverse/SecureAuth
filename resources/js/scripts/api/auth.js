@@ -1,7 +1,7 @@
 class Auth {
 
     constructor() {
-        this.url = `http://${process.env.REACT_APP_AUTH_SERVER}/`
+        this.url = `${process.env.MIX_AUTH_SERVER}/`
     }
 }
 
