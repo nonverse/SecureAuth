@@ -41,7 +41,7 @@ const Phone = ({advance}) => {
                                 // TODO Better & complete phone number validation
                                    error={errors.phone ? 'Please enter a valid phone number' : ''}/>
                         </div>
-                        <div className="fluid-text" id="phone-text">
+                        <div className="fluid-text">
                             <p>
                                 Your phone number will be used to send for receiving priority alerts regarding
                                 your account. It will also be useful in the event that you lose access to your
