@@ -2,6 +2,8 @@ import Fluid from "../Fluid";
 import {useDispatch, useSelector} from "react-redux";
 import InLineButton from "../../elements/InLineButton";
 import {updateUser} from "../../state/user";
+import {useEffect} from "react";
+import {updateLoader} from "../../state/loader";
 
 const Agreement = ({advance}) => {
 
@@ -17,6 +19,10 @@ const Agreement = ({advance}) => {
 
         advance()
     }
+
+    useEffect(() => {
+        dispatch(updateLoader(false))
+    }, [])
 
     return (
         <Fluid id="register-agreement" heading="Welcome" subHeading={user.email}>
