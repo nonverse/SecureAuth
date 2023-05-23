@@ -6,11 +6,25 @@ import Form from "../../elements/Form";
 import InLineButton from "../../elements/InLineButton";
 import {updateUser} from "../../state/user";
 import validate from "../../scripts/validate";
+import {useState} from "react";
 
 const Details = ({advance}) => {
 
     const user = useSelector(state => state.user.value)
+    const [error, setError] = useState('')
     const dispatch = useDispatch()
+
+    function validateUsername(value) {
+        setError('')
+        if (value === user.email) {
+            setError('Username cannot be the same as e-mail')
+            return true
+        }
+        if (validate.require(value)) {
+            setError(validate.require(value))
+            return true
+        }
+    }
 
     return (
         <Fluid id="register-details" heading="Welcome" subHeading={user.email}>
@@ -32,7 +46,8 @@ const Details = ({advance}) => {
                 {({errors}) => (
                     <Form id="fluid-form" cta="Continue">
                         {/*<Field readOnly name="email" label="E-Mail"/>*/}
-                        <Field name="username" label="Username" validate={validate.require} error={errors.username}/>
+                        <Field name="username" label="Username" validate={validateUsername}
+                               error={error}/>
                         {/*TODO Validate username using API*/}
                         <div id="register-name">
                             <Field name="name_first" label="First Name" validate={validate.require}
