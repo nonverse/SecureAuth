@@ -8,6 +8,7 @@ import world from "../../scripts/helpers/world";
 import validate from "../../scripts/validate";
 import InLineButton from "../../elements/InLineButton";
 import {updateUser} from "../../state/user";
+import helpers from "../../scripts/helpers/helpers";
 
 const Phone = ({advance}) => {
 
@@ -17,8 +18,8 @@ const Phone = ({advance}) => {
     return (
         <Fluid id="register-phone" heading={`Welcome, ${user.name_first}`} subHeading="Phone number">
             <Formik initialValues={{
-                phone_country: '+61 Australia',
-                phone: '',
+                phone_country: user.phone ? `${helpers.getObjectItem(world.countries, 'dial_code', user.phone.split('-')[0]).dial_code} ${helpers.getObjectItem(world.countries, 'dial_code', user.phone.split('-')[0]).name}` : '+61 Australia',
+                phone: user.phone ? user.phone.split('-')[1] : '',
             }} onSubmit={(values) => {
                 // TODO check if phone number is being used with an API call
                 dispatch(updateUser({

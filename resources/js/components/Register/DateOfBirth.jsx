@@ -50,9 +50,9 @@ const DateOfBirth = ({advance}) => {
     return (
         <Fluid id="register-birthday" heading={`Welcome, ${user.name_first}`} subHeading="Date of birth">
             <Formik initialValues={{
-                dob_month: '',
-                dob_day: '',
-                dob_year: ''
+                dob_month: user.dob ? calendar.months[user.dob.split('-')[1] - 1] : '',
+                dob_day: user.dob ? user.dob.split('-')[2] : '',
+                dob_year: user.dob ? user.dob.split('-')[0] : ''
             }} onSubmit={(values) => {
                 let month = helpers.getObjectKey(calendar.months, values.dob_month)
                 dispatch(

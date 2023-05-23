@@ -16,9 +16,9 @@ const Details = ({advance}) => {
         <Fluid id="register-details" heading="Welcome" subHeading={user.email}>
             <Formik initialValues={{
                 email: user.email,
-                username: '',
-                name_first: '',
-                name_last: ''
+                username: user.username ? user.username : '',
+                name_first: user.name_first ? user.name_first : '',
+                name_last: user.name_last ? user.name_last : ''
             }} onSubmit={(values) => {
                 // TODO Check if username is being used with an API call
                 dispatch(
