@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 import Field from "../../elements/Field";
 import validate from "../../scripts/validate";
 import InLineButton from "../../elements/InLineButton";
-import {auth} from "../../scripts/api/auth";
+import Auth, {auth} from "../../scripts/api/auth";
 import {updateLoader} from "../../state/loader";
 import {updateUser} from "../../state/user";
 
@@ -65,7 +65,12 @@ const Password = ({advance}) => {
                                error={errors.password ? errors.password : error}/>
                         <div className="fluid-actions">
                             <InLineButton id="forgot-password">Forgot Password</InLineButton>
-                            <InLineButton id="not-you">Not you?</InLineButton>
+                            <InLineButton id="not-you" onClick={async () => {
+                                await Auth.clearUser()
+                                    .then(() => {
+                                        window.location.replace('/')
+                                    })
+                            }}>Not you?</InLineButton>
                         </div>
                     </Form>
                 )}
