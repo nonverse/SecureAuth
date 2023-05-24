@@ -10,12 +10,14 @@ import {useDispatch} from "react-redux";
 import {updateUser} from "../state/user";
 import {useNavigate} from "react-router-dom";
 import {updateLoader} from "../state/loader";
+import MessageBox from "./MessageBox";
 
 const Email = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [error, setError] = useState('')
+    const [message, setMessage] = useState({})
 
     function validateEmail(value) {
         setError('')
@@ -52,14 +54,32 @@ const Email = () => {
                     })
             }}>
                 {({errors}) => (
-                    <Form id="fluid-form" cta="Continue">
-                        <Field name="email" label="E-Mail" validate={validateEmail}
-                               error={errors.email ? errors.email : error}/>
-                        <div className="fluid-actions">
-                            <InLineButton id="no-account">Don't have an account?</InLineButton>
-                            <InLineButton id="email-privacy">Privacy Policy</InLineButton>
-                        </div>
-                    </Form>
+                    <>
+                        <Form id="fluid-form" cta="Continue">
+                            <Field name="email" label="E-Mail" validate={validateEmail}
+                                   error={errors.email ? errors.email : error}/>
+                            <div className="fluid-actions">
+                                <InLineButton id="no-account" onClick={() => {
+                                    setMessage({
+                                        no_account: true
+                                    })
+                                }}>Don't have an account?</InLineButton>
+                                <InLineButton id="email-privacy">Privacy Policy</InLineButton>
+                            </div>
+                        </Form>
+                        {message.no_account ?
+                            <MessageBox id="no-account" onClose={() => {
+                                setMessage({
+                                    'no_account': false
+                                })
+                            }}>
+                                <p>
+                                    Enter your email and continue. If an account is not found, you
+                                    will automatically be taken to the registration process
+                                </p>
+                            </MessageBox>
+                            : ''}
+                    </>
                 )}
             </Formik>
         </Fluid>
