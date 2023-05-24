@@ -44,7 +44,7 @@ const Phone = ({advance}) => {
                         </div>
                         <div className="fluid-text">
                             <p>
-                                Your phone number will be used to send for receiving priority alerts regarding
+                                Your phone number will be used for receiving priority alerts regarding
                                 your account. It will also be useful in the event that you lose access to your
                                 account
                             </p>
