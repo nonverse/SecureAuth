@@ -64,7 +64,8 @@ const Email = () => {
                                         no_account: true
                                     })
                                 }}>Don't have an account?</InLineButton>
-                                <InLineButton id="email-privacy">Privacy Policy</InLineButton>
+                                <a href="https://docs.nonverse.net/legal/privacy-policy" target="_blank"
+                                   rel="noreferrer">Privacy Policy</a>
                             </div>
                         </Form>
                         {message.no_account ?

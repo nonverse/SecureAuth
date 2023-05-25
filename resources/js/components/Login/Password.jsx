@@ -64,7 +64,9 @@ const Password = ({advance}) => {
                         <Field password name="password" label="Password" validate={validatePassword}
                                error={errors.password ? errors.password : error}/>
                         <div className="fluid-actions">
-                            <InLineButton id="forgot-password">Forgot Password</InLineButton>
+                            <InLineButton id="forgot-password" onClick={() => {
+                                window.location.replace('/recovery/password')
+                            }}>Forgot Password</InLineButton>
                             <InLineButton id="not-you" onClick={async () => {
                                 await Auth.clearUser()
                                     .then(() => {
