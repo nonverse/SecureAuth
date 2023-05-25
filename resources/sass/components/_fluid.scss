@@ -29,9 +29,10 @@
         display: grid;
         position: relative;
         margin-top: 1rem;
+        width: $max-width;
 
         .field-wrapper {
-            min-width: $max-width;
+            width: 100%;
         }
 
         .fluid-actions {
