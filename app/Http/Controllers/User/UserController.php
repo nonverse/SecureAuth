@@ -67,7 +67,6 @@ class UserController extends Controller
             'name_first' => 'required',
             'name_last' => 'required',
             'password' => 'required|min:8|confirmed',
-            'activation_key' => 'required'
         ]);
 
         return $this->creationService->handle($request->all());
