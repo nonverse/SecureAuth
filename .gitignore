@@ -14,4 +14,4 @@ yarn-error.log
 /.vscode
 /cert
 /bootstrap/cache
-/.vagrant/machines/auth/virtualbox/action_set_name
+/.vagrant
