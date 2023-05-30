@@ -1,7 +1,7 @@
 class Auth {
 
     constructor() {
-        this.url = `${process.env.MIX_AUTH_SERVER}/`
+        this.url = `${import.meta.env.VITE_AUTH_SERVER}/`
     }
 
     async clearUser() {
