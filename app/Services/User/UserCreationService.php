@@ -11,9 +11,9 @@ class UserCreationService
 
     /**
      * @param array $data
-     * @return PromiseInterface|Response
+     * @return PromiseInterface|Response|bool
      */
-    public function handle(array $data): PromiseInterface|Response
+    public function handle(array $data): PromiseInterface|Response|bool
     {
 
         /*
@@ -24,6 +24,12 @@ class UserCreationService
         /*
          * Request user registration from API and return response
          */
-        return Http::withToken(env('API_ACCESS_KEY'))->post($endpoint, $data);
+        $response = Http::withToken(env('API_ACCESS_KEY'))->post($endpoint, $data);
+
+        if (!$response->successful()) {
+            return false;
+        }
+
+        return $response;
     }
 }

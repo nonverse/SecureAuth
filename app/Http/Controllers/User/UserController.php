@@ -5,10 +5,12 @@ namespace App\Http\Controllers\User;
 use App\Contracts\Repository\UserRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Services\User\UserCreationService;
+use Carbon\CarbonImmutable;
 use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -57,9 +59,9 @@ class UserController extends Controller
      * Request new user registration from API
      *
      * @param Request $request
-     * @return PromiseInterface|\Illuminate\Http\Client\Response
+     * @return JsonResponse
      */
-    public function store(Request $request): PromiseInterface|\Illuminate\Http\Client\Response
+    public function store(Request $request): JsonResponse
     {
         $request->validate([
             'email' => 'required|email|unique:users,email',
@@ -69,7 +71,40 @@ class UserController extends Controller
             'password' => 'required|min:8|confirmed',
         ]);
 
-        return $this->creationService->handle($request->all());
+        /**
+         * Try to create a new user
+         */
+        $user = $this->creationService->handle($request->all());
+
+        /**
+         * If successfully created new user, logout any existing user
+         * and login the new user
+         */
+        if ($user) {
+            $uuid = $user['data']['uuid'];
+
+            $cookie = cookie('user', json_encode([
+                'uuid' => $uuid,
+                'authed_at' => CarbonImmutable::now()
+            ]), 43800);
+
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            Auth::loginUsingId($uuid);
+
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'uuid' => $uuid
+                ]
+            ])->withCookie($cookie);
+        }
+
+        return new JsonResponse([
+            'success' => false
+        ], 422);
     }
 
     /**
