@@ -38,7 +38,7 @@ const Password = ({advance}) => {
                 })
                     .then(response => {
                         if (response.data.data.complete) {
-                            window.location = 'https://account.nonverse.test'
+                            window.location = 'https://account.nonverse.test' //TODO Redirect to intended
                         } else {
                             dispatch(updateUser({
                                 ...user,

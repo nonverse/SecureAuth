@@ -42,7 +42,7 @@ const TwoStep = () => {
                 })
                     .then(response => {
                         if (response.data.data.complete) {
-                            window.location = 'https://account.nonverse.test'
+                            window.location = 'https://account.nonverse.test' //TODO redirect to intended
                         }
                     })
                     .catch(e => {
@@ -53,6 +53,7 @@ const TwoStep = () => {
                             default:
                                 setError('Something went wrong')
                         }
+                        dispatch(updateLoader(false))
                     })
             }}>
                 {({handleSubmit}) => (

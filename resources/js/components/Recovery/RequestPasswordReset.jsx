@@ -5,10 +5,13 @@ import Field from "../../elements/Field";
 import validate from "../../scripts/validate";
 import {auth} from "../../scripts/api/auth";
 import {useState} from "react";
+import {useDispatch} from "react-redux";
+import {updateLoader} from "../../state/loader";
 
 const RequestPasswordReset = () => {
 
     const [error, setError] = useState('')
+    const dispatch = useDispatch()
 
     function validateEmail(value) {
         setError('')
@@ -20,6 +23,7 @@ const RequestPasswordReset = () => {
             <Formik initialValues={{
                 email: ''
             }} onSubmit={async (values) => {
+                dispatch(updateLoader(true))
                 await auth.post('/recovery/password', values)
                     .then(response => {
 
@@ -35,6 +39,7 @@ const RequestPasswordReset = () => {
                             default:
                                 setError('Something went wrong')
                         }
+                        dispatch(updateLoader(false))
                     })
             }}>
                 {({errors}) => (
