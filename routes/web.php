@@ -33,7 +33,7 @@ Route::prefix('recovery')->middleware(['guest'])->group(function () {
     /*
      * 2FA recovery
      */
-    Route::view('/two-factor', 'app');
+    Route::view('/two-step', 'app');
 });
 
 /*

@@ -4,6 +4,7 @@ import Email from "./Email";
 import Login from "./Login/Login";
 import Register from "./Register/Register";
 import Password from "./Recovery/Password";
+import TwoStep from "./Recovery/TwoStep";
 
 const Router = () => {
 
@@ -19,6 +20,7 @@ const Router = () => {
 
                 // Recovery
                 <Route path={"/recovery/password"} element={<Password/>}/>
+                <Route path={"/recovery/two-step"} element={<TwoStep/>}/>
             </Routes>
         </AnimatePresence>
     )

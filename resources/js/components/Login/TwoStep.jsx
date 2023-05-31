@@ -42,8 +42,7 @@ const TwoStep = () => {
                 })
                     .then(response => {
                         if (response.data.data.complete) {
-                            const url = `${query.get('host') ? 'https://' + query.get('host') : process.env.MIX_ACCOUNT_APP}${query.get('resource') ? query.get('resource') : '/'}`
-                            return window.location.replace(url)
+                            window.location = 'https://account.nonverse.test'
                         }
                     })
                     .catch(e => {
@@ -79,7 +78,9 @@ const TwoStep = () => {
                             }}/>
                         </DigitInput>
                         <div className="fluid-actions">
-                            <InLineButton id="reset-two-step">Lost authenticator?</InLineButton>
+                            <InLineButton id="reset-two-step" onClick={() => {
+                                window.location.replace(`recovery/two-step?token=${user.authentication_token}`)
+                            }}>Lost authenticator?</InLineButton>
                             <InLineButton id="reset-two-step">Restart login</InLineButton>
                         </div>
                     </Form>

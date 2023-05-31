@@ -33,6 +33,12 @@ function Index() {
                 }))
             }
             setInitialised(true)
+        } else if (window.location.pathname === '/recovery/two-step') {
+            if (validate.require(query.get('token'), 64, 64)) {
+                window.location.replace('/')
+            } else {
+                setInitialised(true)
+            }
         } else {
             setInitialised(true)
         }
