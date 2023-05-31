@@ -38,8 +38,7 @@ const Password = ({advance}) => {
                 })
                     .then(response => {
                         if (response.data.data.complete) {
-                            const url = `${query.get('host') ? 'https://' + query.get('host') : process.env.MIX_ACCOUNT_APP}${query.get('resource') ? query.get('resource') : '/'}`
-                            return window.location.replace(url)
+                            window.location = 'https://account.nonverse.test'
                         } else {
                             dispatch(updateUser({
                                 ...user,

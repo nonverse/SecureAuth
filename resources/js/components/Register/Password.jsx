@@ -27,7 +27,7 @@ const Password = ({advance}) => {
                 })
                     .then(response => {
                         if (response.data.data.uuid) {
-                            window.location.replace(process.env.VITE_ACCOUNT_APP)
+                            window.location = 'https://account.nonverse.test'
                         }
                     })
                     .catch(e => {
