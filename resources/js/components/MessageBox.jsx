@@ -9,7 +9,7 @@ const MessageBox = ({id, weight, onClose, children}) => {
                     initial={{opacity: 0}}
                     animate={{opacity: 1}}
                     exit={{opacity: 0}}
-                    transition={{duration: .15}}>
+                    transition={{duration: .1}}>
 
             <div className={`message-box message-box-${weight}`}>
                 {children}
