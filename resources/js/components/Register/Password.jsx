@@ -1,22 +1,38 @@
 import Fluid from "../Fluid";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Formik} from "formik";
 import Form from "../../elements/Form";
 import Field from "../../elements/Field";
 import validate from "../../scripts/validate";
 import InLineButton from "../../elements/InLineButton";
+import {auth} from "../../scripts/api/auth";
+import {updateLoader} from "../../state/loader";
 
 const Password = ({advance}) => {
 
     const user = useSelector(state => state.user.value)
+    const dispatch = useDispatch()
 
     return (
         <Fluid id="register-password" heading={`Almost there, ${user.name_first}`} subHeading="Create a password">
             <Formik initialValues={{
                 password: '',
                 password_confirmation: ''
-            }} onSubmit={(values) => {
-                // TODO Register user
+            }} onSubmit={async (values) => {
+                dispatch(updateLoader(true))
+
+                await auth.post('register', {
+                    ...user,
+                    ...values
+                })
+                    .then(response => {
+                        if (response.data.data.uuid) {
+                            window.location.replace(process.env.VITE_ACCOUNT_APP)
+                        }
+                    })
+                    .catch(e => {
+                        //TODO Show error
+                    })
             }}>
                 {({values, errors}) => (
                     <Form id="fluid-form" cta="Finish">
