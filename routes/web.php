@@ -64,10 +64,8 @@ Route::prefix('register')->group(function () {
 /*
  * OAuth2
  */
-$guard = config('passport.guard', 'web');
 
-Route::prefix('oauth')->middleware([$guard ? 'auth:'.$guard : 'auth'])->group(function () {
-    Route::view('/authorize', 'app')->name('authorizations.authorize');
-    Route::post('/authorize', [\App\Http\Controllers\OAuth\ApproveAuthorizationController::class, 'approve']);
+Route::prefix('oauth')->middleware(['auth'])->group(function () {
+
 });
 
