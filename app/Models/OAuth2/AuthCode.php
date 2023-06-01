@@ -27,4 +27,18 @@ class AuthCode extends Model
      * @var string
      */
     protected $keyType = 'string';
+
+    /**
+     * @var string[]
+     */
+    public $fillable = [
+        'id',
+        'user_id',
+        'client_id',
+        'scopes',
+        'revoked',
+        'expires_at'
+    ];
+
+    public $timestamps = false;
 }
