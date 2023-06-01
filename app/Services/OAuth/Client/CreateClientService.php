@@ -19,7 +19,7 @@ class CreateClientService
     private Hasher $hasher;
 
     /**
-     * Create new client repository
+     * Create new client service
      *
      * @param ClientRepositoryInterface $repository
      * @param Hasher $hasher
