@@ -62,6 +62,10 @@ class AbstractOAuth2Controller extends Controller
             $errors['redirect_uri'] = 'Unable to validate redirect_uri';
         }
 
+        if (!in_array($request->input('response_type'), config('oauth.grant_types'))) {
+            $errors['response_type'] = 'Unsupported or invalid grant type';
+        }
+
         if ($request->input('scopes')) {
             $scopes = explode(' ', $request->input('scopes'));
 
