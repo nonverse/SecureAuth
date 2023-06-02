@@ -61,7 +61,8 @@ class AuthorizationController extends AbstractOAuth2Controller
         return new JsonResponse([
             'data' => [
                 'name' => $client->name,
-                'scopes' => $this->scopeRepository->getScopesById(explode(' ', $request->get('scopes')))
+                'scopes' => $request->input('scopes') ? $this->scopeRepository->getScopesById(explode(' ', $request->get('scopes'))) : null
+                //TODO Scopes are required
             ]
         ]);
     }
