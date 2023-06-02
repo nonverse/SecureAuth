@@ -4,7 +4,6 @@ namespace App\Http\Controllers\OAuth2;
 
 use App\Contracts\Repository\OAuth2\ClientRepositoryInterface;
 use App\Contracts\Repository\OAuth2\ScopeRepositoryInterface;
-use App\Http\Controllers\Controller;
 use App\Services\OAuth\AuthCode\CreateAuthCodeService;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -41,6 +40,8 @@ class AuthorizationController extends AbstractOAuth2Controller
     }
 
     /**
+     * Return the data to be displayed on the authorization request page
+     *
      * @throws Exception
      */
     public function show(Request $request): JsonResponse
@@ -66,6 +67,8 @@ class AuthorizationController extends AbstractOAuth2Controller
     }
 
     /**
+     * Approve an incoming authorization request
+     *
      * @throws Exception
      */
     public function approve(Request $request)
@@ -95,10 +98,24 @@ class AuthorizationController extends AbstractOAuth2Controller
 
             return new JsonResponse([
                 'data' => [
+                    'approved' => true,
                     'code' => $code
                 ]
             ]);
         }
+    }
+
+    /**
+     * Deny an incoming authorization request
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function deny(Request $request): JsonResponse
+    {
+        return new JsonResponse([
+            'approved' => false
+        ]);
     }
 }
 
