@@ -10,4 +10,6 @@ use Illuminate\Support\Facades\Route;
 | Endpoint: /api/oauth
 |
 */
-Route::post('authorize', [\App\Http\Controllers\OAuth\AuthorizationController::class, 'authorize']);
+
+// Validate a client
+Route::post('validate-client', [\App\Http\Controllers\OAuth2\AuthorizationController::class, 'show']);

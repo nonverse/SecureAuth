@@ -66,6 +66,6 @@ Route::prefix('register')->group(function () {
  */
 
 Route::prefix('oauth')->middleware(['auth'])->group(function () {
-
+    Route::view('/authorize', 'app');
 });
 
