@@ -11,7 +11,7 @@ const Authorization = () => {
             <Fluid id="oauth-authorization" heading={client.name} subHeading="Wants to access your Nonverse account">
                 <div className="fluid-text">
                     <p>
-                        Nonverse Account is requesting access to your Nonverse account.
+                        {client.name} is requesting access to your Nonverse account.
                         <br/><br/>
                         This application will be able to
                         <br/>
@@ -24,7 +24,7 @@ const Authorization = () => {
                     <p>
                         <br/>
                         By clicking 'Approve', you
-                        allow Nonverse Account to use your information as listed above in
+                        allow {client.name} to use your information as listed above in
                         accordance with their respective terms of service and privacy policy(s)
                         <br/>
                         You can remove this application at any time in your <a target="_blank" rel="noreferrer"
