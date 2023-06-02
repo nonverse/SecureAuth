@@ -61,7 +61,7 @@ abstract class Repository implements RepositoryInterface
         try {
             $entry = $this->getBuilder()->findOrFail($id);
         } catch (ModelNotFoundException) {
-            throw new Exception('Record not found', 404);
+            throw new Exception('Record not found with id: ' . $id, 404);
         }
 
         return $entry;
