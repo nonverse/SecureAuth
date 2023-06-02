@@ -9,6 +9,7 @@ import Router from "./Router";
 import {auth} from "../scripts/api/auth";
 import {updateUser} from "../state/user";
 import validate from "../scripts/validate";
+import {updateClient} from "../state/client";
 
 function Index() {
 
@@ -38,6 +39,15 @@ function Index() {
                 window.location.replace('/')
             }
             setInitialised(true)
+        } else if (window.location.pathname === '/oauth/authorize') {
+            await auth.post('/api/oauth/validate-client', query)
+                .then(response => {
+                    dispatch(updateClient(response.data.data))
+                    setInitialised(true)
+                })
+                .catch(() => {
+                    setInitialised(true)
+                })
         } else {
             setInitialised(true)
         }
