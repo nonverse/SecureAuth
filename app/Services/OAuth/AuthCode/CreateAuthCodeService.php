@@ -48,7 +48,7 @@ class CreateAuthCodeService
         /**
          * Create new auth code
          */
-        $jwt = JWT::encode($payload, file_get_contents('./storage/oauth-private.key'), 'RS256');
+        $jwt = JWT::encode($payload, config('oauth.private_key'), 'RS256');
 
         /**
          * Remove previous auth codes for user and client pair

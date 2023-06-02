@@ -35,7 +35,7 @@ class VerifyAuthCodeService
         /**
          * Get decoded value of JWT and get database entry using ID
          */
-        $decoded = (array)JWT::decode($jwt, file_get_contents('./storage/oauth-public.key'));
+        $decoded = (array)JWT::decode($jwt, config('oauth.public_key'));
         $code = $this->repository->get($decoded['jti']);
 
         /**

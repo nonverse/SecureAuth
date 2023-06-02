@@ -4,12 +4,12 @@ return [
     /**
      * RS256 Private key file
      */
-    'private_key' => '',
+    'private_key' => file_get_contents('../storage/oauth-private.key'),
 
     /**
      * RS256 Public key file
      */
-    'public_key' => '',
+    'public_key' => file_get_contents('../storage/oauth-public.key'),
 
     /**
      * Supported (enabled) grant types
