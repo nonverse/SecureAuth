@@ -30,6 +30,8 @@ class CreateAuthCodeService
     }
 
     /**
+     * Create a new authorization code
+     *
      * @throws Exception
      */
     public function handle(Request $request, array $data): string
