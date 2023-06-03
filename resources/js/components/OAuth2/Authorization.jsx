@@ -1,10 +1,14 @@
 import Fluid from "../Fluid";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import InLineButton from "../../elements/InLineButton";
+import {auth} from "../../scripts/api/auth";
+import {updateLoader} from "../../state/loader";
 
 const Authorization = () => {
 
     const client = useSelector(state => state.client.value)
+    const query = new URLSearchParams(window.location.search)
+    const dispatch = useDispatch()
 
     return (
         <>{client ? (
@@ -33,8 +37,22 @@ const Authorization = () => {
                     </p>
                 </div>
                 <div id="authorize-actions">
-                    <InLineButton id="oauth-deny">Deny</InLineButton>
-                    <InLineButton id="oauth-approve">Approve</InLineButton>
+                    <InLineButton id="oauth-deny" onClick={async () => {
+                        dispatch(updateLoader(true))
+                        await auth.post('/oauth/authorize/deny', query)
+                            .then(() => {
+                                window.location = `${query.get('redirect_uri')}?code=authorization_denied`
+                            })
+                    }}>Deny</InLineButton>
+                    <InLineButton id="oauth-approve" onClick={async () => {
+                        dispatch(updateLoader(true))
+                        await auth.post('/oauth/authorize', query)
+                            .then(response => {
+                                if (response.data.data.approved) {
+                                    window.location = `${query.get('redirect_uri')}?code=${response.data.data.code}`
+                                }
+                            })
+                    }}>Approve</InLineButton>
                 </div>
             </Fluid>
         ) : (
