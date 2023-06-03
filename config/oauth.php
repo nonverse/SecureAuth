@@ -16,5 +16,9 @@ return [
      */
     'grant_types' => [
         'code',
+    ],
+
+    'access_tokens' => [
+        'expiry' => 30
     ]
 ];
