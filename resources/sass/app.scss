@@ -49,6 +49,13 @@
             a {
                 color: $splash;
             }
+
+            #signature {
+                position: absolute;
+                bottom: 4vh;
+                margin-left: 2.5vw;
+                color: rgba($font-color, .5);
+            }
         }
     }
 

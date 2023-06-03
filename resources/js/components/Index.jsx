@@ -67,6 +67,7 @@ function Index() {
                 </>
                 : <Loader/>
             }
+            <span id="signature">Micky & Rex Co<span className="splash">.</span></span>
         </div>
     );
 }
