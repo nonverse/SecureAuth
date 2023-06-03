@@ -15,6 +15,6 @@ class AuthCodeRepository extends \App\Repositories\Repository implements \App\Co
 
     public function getUsingClientAndUser($clientId, $userId): Model
     {
-        return $this->getBuilder()->where([['client_id', $clientId], ['user_id', $userId]])->first();
+        return $this->getBuilder()->where([['client_id', $clientId], ['user_id', $userId]])->firstOrFail();
     }
 }
