@@ -67,5 +67,7 @@ Route::prefix('register')->group(function () {
 
 Route::prefix('oauth')->middleware(['auth'])->group(function () {
     Route::view('/authorize', 'app');
+    Route::post('/authorize', [\App\Http\Controllers\OAuth2\AuthorizationController::class, 'approve']);
+    Route::post('/authorize/deny', [\App\Http\Controllers\OAuth2\AuthorizationController::class, 'deny']);
 });
 
