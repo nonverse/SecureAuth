@@ -51,11 +51,6 @@ class CreateAuthCodeService
         $jwt = JWT::encode($payload, config('oauth.private_key'), 'RS256');
 
         /**
-         * Remove previous auth codes for user and client pair
-         */
-        $this->repository->update($this->repository->getUsingClientAndUser($data['client_id'], $data['user_id'])->id, ['revoked' => 1], true);
-
-        /**
          * Create new auth code entry
          */
         $this->repository->create([
