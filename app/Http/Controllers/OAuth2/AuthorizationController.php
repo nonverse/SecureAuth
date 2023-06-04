@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\OAuth2;
 
+use App\Contracts\Repository\OAuth2\AuthCodeRepositoryInterface;
 use App\Contracts\Repository\OAuth2\ClientRepositoryInterface;
 use App\Contracts\Repository\OAuth2\ScopeRepositoryInterface;
 use App\Services\OAuth\AuthCode\CreateAuthCodeService;
@@ -30,13 +31,14 @@ class AuthorizationController extends AbstractOAuth2Controller
     public function __construct(
         ClientRepositoryInterface $clientRepository,
         ScopeRepositoryInterface  $scopeRepository,
+        AuthCodeRepositoryInterface $authCodeRepository,
         CreateAuthCodeService     $createAuthCodeService,
     )
     {
         $this->clientRepository = $clientRepository;
         $this->scopeRepository = $scopeRepository;
         $this->createAuthCodeService = $createAuthCodeService;
-        parent::__construct($clientRepository, $scopeRepository);
+        parent::__construct($clientRepository, $scopeRepository, $authCodeRepository);
     }
 
     /**
@@ -61,7 +63,7 @@ class AuthorizationController extends AbstractOAuth2Controller
         return new JsonResponse([
             'data' => [
                 'name' => $client->name,
-                'scopes' => $request->input('scopes') ? $this->scopeRepository->getScopesById(explode(' ', $request->get('scopes'))) : null
+                'scope' => $request->input('scope') ? $this->scopeRepository->getScopesById(explode(' ', $request->get('scope'))) : null
                 //TODO Scopes are required
             ]
         ]);
@@ -94,7 +96,7 @@ class AuthorizationController extends AbstractOAuth2Controller
             $code = $this->createAuthCodeService->handle($request, [
                 'user_id' => Auth::user()->uuid,
                 'client_id' => $request->get('client_id'),
-                'scopes' => $request->get('scopes')
+                'scope' => $request->get('scope')
             ]);
 
             return new JsonResponse([

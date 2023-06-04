@@ -54,7 +54,7 @@ class CreateAccessTokenService
             'id' => $id,
             'user_id' => $userId,
             'client_id' => $request->input('client_id'),
-            'scopes' => $request->input('scopes'),
+            'scopes' => $request->input('scope'),
             'revoked' => 0,
             'expires_at' => CarbonImmutable::now()->addMinutes(config('oauth.access_tokens.expiry'))
         ]);

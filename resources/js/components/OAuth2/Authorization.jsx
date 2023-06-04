@@ -21,7 +21,7 @@ const Authorization = () => {
                         <br/>
                     </p>
                     <ul id="oauth-scopes">
-                        {client.scopes.map(scope => (
+                        {client.scope.map(scope => (
                             <li key={scope.id}>{scope.description}</li>
                         ))}
                     </ul>

@@ -59,7 +59,7 @@ class CreateAuthCodeService
             'id' => $id,
             'user_id' => $data['user_id'],
             'client_id' => $data['client_id'],
-            'scopes' => $data['scopes'],
+            'scopes' => $data['scope'],
             'revoked' => 0,
             'expires_at' => CarbonImmutable::now()->addMinutes(5)
         ]);
