@@ -7,7 +7,9 @@ use App\Contracts\Repository\OAuth2\ClientRepositoryInterface;
 use App\Contracts\Repository\OAuth2\ScopeRepositoryInterface;
 use App\Http\Controllers\Controller;
 use Exception;
+use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -107,39 +109,28 @@ class AbstractOAuth2Controller extends Controller
             'scope' => 'required'
         ]);
 
-        $jwt = (array)JWT::decode($request->input('code'), config('oauth.public_key'));
+        /**
+         * Attempt to decode JWT
+         */
+        try {
+            $jwt = (array)JWT::decode($request->input('code'), new Key(config('oauth.public_key'), 'RS256'));
+        } catch (ExpiredException $e) {
+            return response()->json([
+                'error' => 'invalid_grant',
+                'error_description' => 'Authorization code has expired'
+            ], 400);
+        }
+
         $code = $this->authCodeRepository->get($jwt['jti']);
 
         /**
-         * Check that the requested client exists
+         * Check if the authorization code has been revoked
          */
-        try {
-            $client = $this->clientRepository->get($request->input('client_id'));
-        } catch (Exception $e) {
-            return new JsonResponse([
-                'error' => 'invalid_client',
-                'error_description' => 'Client not found'
+        if ($code->revoked) {
+            return response()->json([
+                'error' => 'invalid_grant',
+                'error_description' => 'Authorization code is invalid'
             ], 400);
-        }
-
-        /**
-         * Check that a supported grant type is requested
-         */
-        if ($request->input('grant_type') !== 'authorization_code') {
-            return new JsonResponse([
-                'error' => 'unsupported_grant_type',
-                'error_description' => 'Unsupported grant type'
-            ], 400);
-        }
-
-        /**
-         * Check if the requested client is the same as the one that was authorized
-         */
-        if ($client->id !== $code->client_id) {
-            return new JsonResponse([
-                'error' => 'invalid_client',
-                'error_description' => 'Client authentication failed'
-            ], 401);
         }
 
         /**
@@ -153,13 +144,25 @@ class AbstractOAuth2Controller extends Controller
         }
 
         /**
-         * That that the scopes are the same as the those that were authorized
+         * Check that the requested client exists
          */
-        if ($request->input('scope') !== $code->scopes) {
+        try {
+            $client = $this->clientRepository->get($request->input('client_id'));
+        } catch (Exception $e) {
             return new JsonResponse([
-                'error' => 'invalid_scope',
-                'error_description' => 'Failed to verify scope(s)'
-            ], 400);
+                'error' => 'invalid_client',
+                'error_description' => 'Client not found'
+            ], 401);
+        }
+
+        /**
+         * Check if the requested client is the same as the one that was authorized
+         */
+        if ($client->id !== $code->client_id) {
+            return new JsonResponse([
+                'error' => 'invalid_client',
+                'error_description' => 'Client authentication failed'
+            ], 401);
         }
 
         /**
@@ -183,7 +186,7 @@ class AbstractOAuth2Controller extends Controller
         /**
          * If the client is authenticating via PKCE, verify the code_verifier
          */
-        if ($jwt['cha']) {
+        if (array_key_exists('cha', $jwt)) {
             if (!$request->input('code_verifier')) {
                 return new JsonResponse([
                     'error' => 'invalid_request',
@@ -196,6 +199,26 @@ class AbstractOAuth2Controller extends Controller
                     'error_description' => 'Client authentication failed'
                 ], 401);
             }
+        }
+
+        /**
+         * Check that a supported grant type is requested
+         */
+        if ($request->input('grant_type') !== 'authorization_code') {
+            return new JsonResponse([
+                'error' => 'unsupported_grant_type',
+                'error_description' => 'Unsupported grant type'
+            ], 400);
+        }
+
+        /**
+         * That that the scopes are the same as the those that were authorized
+         */
+        if ($request->input('scope') !== $code->scopes) {
+            return new JsonResponse([
+                'error' => 'invalid_scope',
+                'error_description' => 'Failed to verify scope(s)'
+            ], 400);
         }
     }
 }
