@@ -43,7 +43,7 @@ class CreateAuthCodeService
             'aud' => $request->input('redirect_uri'),
             'nbf' => time(),
             'iat' => time(),
-            'exp' => time() + 5 * 60,
+            'exp' => time() + config('oauth.authorization_code.expiry') * 60,
             'jti' => $id
         ];
 
@@ -61,7 +61,7 @@ class CreateAuthCodeService
             'client_id' => $data['client_id'],
             'scopes' => $data['scope'],
             'revoked' => 0,
-            'expires_at' => CarbonImmutable::now()->addMinutes(5)
+            'expires_at' => CarbonImmutable::now()->addMinutes(config('oauth.authorization_code.expiry'))
         ]);
 
         return $jwt;

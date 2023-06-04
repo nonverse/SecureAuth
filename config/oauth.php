@@ -18,7 +18,17 @@ return [
         'code',
     ],
 
+    /**
+     * Authorization code configuration
+     */
+    'authorization_code' => [
+        'expiry' => 2 //(Minutes)
+    ],
+
+    /**
+     * Access token configuration
+     */
     'access_tokens' => [
-        'expiry' => 30
-    ]
+        'expiry' => 30 //(Minutes)
+    ],
 ];
