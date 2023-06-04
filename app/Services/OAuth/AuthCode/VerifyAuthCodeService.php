@@ -6,6 +6,7 @@ use App\Contracts\Repository\OAuth2\AuthCodeRepositoryInterface;
 use Carbon\CarbonImmutable;
 use Exception;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Illuminate\Http\Request;
 
 class VerifyAuthCodeService
@@ -35,7 +36,7 @@ class VerifyAuthCodeService
         /**
          * Get decoded value of JWT and get database entry using ID
          */
-        $decoded = (array)JWT::decode($jwt, config('oauth.public_key'));
+        $decoded = (array)JWT::decode($jwt,  new Key(config('oauth.public_key'), 'RS256'));
         $code = $this->repository->get($decoded['jti']);
 
         /**
