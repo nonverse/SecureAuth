@@ -16,3 +16,4 @@ yarn-error.log
 /cert
 /bootstrap/cache
 /.vagrant
+.rnd
