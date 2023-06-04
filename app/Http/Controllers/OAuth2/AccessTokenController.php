@@ -6,7 +6,6 @@ use App\Contracts\Repository\OAuth2\AuthCodeRepositoryInterface;
 use App\Contracts\Repository\OAuth2\ClientRepositoryInterface;
 use App\Contracts\Repository\OAuth2\ScopeRepositoryInterface;
 use App\Services\OAuth\AccessToken\CreateAccessTokenService;
-use App\Services\OAuth\AuthCode\VerifyAuthCodeService;
 use Exception;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
