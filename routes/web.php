@@ -65,9 +65,13 @@ Route::prefix('register')->group(function () {
  * OAuth2
  */
 
-Route::prefix('oauth')->middleware(['auth'])->group(function () {
-    Route::view('/authorize', 'app');
-    Route::post('/authorize', [\App\Http\Controllers\OAuth2\AuthorizationController::class, 'approve']);
-    Route::post('/authorize/deny', [\App\Http\Controllers\OAuth2\AuthorizationController::class, 'deny']);
+Route::prefix('oauth')->group(function () {
+    Route::prefix('authorize')->middleware(['auth'])->group(function () {
+        Route::view('/', 'app');
+        Route::post('/', [\App\Http\Controllers\OAuth2\AuthorizationController::class, 'approve']);
+        Route::post('/deny', [\App\Http\Controllers\OAuth2\AuthorizationController::class, 'deny']);
+    });
+
+    Route::post('/token', [\App\Http\Controllers\OAuth2\AccessTokenController::class, 'createToken']);
 });
 
