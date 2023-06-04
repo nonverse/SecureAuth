@@ -9,6 +9,7 @@ use App\Services\OAuth\AccessToken\CreateAccessTokenService;
 use App\Services\OAuth\AuthCode\VerifyAuthCodeService;
 use Exception;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -24,22 +25,15 @@ class AccessTokenController extends AbstractOAuth2Controller
      */
     private CreateAccessTokenService $createAccessTokenService;
 
-    /**
-     * @var VerifyAuthCodeService
-     */
-    private VerifyAuthCodeService $verifyAuthCodeService;
-
     public function __construct(
         ClientRepositoryInterface $clientRepository,
         ScopeRepositoryInterface  $scopeRepository,
         AuthCodeRepositoryInterface $authCodeRepository,
         CreateAccessTokenService  $createAccessTokenService,
-        VerifyAuthCodeService     $verifyAuthCodeService
     )
     {
         $this->authCodeRepository = $authCodeRepository;
         $this->createAccessTokenService = $createAccessTokenService;
-        $this->verifyAuthCodeService = $verifyAuthCodeService;
         parent::__construct($clientRepository, $scopeRepository, $authCodeRepository);
     }
 
@@ -55,10 +49,15 @@ class AccessTokenController extends AbstractOAuth2Controller
         /**
          * Validate the access token request
          */
-        $this->validateAccessTokenRequest($request);
+        if ($e = $this->validateAccessTokenRequest($request)) {
+            return $e;
+        }
 
-        $jwt = (array)JWT::decode($request->input('code'), config('oauth.public_key'));
-        $token = $this->createAccessTokenService->handle($request, $this->authCodeRepository->get($jwt['jti'])->user_id);
+        $jwt = (array)JWT::decode($request->input('code'), new Key(config('oauth.public_key'), 'RS256'));
+        $code = $this->authCodeRepository->get($jwt['jti']);
+        $token = $this->createAccessTokenService->handle($request, $code->user_id);
+
+        $this->authCodeRepository->update($code->id, ['revoked' => 1]);
 
         return new JsonResponse([
             'access_token' => $token['value'],
