@@ -53,10 +53,24 @@ class AccessTokenController extends AbstractOAuth2Controller
             return $e;
         }
 
+        /**
+         * Get decoded value of JWT (JWT has already been validated along with the request)
+         */
         $jwt = (array)JWT::decode($request->input('code'), new Key(config('oauth.public_key'), 'RS256'));
+
+        /**
+         * Get authorization code entry
+         */
         $code = $this->authCodeRepository->get($jwt['jti']);
+
+        /**
+         * Create a new token
+         */
         $token = $this->createAccessTokenService->handle($request, $code->user_id);
 
+        /**
+         * Invalidate the authorization code that was used
+         */
         $this->authCodeRepository->update($code->id, ['revoked' => 1]);
 
         return new JsonResponse([
