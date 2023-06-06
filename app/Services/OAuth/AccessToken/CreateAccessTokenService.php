@@ -26,17 +26,17 @@ class CreateAccessTokenService
     /**
      * Create a new access token
      *
-     * @param Request $request
+     * @param array $data
      * @param string $userId
      * @return string[]
      */
-    public function handle(Request $request, string $userId): array
+    public function handle(array $data, string $userId): array
     {
         $id = Str::random(100);
 
         $payload = [
             'iss' => env('APP_URL'),
-            'aud' => $request->input('redirect_uri'),
+            'aud' => $data['redirect_uri'],
             'iat' => time(),
             'exp' => time() + config('oauth.access_tokens.expiry') * 60,
             'jti' => $id
@@ -53,8 +53,8 @@ class CreateAccessTokenService
         $this->tokenRepository->create([
             'id' => $id,
             'user_id' => $userId,
-            'client_id' => $request->input('client_id'),
-            'scopes' => $request->input('scope'),
+            'client_id' => $data['client_id'],
+            'scopes' => $data['scope'],
             'revoked' => 0,
             'expires_at' => CarbonImmutable::now()->addMinutes(config('oauth.access_tokens.expiry'))
         ]);
