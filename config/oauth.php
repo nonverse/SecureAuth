@@ -22,7 +22,7 @@ return [
      * Authorization code configuration
      */
     'authorization_code' => [
-        'expiry' => 2 //(Minutes)
+        'expiry' => 1 //(Minutes)
     ],
 
     /**
@@ -30,5 +30,12 @@ return [
      */
     'access_tokens' => [
         'expiry' => 30 //(Minutes)
+    ],
+
+    /**
+     * Refresh token configuration
+     */
+    'refresh_tokens' => [
+        'expiry' => 1051200 //(Minutes)
     ],
 ];
