@@ -6,7 +6,9 @@ use App\Contracts\Repository\OAuth2\RefreshTokenRepositoryInterface;
 use App\Models\OAuth2\AccessToken;
 use Carbon\CarbonImmutable;
 use Firebase\JWT\JWT;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CreateRefreshTokenService
 {
@@ -29,14 +31,16 @@ class CreateRefreshTokenService
      * @param AccessToken $accessToken
      * @return array
      */
-    public function handle(Request $request, AccessToken $accessToken): array
+    public function handle(Request $request, Model $accessToken): array
     {
+        $id = Str::random(100);
+
         $payload = [
             'iss' => env('APP_URL'),
             'aud' => $request->input('redirect_uri'),
             'iat' => time(),
             'exp' => time() + config('oauth.refresh_tokens.expiry') * 60,
-            'jti' => $accessToken->id
+            'jti' => $id
         ];
 
         /**
@@ -48,7 +52,8 @@ class CreateRefreshTokenService
          * Create new refresh token entry
          */
         $this->tokenRepository->create([
-            'id' => $accessToken->id,
+            'id' => $id,
+            'access_token_id' => $accessToken->id,
             'revoked' => 0,
             'expires_at' => CarbonImmutable::now()->addMinutes(config('oauth.refresh_tokens.expiry'))
         ]);
