@@ -27,4 +27,16 @@ class RefreshToken extends Model
      * @var string
      */
     protected $keyType = 'string';
+
+    /**
+     * @var string[]
+     */
+    public $fillable = [
+        'id',
+        'access_token_id',
+        'revoked',
+        'expires_at',
+    ];
+
+    public $timestamps = false;
 }
