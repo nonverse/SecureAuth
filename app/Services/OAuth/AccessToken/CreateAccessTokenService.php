@@ -61,6 +61,7 @@ class CreateAccessTokenService
 
         return [
             'value' => $jwt,
+            'id' => $id,
             'expires_in' => config('oauth.access_tokens.expiry') * 60
         ];
     }
