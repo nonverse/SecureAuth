@@ -2,7 +2,7 @@
 
 namespace App\Services\OAuth\AccessToken;
 
-use App\Repositories\OAuth2\AccessTokenRepository;
+use App\Contracts\Repository\OAuth2\AccessTokenRepositoryInterface;
 use Carbon\CarbonImmutable;
 use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
@@ -12,12 +12,12 @@ class CreateAccessTokenService
 {
 
     /**
-     * @param AccessTokenRepository $tokenRepository
+     * @param AccessTokenRepositoryInterface $tokenRepository
      */
-    private AccessTokenRepository $tokenRepository;
+    private AccessTokenRepositoryInterface $tokenRepository;
 
     public function __construct(
-        AccessTokenRepository $tokenRepository,
+        AccessTokenRepositoryInterface $tokenRepository,
     )
     {
         $this->tokenRepository = $tokenRepository;
