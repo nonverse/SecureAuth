@@ -13,6 +13,7 @@ use Firebase\JWT\Key;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AbstractOAuth2Controller extends Controller
 {
@@ -101,13 +102,17 @@ class AbstractOAuth2Controller extends Controller
      */
     public function validateAccessTokenRequest(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'grant_type' => 'required',
             'code' => 'required',
             'redirect_uri' => 'required',
             'client_id' => 'required',
             'scope' => 'required'
         ]);
+
+        if ($validator->fails()) {
+            return new JsonResponse($validator->errors());
+        }
 
         /**
          * Attempt to decode JWT
