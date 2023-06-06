@@ -4,6 +4,7 @@ namespace App\Contracts\Repository;
 
 use Exception;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 interface RepositoryInterface
 {
@@ -58,4 +59,11 @@ interface RepositoryInterface
      * @throws Exception
      */
     public function delete($id, bool $destroy): bool;
+
+    /**
+     * Get query builder
+     *
+     * @return Builder
+     */
+    public function getBuilder(): Builder;
 }
