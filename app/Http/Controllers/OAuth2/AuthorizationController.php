@@ -4,6 +4,7 @@ namespace App\Http\Controllers\OAuth2;
 
 use App\Contracts\Repository\OAuth2\AuthCodeRepositoryInterface;
 use App\Contracts\Repository\OAuth2\ClientRepositoryInterface;
+use App\Contracts\Repository\OAuth2\RefreshTokenRepositoryInterface;
 use App\Contracts\Repository\OAuth2\ScopeRepositoryInterface;
 use App\Services\OAuth\AuthCode\CreateAuthCodeService;
 use Exception;
@@ -24,21 +25,28 @@ class AuthorizationController extends AbstractOAuth2Controller
     private ScopeRepositoryInterface $scopeRepository;
 
     /**
+     * @var RefreshTokenRepositoryInterface
+     */
+    private RefreshTokenRepositoryInterface $refreshTokenRepository;
+
+    /**
      * @var CreateAuthCodeService
      */
     private CreateAuthCodeService $createAuthCodeService;
 
     public function __construct(
-        ClientRepositoryInterface $clientRepository,
-        ScopeRepositoryInterface  $scopeRepository,
-        AuthCodeRepositoryInterface $authCodeRepository,
-        CreateAuthCodeService     $createAuthCodeService,
+        ClientRepositoryInterface       $clientRepository,
+        ScopeRepositoryInterface        $scopeRepository,
+        AuthCodeRepositoryInterface     $authCodeRepository,
+        RefreshTokenRepositoryInterface $refreshTokenRepository,
+        CreateAuthCodeService           $createAuthCodeService,
     )
     {
         $this->clientRepository = $clientRepository;
         $this->scopeRepository = $scopeRepository;
+        $this->refreshTokenRepository = $refreshTokenRepository;
         $this->createAuthCodeService = $createAuthCodeService;
-        parent::__construct($clientRepository, $scopeRepository, $authCodeRepository);
+        parent::__construct($clientRepository, $scopeRepository, $authCodeRepository, $refreshTokenRepository);
     }
 
     /**
