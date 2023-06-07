@@ -132,10 +132,25 @@ class AccessTokenController extends AbstractOAuth2Controller
      */
     protected function createTokenUsingRefreshToken(Request $request): JsonResponse
     {
+        /**
+         * Get decoded value of JWT refresh token (This has already been validated along with the request)
+         */
         $jwt = (array)JWT::decode($request->input('refresh_token'), new Key(config('oauth.public_key'), 'RS256'));
-        $refreshToken = $this->refreshTokenRepository->get($jwt['jti']);
-        $accessToken = $this->accessTokenRepository->get($refreshToken->access_token_id);
 
+        /**
+         * Get refresh token entry
+         */
+        $refreshToken = $this->refreshTokenRepository->get($jwt['jti']);
+
+        /**
+         * Get access token entry that was used to issue refresh token
+         */
+        $accessToken = $this->accessTokenRepository->get($refreshToken->access_token_id);
+        //TODO Store scope and user_id in refresh token entry as this access token will eventually be purged in database cleanups
+
+        /**
+         * Create new access token
+         */
         $token = $this->createAccessTokenService->handle(array_merge($request->all(), [
             'scope' => $accessToken->scopes,
             'redirect_uri' => $accessToken->redirect_uri
