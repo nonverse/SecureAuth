@@ -110,7 +110,7 @@ class AccessTokenController extends AbstractOAuth2Controller
          * If this is the first time that the client and user pair are requesting an access token,
          * automatically issue a long lasting refresh token
          */
-        if (!$this->accessTokenRepository->getBuilder()->whereNot('id', $token['id'])->exists()) {
+        if (!$this->accessTokenRepository->getBuilder()->where(['client_id' => $code->client_id, 'user_id' => $code->user_id])->whereNot('id', $token['id'])->exists()) {
             $refreshToken = $this->createRefreshTokenService->handle($request, $this->accessTokenRepository->get($token['id']));
             $response['refresh_token'] = $refreshToken['value'];
         }
