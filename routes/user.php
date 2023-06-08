@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Route;
 | User API Routes
 |--------------------------------------------------------------------------
 |
-| Endpoint: /api/user
+| Endpoint: /user
 |
 */
 
 /*
  * Get the currently logged in user
  */
-Route::get('/', [\App\Http\Controllers\User\UserController::class, 'get'])->middleware('auth');
+Route::get('/', [\App\Http\Controllers\User\UserController::class, 'get']);
 /*
  * Initialize a user's email
  */

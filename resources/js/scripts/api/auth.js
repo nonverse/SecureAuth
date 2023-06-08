@@ -5,7 +5,7 @@ class Auth {
     }
 
     async clearUser() {
-        return await auth.post('api/user/cookie', {
+        return await auth.post('/user/cookie', {
             _method: 'delete'
         })
     }

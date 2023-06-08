@@ -20,7 +20,7 @@ function Index() {
 
     useEffect(async () => {
         if (window.location.pathname === '/login') {
-            await auth.get('api/user/cookie')
+            await auth.get('/user/cookie')
                 .then(response => {
                     dispatch(updateUser(response.data.data))
                     setInitialised(true)
@@ -40,7 +40,7 @@ function Index() {
             }
             setInitialised(true)
         } else if (window.location.pathname === '/oauth/authorize') {
-            await auth.post('/api/oauth/validate-client', query)
+            await auth.post('/oauth/authorize/validate-client', query)
                 .then(response => {
                     dispatch(updateClient(response.data.data))
                     setInitialised(true)
