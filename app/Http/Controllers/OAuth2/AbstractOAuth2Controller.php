@@ -95,6 +95,12 @@ class AbstractOAuth2Controller extends Controller
 
             try {
                 $this->scopeRepository->getScopesById($scopes);
+                foreach ($scopes as $scope) {
+                    $scopeEntry = $this->scopeRepository->get($scope);
+                    if ($scopeEntry->client_id && $request->input('client_id') !== $scopeEntry->client_id) {
+                        $errors['scopes'] = 'scope ' . $scopeEntry->id . ' is restricted';
+                    }
+                }
             } catch (Exception $e) {
                 $errors['scopes'] = $e->getMessage();
             }
