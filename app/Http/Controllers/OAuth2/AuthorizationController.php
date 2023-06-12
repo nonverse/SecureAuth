@@ -6,6 +6,7 @@ use App\Contracts\Repository\OAuth2\AuthCodeRepositoryInterface;
 use App\Contracts\Repository\OAuth2\ClientRepositoryInterface;
 use App\Contracts\Repository\OAuth2\RefreshTokenRepositoryInterface;
 use App\Contracts\Repository\OAuth2\ScopeRepositoryInterface;
+use App\Repositories\OAuth2\AccessTokenRepository;
 use App\Services\OAuth\AuthCode\CreateAuthCodeService;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -30,6 +31,11 @@ class AuthorizationController extends AbstractOAuth2Controller
     private RefreshTokenRepositoryInterface $refreshTokenRepository;
 
     /**
+     * @var AccessTokenRepository
+     */
+    private AccessTokenRepository $accessTokenRepository;
+
+    /**
      * @var CreateAuthCodeService
      */
     private CreateAuthCodeService $createAuthCodeService;
@@ -39,12 +45,14 @@ class AuthorizationController extends AbstractOAuth2Controller
         ScopeRepositoryInterface        $scopeRepository,
         AuthCodeRepositoryInterface     $authCodeRepository,
         RefreshTokenRepositoryInterface $refreshTokenRepository,
+        AccessTokenRepository           $accessTokenRepository,
         CreateAuthCodeService           $createAuthCodeService,
     )
     {
         $this->clientRepository = $clientRepository;
         $this->scopeRepository = $scopeRepository;
         $this->refreshTokenRepository = $refreshTokenRepository;
+        $this->accessTokenRepository = $accessTokenRepository;
         $this->createAuthCodeService = $createAuthCodeService;
         parent::__construct($clientRepository, $scopeRepository, $authCodeRepository, $refreshTokenRepository);
     }
@@ -68,6 +76,16 @@ class AuthorizationController extends AbstractOAuth2Controller
 
         $client = $this->clientRepository->get($request->input('client_id'));
 
+        /**
+         * Automatically approve request if the user has previously authorized it and an access token was issued
+         */
+        if ($this->accessTokenRepository->getUsingClientAndUser($client->id, $request->user()->uuid)) {
+            return $this->approve($request);
+        }
+
+        /**
+         * Automatically approve request if application's redirect URI should skip the authorization prompt
+         */
         if (in_array($request->input('redirect_uri'), config('oauth.skip_prompt'))) {
             return $this->approve($request);
         }
