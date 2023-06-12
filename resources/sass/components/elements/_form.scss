@@ -1,0 +1,87 @@
+.form-wrapper {
+    form {
+        .field-wrapper {
+            display: flex;
+            flex-direction: column;
+            //position: absolute;
+        }
+
+        input {
+            border: none;
+            outline: none;
+            background-color: $main;
+            height: 3vh;
+            font-size: 1.5rem;
+            //border-bottom: solid 3px $splash;
+            //margin-bottom: 5%;
+        }
+
+        .fluid-slice {
+            width: 100%;
+            height: 3px;
+            background-color: $splash;
+            margin-bottom: 5%;
+        }
+
+        .field-error {
+            background-color: orangered;
+            margin-bottom: 1%;
+        }
+
+        .error {
+            margin-bottom: 1%;
+        }
+
+        .button {
+            margin-top: -2%;
+            float: right;
+        }
+
+        .link-button {
+            margin-top: -3%;
+            float: right;
+            margin-left: auto;
+        }
+    }
+}
+
+.form-info-wrapper {
+    .form-info {
+        background-color: $foreground-darker;
+        padding: 2%;
+        width: 96%;
+        margin-top: 5%;
+        color: rgba($font-color, 0.8);
+    }
+
+    .link-button {
+        color: $splash !important;
+        float: right;
+        margin-top: 1%;
+    }
+
+    .form-info-danger {
+        border-left: solid 3px orangered;
+    }
+
+    .form-info-warning {
+        border-left: solid 3px orange;
+    }
+
+    .form-info-success {
+        border-left: solid 3px lime;
+    }
+
+    .form-info-default {
+        border-left: solid 3px $splash;
+    }
+}
+
+.form-loading {
+    .form-wrapper {
+        input {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+    }
+}

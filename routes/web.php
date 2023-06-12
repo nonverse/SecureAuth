@@ -18,14 +18,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-/**
- * User routes
- */
-Route::prefix('user')->group(base_path('routes/user.php'));
-
-/**
- * Base app view (E-Mail)
- */
 Route::view('/', 'app')->middleware(['guest', 'nousercookie']);
 
 /*
@@ -41,7 +33,7 @@ Route::prefix('recovery')->middleware(['guest'])->group(function () {
     /*
      * 2FA recovery
      */
-    Route::view('/two-step', 'app');
+    Route::view('/two-factor', 'app');
 });
 
 /*
@@ -58,7 +50,7 @@ Route::prefix('login')->group(function () {
  */
 Route::prefix('authorize')->middleware(['auth'])->group(function () {
     Route::view('/', 'app');
-    //TODO Authorize post
+    Route::post('/', [\App\Http\Controllers\Auth\AuthorizationController::class, 'authorizationToken']);
 });
 
 /*
@@ -72,23 +64,10 @@ Route::prefix('register')->group(function () {
 /*
  * OAuth2
  */
+$guard = config('passport.guard', 'web');
 
-Route::prefix('oauth')->group(function () {
-    Route::prefix('authorize')->middleware(['auth'])->group(function () {
-        Route::view('/', 'app');
-        Route::post('/validate-client', [\App\Http\Controllers\OAuth2\AuthorizationController::class, 'show']);
-        Route::post('/', [\App\Http\Controllers\OAuth2\AuthorizationController::class, 'approve']);
-        Route::post('/deny', [\App\Http\Controllers\OAuth2\AuthorizationController::class, 'deny']);
-    });
-
-    Route::post('/token', [\App\Http\Controllers\OAuth2\AccessTokenController::class, 'createToken']);
-});
-
-/*
- * Logout
- */
-Route::prefix('logout')->group(function () {
-    Route::post('/', [\App\Http\Controllers\Auth\AuthenticationController::class, 'logout']);
-    Route::post('/all', [\App\Http\Controllers\Auth\AuthenticationController::class, 'logoutAll']);
+Route::prefix('oauth')->middleware([$guard ? 'auth:'.$guard : 'auth'])->group(function () {
+    Route::view('/authorize', 'app')->name('authorizations.authorize');
+    Route::post('/authorize', [\App\Http\Controllers\OAuth\ApproveAuthorizationController::class, 'approve']);
 });
 
