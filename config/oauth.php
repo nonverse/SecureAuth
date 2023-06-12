@@ -26,6 +26,14 @@ return [
     ],
 
     /**
+     * Application redirect URIs that should skip the
+     * authorization prompt
+     */
+    'skip_prompt' => [
+        env('VITE_ACCOUNT_APP') . '/',
+    ],
+
+    /**
      * Access token configuration
      */
     'access_tokens' => [
