@@ -42,7 +42,7 @@ const TwoStep = () => {
                 })
                     .then(response => {
                         if (response.data.data.complete) {
-                            window.location = 'https://account.nonverse.test' //TODO redirect to intended
+                            return window.location = `https://${query.get('host') ? query.get('host') : 'account.nonverse.test'}${query.get('resource') ? query.get('resource') : '/'}`
                         }
                     })
                     .catch(e => {

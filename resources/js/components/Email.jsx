@@ -30,7 +30,7 @@ const Email = () => {
                 email: ''
             }} onSubmit={async (values) => {
                 dispatch(updateLoader(true))
-                await auth.post('api/user/initialize', values)
+                await auth.post('/user/initialize', values)
                     .then(response => {
                         dispatch(updateUser({
                             ...response.data.data,

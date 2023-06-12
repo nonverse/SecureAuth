@@ -9,6 +9,7 @@ import Router from "./Router";
 import {auth} from "../scripts/api/auth";
 import {updateUser} from "../state/user";
 import validate from "../scripts/validate";
+import {updateClient} from "../state/client";
 
 function Index() {
 
@@ -19,14 +20,14 @@ function Index() {
 
     useEffect(async () => {
         if (window.location.pathname === '/login') {
-            await auth.get('api/user/cookie')
+            await auth.get('/user/cookie')
                 .then(response => {
                     dispatch(updateUser(response.data.data))
                     setInitialised(true)
                 })
         } else if (window.location.pathname === '/register') {
             if (validate.email(query.get('email'))) {
-                window.location.replace('/')
+                return window.location.replace('/')
             } else {
                 dispatch(updateUser({
                     email: query.get('email')
@@ -35,9 +36,21 @@ function Index() {
             setInitialised(true)
         } else if (window.location.pathname === '/recovery/two-step') {
             if (validate.require(query.get('token'), 64, 64)) {
-                window.location.replace('/')
+                return window.location.replace('/')
             }
             setInitialised(true)
+        } else if (window.location.pathname === '/oauth/authorize') {
+            await auth.post('/oauth/authorize/validate-client', query)
+                .then(response => {
+                    if (response.data.data.approved) {
+                        return window.location = `${query.get('redirect_uri')}?code=${response.data.data.code}`
+                    }
+                    dispatch(updateClient(response.data.data))
+                    setInitialised(true)
+                })
+                .catch(() => {
+                    setInitialised(true)
+                })
         } else {
             setInitialised(true)
         }
@@ -57,6 +70,7 @@ function Index() {
                 </>
                 : <Loader/>
             }
+            <span id="signature">Micky & Rex Co<span className="splash">.</span></span>
         </div>
     );
 }

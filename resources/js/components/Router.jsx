@@ -5,6 +5,7 @@ import Login from "./Login/Login";
 import Register from "./Register/Register";
 import Password from "./Recovery/Password";
 import TwoStep from "./Recovery/TwoStep";
+import Authorization from "./OAuth2/Authorization";
 
 const Router = () => {
 
@@ -17,6 +18,9 @@ const Router = () => {
                 <Route path={"/"} element={<Email/>}/>
                 <Route path={"/login"} element={<Login/>}/>
                 <Route path={"/register"} element={<Register/>}/>
+
+                //OAuth2
+                <Route path={"/oauth/authorize"} element={<Authorization/>}/>
 
                 // Recovery
                 <Route path={"/recovery/password"} element={<Password/>}/>

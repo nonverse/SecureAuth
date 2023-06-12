@@ -11,21 +11,3 @@ use Illuminate\Support\Facades\Route;
 | Endpoint: /api
 |
 */
-
-/*
- * User API routes
- */
-Route::prefix('user')->group(base_path('routes/api/user/user.php'));
-Route::prefix('user/auth')->group(base_path('routes/api/user/auth.php'))->middleware('auth');
-
-/*
- * API validation routes
- */
-Route::prefix('validator')->group(base_path('routes/api/validator.php'));
-
-/**
- * OAuth API Routes
- */
-$guard = config('passport.guard', 'web');
-
-Route::prefix('oauth')->group(base_path('routes/api/oauth.php'))->middleware([$guard ? 'auth:'.$guard : 'auth']);
