@@ -68,6 +68,10 @@ class AuthorizationController extends AbstractOAuth2Controller
 
         $client = $this->clientRepository->get($request->input('client_id'));
 
+        if (in_array($request->input('redirect_uri'), config('oauth.skip_prompt'))) {
+            return $this->approve($request);
+        }
+
         return new JsonResponse([
             'data' => [
                 'name' => $client->name,

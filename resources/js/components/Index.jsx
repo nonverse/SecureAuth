@@ -42,6 +42,9 @@ function Index() {
         } else if (window.location.pathname === '/oauth/authorize') {
             await auth.post('/oauth/authorize/validate-client', query)
                 .then(response => {
+                    if (response.data.data.approved) {
+                        return window.location = `${query.get('redirect_uri')}?code=${response.data.data.code}`
+                    }
                     dispatch(updateClient(response.data.data))
                     setInitialised(true)
                 })
