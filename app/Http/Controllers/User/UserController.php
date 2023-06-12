@@ -5,12 +5,10 @@ namespace App\Http\Controllers\User;
 use App\Contracts\Repository\UserRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Services\User\UserCreationService;
-use Carbon\CarbonImmutable;
 use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -59,54 +57,20 @@ class UserController extends Controller
      * Request new user registration from API
      *
      * @param Request $request
-     * @return JsonResponse
+     * @return PromiseInterface|\Illuminate\Http\Client\Response
      */
-    public function store(Request $request): JsonResponse
+    public function store(Request $request): PromiseInterface|\Illuminate\Http\Client\Response
     {
         $request->validate([
-            'email' => 'required|email:rfc,dns|unique:users,email',
-            'name_first' => 'required|string',
-            'name_last' => 'required|string',
-            'username' => 'required|string|unique:users,username',
-            'phone' => 'string|min:7|max:15',
-            'dob' => 'date',
-            'password' => 'required|min:8|confirmed'
+            'email' => 'required|email|unique:users,email',
+            'username' => 'required|unique:users,username',
+            'name_first' => 'required',
+            'name_last' => 'required',
+            'password' => 'required|min:8|confirmed',
+            'activation_key' => 'required'
         ]);
 
-        /**
-         * Try to create a new user
-         */
-        $user = $this->creationService->handle($request->all());
-
-        /**
-         * If successfully created new user, logout any existing user
-         * and login the new user
-         */
-        if ($user) {
-            $uuid = $user['data']['uuid'];
-
-            $cookie = cookie('user', json_encode([
-                'uuid' => $uuid,
-                'authed_at' => CarbonImmutable::now()
-            ]), 43800);
-
-            Auth::logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-
-            Auth::loginUsingId($uuid);
-
-            return response()->json([
-                'success' => true,
-                'data' => [
-                    'uuid' => $uuid
-                ]
-            ])->withCookie($cookie);
-        }
-
-        return new JsonResponse([
-            'success' => false
-        ], 422);
+        return $this->creationService->handle($request->all());
     }
 
     /**

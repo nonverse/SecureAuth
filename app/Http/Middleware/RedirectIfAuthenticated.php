@@ -24,7 +24,7 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
                 $intended = [
-                    'host' => $request->input('host') ?: env('VITE_ACCOUNT_APP'),
+                    'host' => $request->input('host') ?: env('BASE_APP_URL'),
                     'resource' => $request->input('resource') ?: '/'
                 ];
                 return redirect('https://' . $intended['host'] . $intended['resource']);

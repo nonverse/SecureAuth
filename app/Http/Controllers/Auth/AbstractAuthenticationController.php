@@ -9,7 +9,6 @@ use Carbon\CarbonInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Validator;
 
 class AbstractAuthenticationController extends Controller
@@ -71,13 +70,11 @@ class AbstractAuthenticationController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        $cookie = cookie('user_session', null, null, null, env('SESSION_PARENT_DOMAIN'));
-
         return response()->json([
             'data' => [
                 'success' => true
             ]
-        ])->withoutCookie('user')->withCookie($cookie);
+        ])->withoutCookie('user');
     }
 
 

@@ -1,6 +1,5 @@
 /node_modules
 /public/hot
-/public/build
 /public/storage
 /storage/*.key
 /vendor
@@ -15,5 +14,3 @@ yarn-error.log
 /.vscode
 /cert
 /bootstrap/cache
-/.vagrant
-.rnd

@@ -3,7 +3,6 @@
 namespace App\Http;
 
 use App\Http\Middleware\NoUserCookie;
-use App\Http\Middleware\StartSession;
 use App\Http\Middleware\UserCookie;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -35,7 +34,7 @@ class Kernel extends HttpKernel
         'web' => [
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            StartSession::class,
+            \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,

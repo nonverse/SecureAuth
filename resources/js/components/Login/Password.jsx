@@ -1,25 +1,54 @@
-import Fluid from "../Fluid";
-import {useDispatch, useSelector} from "react-redux";
 import {Formik} from "formik";
-import Form from "../../elements/Form";
-import {useEffect, useState} from "react";
-import Field from "../../elements/Field";
-import validate from "../../scripts/validate";
-import InLineButton from "../../elements/InLineButton";
-import Auth, {auth} from "../../scripts/api/auth";
-import {updateLoader} from "../../state/loader";
-import {updateUser} from "../../state/user";
+import Form from "../elements/Form";
+import Field from "../elements/Field";
+import validate from "../../../scripts/validate";
+import LinkButton from "../elements/LinkButton";
+import {Link, useNavigate} from "react-router-dom";
+import {auth} from "../../../scripts/api/auth";
+import {useState} from "react";
+import {useDispatch} from "react-redux";
+import {endLoad, startLoad} from "../../state/load";
 
-const Password = ({advance}) => {
+const Password = ({user, setUser, setInitialized, intended, advance}) => {
 
-    const user = useSelector(state => state.user.value)
-    const query = new URLSearchParams(window.location.search)
     const [error, setError] = useState('')
+    const query = new URLSearchParams(window.location.search)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
-    useEffect(() => {
-        dispatch(updateLoader(false))
-    }, [])
+    async function submit(values) {
+
+        dispatch(startLoad())
+
+        await auth.post('login', {
+            email: user.email,
+            password: values.password
+        })
+            .then((response) => {
+                if (response.data.data.complete) {
+                    dispatch(endLoad())
+                    setInitialized(false)
+                    window.location.replace(`http://${intended.host}${intended.resource}`)
+                } else if (response.data.data.authentication_token) {
+                    setUser({
+                        ...user,
+                        authentication_token: response.data.data.authentication_token
+                    })
+                    dispatch(endLoad())
+                    advance()
+                }
+            })
+            .catch((e) => {
+                switch (e.response.status) {
+                    case 401:
+                        setError('Password is incorrect')
+                        break;
+                    default:
+                        setError('Something went wrong')
+                }
+                dispatch(endLoad())
+            })
+    }
 
     function validatePassword(value) {
         setError('')
@@ -27,57 +56,40 @@ const Password = ({advance}) => {
     }
 
     return (
-        <Fluid heading={`Welcome back, ${user.name_first}`} subHeading="What's your password?">
+        <>
+            <div className="fluid-text">
+                <span>Welcome back</span>
+                <h1>{`${user.name_first} ${user.name_last}`}</h1>
+                <LinkButton action={async () => {
+                    await auth.post('api/user/cookie', {
+                        _method: 'delete'
+                    })
+                        .then(() => {
+                            let host = encodeURIComponent(query.get('host') ? query.get('host') : 'my.nonverse.net')
+                            let resource = encodeURIComponent(query.get('resource') ? query.get('resource') : '/')
+                            navigate(`/?host=${host}&resource=${resource}`)
+                        })
+                }}>Not You?</LinkButton>
+            </div>
             <Formik initialValues={{
                 password: ''
-            }} onSubmit={async (values) => {
-                dispatch(updateLoader(true))
-                await auth.post('login', {
-                    ...values,
-                    email: user.email
-                })
-                    .then(response => {
-                        if (response.data.data.complete) {
-                            return window.location = `https://${query.get('host') ? query.get('host') : 'account.nonverse.test'}${query.get('resource') ? query.get('resource') : '/'}`
-                        } else {
-                            dispatch(updateUser({
-                                ...user,
-                                authentication_token: response.data.data.authentication_token
-                            }))
-                            advance()
-                        }
-                    })
-                    .catch(e => {
-                        switch (e.response.status) {
-                            case 401:
-                                setError('Password is incorrect')
-                                break
-                            default:
-                                setError('Something went wrong')
-                        }
-                        dispatch(updateLoader(false))
-                    })
+            }} onSubmit={(values) => {
+                submit(values)
             }}>
                 {({errors}) => (
-                    <Form id="fluid-form" cta="Continue">
-                        <Field password name="password" label="Password" validate={validatePassword}
-                               error={errors.password ? errors.password : error}/>
-                        <div className="fluid-actions">
-                            <InLineButton id="forgot-password" onClick={() => {
-                                window.location.replace('/recovery/password')
-                            }}>Forgot Password</InLineButton>
-                            <InLineButton id="not-you" onClick={async () => {
-                                await Auth.clearUser()
-                                    .then(() => {
-                                        window.location.replace('/')
-                                    })
-                            }}>Not you?</InLineButton>
-                        </div>
-                    </Form>
+                    <div>
+                        <Form>
+                            <Field doesLoad password name={"password"} placeholder={"Enter Your Password"} error={errors.password ? errors.password : error}
+                                   validate={validatePassword}/>
+                        </Form>
+                        <LinkButton action={() => {
+                            navigate('/recovery/password')
+                        }}>Forgot Password?</LinkButton>
+                    </div>
                 )}
             </Formik>
-        </Fluid>
+        </>
     )
 }
 
-export default Password
+export default Password;

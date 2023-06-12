@@ -49,17 +49,6 @@ class PasswordRecoveryController extends Controller
             'email' => 'required|email'
         ]);
 
-        if (!$this->repository->get($request->input('email'))) {
-            return new JsonResponse([
-                'data' => [
-                    'success' => false
-                ],
-                'error' => [
-                    'User not found'
-                ]
-            ], 404);
-        }
-
         $reset = $this->broker->sendResetLink($request->only('email'));
 
         if ($reset !== $this->broker::RESET_LINK_SENT) {

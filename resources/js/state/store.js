@@ -1,12 +1,8 @@
-import {combineReducers, configureStore} from "@reduxjs/toolkit";
-import userReducer from "../state/user";
-import loaderReducer from "../state/loader"
-import clientReducer from "../state/client"
+import { configureStore } from '@reduxjs/toolkit'
+import fluidLoadReducer from "./load.js"
 
 export default configureStore({
     reducer: {
-        user: userReducer,
-        client: clientReducer,
-        loader: loaderReducer
+        loader: fluidLoadReducer
     },
 })
