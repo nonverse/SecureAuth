@@ -1,88 +1,90 @@
+import Fluid from "./Fluid";
 import {Formik} from "formik";
-import Form from "./elements/Form";
-import Field from "./elements/Field";
-import validate from "../../scripts/validate";
+import Form from "../elements/Form";
+import Field from "../elements/Field";
+import React, {useState} from "react";
+import InLineButton from "../elements/InLineButton";
+import validate from "../scripts/validate";
+import {auth} from "../scripts/api/auth";
+import {useDispatch} from "react-redux";
+import {updateUser} from "../state/user";
 import {useNavigate} from "react-router-dom";
-import {auth} from "../../scripts/api/auth";
-import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {endLoad, startLoad} from "../state/load";
-import LinkButton from "./elements/LinkButton";
-import FormInformation from "./elements/FormInformation";
+import {updateLoader} from "../state/loader";
+import MessageBox from "./MessageBox";
 
-const Email = ({setUser, setInitialized}) => {
+const Email = () => {
 
-    const [showInfo, setShowInfo] = useState(false)
-    const load = useSelector((state) => state.loader.value)
-    const query = new URLSearchParams(window.location.search)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [error, setError] = useState('')
+    const [message, setMessage] = useState({})
 
-    useEffect(() => {
-        setInitialized(true)
-    })
-
-    async function submit(values) {
-
-        dispatch(startLoad())
-
-        await auth.post('api/user/initialize', {
-            email: values.email
-        })
-            .then(response => {
-                setUser({
-                    uuid: response.data.data.uuid,
-                    email: values.email,
-                    name_first: response.data.data.name_first,
-                    name_last: response.data.data.name_last
-                })
-                let host = encodeURIComponent(query.get('host') ? query.get('host') : 'my.nonverse.net')
-                let resource = encodeURIComponent(query.get('resource') ? query.get('resource') : '/')
-
-                dispatch(endLoad())
-                navigate(`login?host=${host}&resource=${resource}`)
-            })
-            .catch(() => {
-                setUser({
-                    email: values.email
-                })
-                dispatch(endLoad())
-                navigate('register')
-            })
-
+    function validateEmail(value) {
+        setError('')
+        return validate.email(value)
     }
 
     return (
-        <>
-            <div className="fluid-text">
-                <span>Nonverse Studios</span>
-                <h1>Login to continue</h1>
-            </div>
+        <Fluid heading="Login to continue" subHeading="What's your email?">
             <Formik initialValues={{
                 email: ''
-            }} onSubmit={(values) => {
-                submit(values)
+            }} onSubmit={async (values) => {
+                dispatch(updateLoader(true))
+                await auth.post('/user/initialize', values)
+                    .then(response => {
+                        dispatch(updateUser({
+                            ...response.data.data,
+                            email: values.email
+                        }))
+                        navigate(`/login?${new URLSearchParams(window.location.search)}`)
+                    })
+                    .catch(e => {
+                        switch (e.response.status) {
+                            case 404: {
+                                dispatch(updateUser({
+                                    email: values.email
+                                }))
+                                navigate('/register')
+                                break
+                            }
+                            default: {
+                                setError('Something went wrong')
+                            }
+                        }
+                    })
             }}>
                 {({errors}) => (
-                    <div className={load ? 'form-loading action-cover op-05' : ''}>
-                        <Form cta={"Continue"}>
-                            <Field doesLoad name={"email"} placeholder={"What's your email?"} error={errors.email} validate={validate.email}/>
+                    <>
+                        <Form id="fluid-form" cta="Continue">
+                            <Field name="email" label="E-Mail" validate={validateEmail}
+                                   error={errors.email ? errors.email : error}/>
+                            <div className="fluid-actions">
+                                <InLineButton id="no-account" onClick={() => {
+                                    setMessage({
+                                        no_account: true
+                                    })
+                                }}>Don't have an account?</InLineButton>
+                                <a href="https://docs.nonverse.net/legal/privacy-policy" target="_blank"
+                                   rel="noreferrer">Privacy Policy</a>
+                            </div>
                         </Form>
-                        <LinkButton action={() => {
-                            setShowInfo(true)
-                        }}>Don't have an account?</LinkButton>
-                    </div>
+                        {message.no_account ?
+                            <MessageBox id="no-account" onClose={() => {
+                                setMessage({
+                                    'no_account': false
+                                })
+                            }}>
+                                <p>
+                                    Enter your email and continue. If an account is not found, you
+                                    will automatically be taken to the registration process
+                                </p>
+                            </MessageBox>
+                            : ''}
+                    </>
                 )}
             </Formik>
-            {showInfo ? (
-                <FormInformation weight={'warning'} close={() => {
-                    setShowInfo(false)
-                }}>
-                You will be asked to create an account before logging in
-            </FormInformation>
-            ) : ''}
-        </>
+        </Fluid>
     )
 }
 
-export default Email;
+export default Email

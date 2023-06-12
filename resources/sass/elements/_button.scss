@@ -1,0 +1,10 @@
+.button {
+  cursor: pointer;
+}
+
+.inline-button {
+  color: #6951FF;
+  &:hover {
+    color: rgba($font-color, .5);
+  }
+}

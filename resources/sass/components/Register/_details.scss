@@ -1,0 +1,14 @@
+#register-details {
+    width: 30vw;
+
+    .fluid-content {
+        width: auto;
+    }
+
+    #register-name {
+        display: grid;
+        width: 30vw;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 1rem;
+    }
+}

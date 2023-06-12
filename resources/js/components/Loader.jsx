@@ -1,14 +1,12 @@
 import {ClipLoader} from "react-spinners";
 
-const Loader = (complete) => {
+const Loader = ({message}) => {
 
     return (
-        <div className="loader-container">
-            <div className="loader">
-                <ClipLoader color={'#6951FF'} size={50}/>
-            </div>
+        <div className="loader-wrapper">
+            <ClipLoader size={"3rem"} color={"#6951FF"}/>
         </div>
     )
 }
 
-export default Loader
+export default Loader 
