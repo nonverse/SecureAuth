@@ -27,7 +27,7 @@ function Index() {
                 })
         } else if (window.location.pathname === '/register') {
             if (validate.email(query.get('email'))) {
-                window.location.replace('/')
+                return window.location.replace('/')
             } else {
                 dispatch(updateUser({
                     email: query.get('email')
@@ -36,7 +36,7 @@ function Index() {
             setInitialised(true)
         } else if (window.location.pathname === '/recovery/two-step') {
             if (validate.require(query.get('token'), 64, 64)) {
-                window.location.replace('/')
+                return window.location.replace('/')
             }
             setInitialised(true)
         } else if (window.location.pathname === '/oauth/authorize') {
