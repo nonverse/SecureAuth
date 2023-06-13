@@ -50,7 +50,7 @@ Route::prefix('recovery')->middleware(['guest'])->group(function () {
 Route::prefix('login')->group(function () {
     Route::view('/', 'app')->middleware(['usercookie', 'guest'])->name('login');
     Route::post('/', [\App\Http\Controllers\Auth\AuthenticationController::class, 'login']);
-    Route::post('/two-factor', [\App\Http\Controllers\User\TwoFactorController::class, 'verify']);
+    Route::post('/two-factor', [\App\Http\Controllers\Auth\TwoFactorController::class, 'verify']);
 });
 
 /*
