@@ -70,7 +70,7 @@ class TwoFactorEnableService
         $this->repository->update($user->uuid, [
             'use_totp' => 1,
             'totp_recovery_token' => Hash::make($token),
-            'totp_authenticated_at' => CarbonImmutable::now()
+//            'totp_authenticated_at' => CarbonImmutable::now()
         ]);
 
         try {
@@ -79,7 +79,7 @@ class TwoFactorEnableService
             $this->repository->update($user->uuid, [
                 'use_totp' => 0,
                 'totp_recovery_token' => null,
-                'totp_authenticated_at' => CarbonImmutable::now()
+//                'totp_authenticated_at' => CarbonImmutable::now()
             ]);
 
             return [
