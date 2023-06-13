@@ -79,8 +79,10 @@ class AuthorizationController extends AbstractOAuth2Controller
         /**
          * Automatically approve request if the user has previously authorized it and an access token was issued
          */
-        if ($this->accessTokenRepository->getUsingClientAndUser($client->id, $request->user()->uuid)) {
+        try {
+            $this->accessTokenRepository->getUsingClientAndUser($client->id, $request->user()->uuid);
             return $this->approve($request);
+        } catch (Exception $e) {
         }
 
         /**
