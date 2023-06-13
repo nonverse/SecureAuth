@@ -2,10 +2,10 @@
 
 namespace App\Services\Auth;
 
+use App\Contracts\Repository\RecoveryRepositoryInterface;
 use App\Contracts\Repository\UserRepositoryInterface;
 use App\Models\User;
 use App\Notifications\TwoFactorEnabled;
-use Carbon\CarbonImmutable;
 use Exception;
 use http\Exception\RuntimeException;
 use Illuminate\Contracts\Encryption\Encrypter;
@@ -24,6 +24,11 @@ class TwoFactorEnableService
     private UserRepositoryInterface $repository;
 
     /**
+     * @var RecoveryRepositoryInterface
+     */
+    private RecoveryRepositoryInterface $recoveryRepositroy;
+
+    /**
      * @var Encrypter
      */
     private Encrypter $encrypter;
@@ -34,12 +39,14 @@ class TwoFactorEnableService
     private Google2FA $google2FA;
 
     public function __construct(
-        UserRepositoryInterface $repository,
-        Encrypter               $encrypter,
-        Google2FA               $google2FA
+        UserRepositoryInterface     $repository,
+        RecoveryRepositoryInterface $recoveryRepository,
+        Encrypter                   $encrypter,
+        Google2FA                   $google2FA
     )
     {
         $this->repository = $repository;
+        $this->recoveryRepositroy = $recoveryRepository;
         $this->encrypter = $encrypter;
         $this->google2FA = $google2FA;
     }
@@ -69,8 +76,12 @@ class TwoFactorEnableService
 
         $this->repository->update($user->uuid, [
             'use_totp' => 1,
-            'totp_recovery_token' => Hash::make($token),
+//            'totp_recovery_token' => Hash::make($token),
 //            'totp_authenticated_at' => CarbonImmutable::now()
+        ]);
+
+        $this->recoveryRepositroy->update($user->uuid, [
+            'totp_token' => Hash::make($token)
         ]);
 
         try {
@@ -78,8 +89,12 @@ class TwoFactorEnableService
         } catch (Exception $e) {
             $this->repository->update($user->uuid, [
                 'use_totp' => 0,
-                'totp_recovery_token' => null,
+//                'totp_recovery_token' => null,
 //                'totp_authenticated_at' => CarbonImmutable::now()
+            ]);
+
+            $this->recoveryRepositroy->update($user->uuid, [
+                'totp_token' => null
             ]);
 
             return [
