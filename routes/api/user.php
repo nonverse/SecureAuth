@@ -1,14 +1,17 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| User API Routes
 |--------------------------------------------------------------------------
 |
-| Endpoint: /api
+| Endpoint: /api/user
 |
 */
-Route::prefix('user')->group(base_path('routes/api/user.php'));
+
+// User recovery data routes
+Route::prefix('recovery')->group(function () {
+    Route::get('/', [\App\Http\Controllers\User\RecoveryController::class, 'get']);
+});
