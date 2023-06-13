@@ -12,6 +12,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 // User recovery data routes
-Route::prefix('recovery')->group(function () {
+Route::prefix('recovery')->middleware('auth:api')->group(function () {
     Route::get('/', [\App\Http\Controllers\User\RecoveryController::class, 'get']);
 });
