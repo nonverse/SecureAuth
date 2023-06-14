@@ -34,7 +34,7 @@ const Password = () => {
                         })
                             .then(response => {
                                 if (response.data.data.authorized) {
-                                    window.location = `https://${query.get('host')}${query.get('resource')}?authorization_token=${response.data.data.authorization_token}`
+                                    window.location = `https://${query.get('host')}${query.get('resource')}?state=${query.get('state')}&authorization_token=${response.data.data.authorization_token}`
                                 }
                             })
                             .catch(e => {
