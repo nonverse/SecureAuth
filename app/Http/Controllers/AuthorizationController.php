@@ -61,7 +61,7 @@ class AuthorizationController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return new JsonResponse($validator->errors());
+            return new JsonResponse($validator->errors(), 422);
         }
 
         /**
