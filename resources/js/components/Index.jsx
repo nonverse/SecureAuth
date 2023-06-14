@@ -34,6 +34,17 @@ function Index() {
                 }))
             }
             setInitialised(true)
+        } else if (window.location.pathname === '/authorize') {
+            await auth.post('authorize/action', query)
+                .then(response => {
+                    if (response.data.data.action_id) {
+                        dispatch(updateClient(response.data.data))
+                        setInitialised(true)
+                    }
+                })
+                .catch(() => {
+                    setInitialised(true)
+                })
         } else if (window.location.pathname === '/recovery/two-step') {
             if (validate.require(query.get('token'), 64, 64)) {
                 return window.location.replace('/')
