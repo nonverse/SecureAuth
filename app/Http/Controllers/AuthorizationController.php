@@ -56,8 +56,6 @@ class AuthorizationController extends Controller
             'code' => 'min:6|max:6|required_without:password',
             'password' => 'required_without:code',
             'action_id' => 'required',
-            'host' => 'required',
-            'resource' => 'required'
         ]);
 
         if ($validator->fails()) {
