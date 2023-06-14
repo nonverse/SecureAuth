@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Contracts\Repository\ActionRepositoryInterface;
 use App\Contracts\Repository\AuthorizationTokenRepositoryInterface;
 use App\Contracts\Repository\OAuth2\AccessTokenRepositoryInterface;
 use App\Contracts\Repository\OAuth2\AuthCodeRepositoryInterface;
@@ -11,6 +12,7 @@ use App\Contracts\Repository\OAuth2\ScopeRepositoryInterface;
 use App\Contracts\Repository\RecoveryRepositoryInterface;
 use App\Contracts\Repository\RepositoryInterface;
 use App\Contracts\Repository\UserRepositoryInterface;
+use App\Repositories\ActionRepository;
 use App\Repositories\AuthorizationTokenRepository;
 use App\Repositories\OAuth2\AccessTokenRepository;
 use App\Repositories\OAuth2\AuthCodeRepository;
@@ -36,6 +38,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(RecoveryRepositoryInterface::class, RecoveryRepository::class);
         $this->app->bind(AuthorizationTokenRepositoryInterface::class, AuthorizationTokenRepository::class);
+        $this->app->bind(ActionRepositoryInterface::class, ActionRepository::class);
 
         //OAuth2
         $this->app->bind(ClientRepositoryInterface::class, ClientRepository::class);
