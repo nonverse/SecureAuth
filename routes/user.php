@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,16 +14,16 @@ use Illuminate\Support\Facades\Route;
 /*
  * Get the currently logged in user
  */
-Route::get('/', [\App\Http\Controllers\User\UserController::class, 'get']);
+Route::get('/', [\App\Http\Controllers\UserController::class, 'get']);
 /*
  * Initialize a user's email
  */
-Route::post('initialize', [\App\Http\Controllers\User\UserController::class, 'email']);
+Route::post('initialize', [\App\Http\Controllers\UserController::class, 'email']);
 /*
  * Get the decrypted value of user cookie
  */
-Route::get('cookie', [\App\Http\Controllers\User\UserController::class, 'getCookie']);
+Route::get('cookie', [\App\Http\Controllers\UserController::class, 'getCookie']);
 /*
  * Clear user cookie
  */
-Route::delete('cookie', [\App\Http\Controllers\User\UserController::class, 'clearCookie']);
+Route::delete('cookie', [\App\Http\Controllers\UserController::class, 'clearCookie']);

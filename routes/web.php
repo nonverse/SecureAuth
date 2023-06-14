@@ -66,7 +66,7 @@ Route::prefix('authorize')->middleware(['auth'])->group(function () {
  */
 Route::prefix('register')->group(function () {
     Route::view('/', 'app')->middleware('guest');
-    Route::post('/', [\App\Http\Controllers\User\UserController::class, 'store']);
+    Route::post('/', [\App\Http\Controllers\UserController::class, 'store']);
 });
 
 /*
