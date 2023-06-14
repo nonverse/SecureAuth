@@ -11,4 +11,3 @@ use Illuminate\Support\Facades\Route;
 | Endpoint: /api
 |
 */
-Route::prefix('user')->group(base_path('routes/api/user.php'));
