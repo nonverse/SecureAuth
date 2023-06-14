@@ -22,4 +22,17 @@ class AuthorizationToken extends Model
      * @var string
      */
     protected $keyType = 'string';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'id',
+        'user_id',
+        'action_id',
+        'expires_at',
+        'revoked',
+    ];
 }
