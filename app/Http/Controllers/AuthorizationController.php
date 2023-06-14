@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Repository\ActionRepositoryInterface;
 use App\Contracts\Repository\UserRepositoryInterface;
-use App\Models\User;
 use App\Services\Authorization\CreateAuthorizationTokenService;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -21,6 +22,11 @@ class AuthorizationController extends Controller
     private UserRepositoryInterface $userRepository;
 
     /**
+     * @var ActionRepositoryInterface
+     */
+    private ActionRepositoryInterface $actionRepository;
+
+    /**
      * @var CreateAuthorizationTokenService
      */
     private CreateAuthorizationTokenService $createAuthorizationTokenService;
@@ -32,13 +38,50 @@ class AuthorizationController extends Controller
 
     public function __construct(
         UserRepositoryInterface         $userRepository,
+        ActionRepositoryInterface       $actionRepository,
         CreateAuthorizationTokenService $createAuthorizationTokenService,
         Hasher                          $hasher
     )
     {
         $this->userRepository = $userRepository;
+        $this->actionRepository = $actionRepository;
         $this->createAuthorizationTokenService = $createAuthorizationTokenService;
         $this->hasher = $hasher;
+    }
+
+    /**
+     * Get action description
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function get(Request $request): JsonResponse
+    {
+        /**
+         * Validate request
+         */
+        $validator = Validator::make($request->all(), [
+            'action_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return new JsonResponse($validator->errors(), 422);
+        }
+
+        try {
+            $action = $this->actionRepository->get($request->input('action_id'));
+        } catch (Exception $e) {
+            return new JsonResponse([
+                'error' => 'Invalid action identifier'
+            ], 400);
+        }
+
+        return new JsonResponse([
+            'data' => [
+                'action_id' => $action->id,
+                'action_description' => $action->description
+            ]
+        ]);
     }
 
     /**

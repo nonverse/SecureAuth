@@ -58,6 +58,7 @@ Route::prefix('login')->group(function () {
  */
 Route::prefix('authorize')->middleware(['auth'])->group(function () {
     Route::view('/', 'app');
+    Route::post('/action', [\App\Http\Controllers\AuthorizationController::class, 'get']);
     Route::post('/', [\App\Http\Controllers\AuthorizationController::class, 'create']);
 });
 
