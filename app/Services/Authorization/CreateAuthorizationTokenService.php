@@ -37,7 +37,7 @@ class CreateAuthorizationTokenService
             'iss' => env('APP_URL'),
             'aud' => env('VITE_ACCOUNT_APP'),
             'iat' => time(),
-            'exp' => time() + 5 * 60,
+            'exp' => time() + config('auth.authorization_token.expiry') * 60,
             'aci' => $request->input('action_id'),
             'jti' => $id
         ];
@@ -54,7 +54,7 @@ class CreateAuthorizationTokenService
             'id' => $id,
             'user_id' => $request->user()->uuid,
             'action_id' => $data['action_id'],
-            'expires_at' => CarbonImmutable::now()->addMinutes(5),
+            'expires_at' => CarbonImmutable::now()->addMinutes(config('auth.authorization_token.expiry')),
         ]);
 
         return $jwt;

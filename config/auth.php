@@ -18,6 +18,10 @@ return [
         'passwords' => 'users',
     ],
 
+    'authorization_token' => [
+        'expiry' => 5 //(Minutes)
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
