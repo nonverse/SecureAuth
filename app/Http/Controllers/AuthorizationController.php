@@ -132,7 +132,7 @@ class AuthorizationController extends Controller
             return new JsonResponse([
                 'data' => [
                     'authorized' => true,
-                    'authorization_token' => $token
+                    'authorization_token' => $token,
                 ]
             ]);
         }

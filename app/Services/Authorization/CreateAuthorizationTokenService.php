@@ -38,6 +38,7 @@ class CreateAuthorizationTokenService
             'aud' => env('VITE_ACCOUNT_APP'),
             'iat' => time(),
             'exp' => time() + 5 * 60,
+            'aci' => $request->input('action_id'),
             'jti' => $id
         ];
 
