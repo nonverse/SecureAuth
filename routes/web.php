@@ -58,7 +58,7 @@ Route::prefix('login')->group(function () {
  */
 Route::prefix('authorize')->middleware(['auth'])->group(function () {
     Route::view('/', 'app');
-    //TODO Authorize post
+    Route::post('/', [\App\Http\Controllers\AuthorizationController::class, 'create']);
 });
 
 /*
