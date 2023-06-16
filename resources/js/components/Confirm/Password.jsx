@@ -23,7 +23,7 @@ const Password = () => {
     return (
         <>
             {client ? (
-                <Fluid heading="Authorization Required" subHeading={client.action_description}>
+                <Fluid heading="Confirmation Required" subHeading={client.action_description}>
                     <Formik initialValues={{
                         password: ''
                     }} onSubmit={async (values) => {

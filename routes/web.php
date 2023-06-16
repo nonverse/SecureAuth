@@ -54,7 +54,7 @@ Route::prefix('login')->group(function () {
 });
 
 /*
- * Authorize Action
+ * Confirm Action
  */
 Route::prefix('authorize')->middleware(['auth'])->group(function () {
     Route::view('/', 'app');

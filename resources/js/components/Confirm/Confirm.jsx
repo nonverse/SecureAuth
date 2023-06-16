@@ -1,7 +1,7 @@
 import {useState} from "react";
 import Password from "./Password";
 
-const Authorize = () => {
+const Confirm = () => {
     const [state, setState] = useState(0)
 
     const views = {
@@ -19,4 +19,4 @@ const Authorize = () => {
     )
 }
 
-export default Authorize
+export default Confirm
