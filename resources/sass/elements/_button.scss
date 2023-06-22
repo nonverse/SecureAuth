@@ -5,6 +5,6 @@
 .inline-button {
   color: #6951FF;
   &:hover {
-    color: rgba($font-color, .5);
+    color: rgba(var(--font-color-rgb), .5);
   }
 }

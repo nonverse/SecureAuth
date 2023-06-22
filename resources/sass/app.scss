@@ -42,7 +42,7 @@
                     z-index: 1;
                     width: 50vw;
                     height: 50vh;
-                    background-color: rgba($main, .5);
+                    background-color: rgba(var(--main-rgb), .5);
                 }
             }
 
@@ -54,7 +54,7 @@
                 position: absolute;
                 bottom: 4vh;
                 margin-left: 2.5vw;
-                color: rgba($font-color, .5);
+                color: rgba(var(--font-color-rgb), .5);
             }
         }
     }

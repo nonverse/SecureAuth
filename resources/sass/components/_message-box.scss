@@ -15,7 +15,7 @@
         border-radius: 5px;
         width: calc(100% - 2rem);
         padding: 1rem;
-        color: rgba($font-color, .5);
+        color: rgba(var(--font-color-rgb), .5);
         margin-bottom: .25rem;
     }
 

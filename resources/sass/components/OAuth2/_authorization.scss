@@ -8,7 +8,7 @@
         margin-left: 2rem;
         margin-top: 1rem;
 
-        color: rgba($font-color, .5);
+        color: rgba(var(--font-color-rgb), .5);
     }
 
     #authorize-actions {
@@ -23,5 +23,5 @@
 
 #client-error {
     max-width: $max-width;
-    color: rgba($font-color, .5);
+    color: rgba(var(--font-color-rgb), .5);
 }

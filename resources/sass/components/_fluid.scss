@@ -14,13 +14,13 @@
         h1 {
             font-size: 1.5rem;
             font-weight: normal;
-            color: $font-color;
+            color: var(--font-color);
         }
 
         h2 {
             font-size: 1rem;
             font-weight: normal;
-            color: rgba($font-color, .5);
+            color: rgba(var(--font-color-rgb), .5);
             margin-top: .5rem;
         }
     }
@@ -53,7 +53,7 @@
             margin-bottom: 1rem;
 
             p {
-                color: rgba($font-color, .5);
+                color: rgba(var(--font-color-rgb), .5);
             }
         }
     }

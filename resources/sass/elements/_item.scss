@@ -5,7 +5,7 @@
   align-items: center;
   padding: .5rem 0;
   .item-name {
-    color: rgba($font-color, .5);
+    color: rgba(var(--font-color-rgb), .5);
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 100%;
@@ -17,12 +17,12 @@
     display: flex;
     font-size: 1rem;
     span {
-      color: $font-color;
+      color: var(--font-color);
       margin-right: .25rem;
     }
     .item-line {
       flex-grow: 1;
-      border-bottom: solid 2px rgba($font-color, .25);
+      border-bottom: solid 2px rgba(var(--font-color-rgb), .25);
       margin-right: .25rem;
     }
   }
