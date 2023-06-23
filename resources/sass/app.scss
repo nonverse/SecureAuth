@@ -25,9 +25,9 @@
     }
 
     body {
-        background-color: $body-bg;
-
         .app {
+            background-color: var(--main);
+
             height: 100vh;
             width: 100vw;
 
