@@ -10,12 +10,14 @@ import {auth} from "../scripts/api/auth";
 import {updateUser} from "../state/user";
 import validate from "../scripts/validate";
 import {updateClient} from "../state/client";
+import cookies from "../scripts/helpers/cookies";
 
 function Index() {
 
     const [initialised, setInitialised] = useState(false)
     const loading = useSelector(state => state.loader.value)
     const query = new URLSearchParams(window.location.search)
+    const settingsCookie = cookies.get('settings')
     const dispatch = useDispatch()
 
     useEffect(async () => {
@@ -68,7 +70,7 @@ function Index() {
     }, [])
 
     return (
-        <div className="app">
+        <div className={`app ${settingsCookie ? JSON.parse(settingsCookie).theme : 'system'}`}>
             {initialised ?
                 <>
                     <Logo/>
