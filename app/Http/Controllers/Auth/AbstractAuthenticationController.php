@@ -93,12 +93,13 @@ class AbstractAuthenticationController extends Controller
         $request->session()->regenerateToken();
 
         $cookie = cookie('user_session', null, null, null, env('SESSION_PARENT_DOMAIN'));
+        $settingsCookie = cookie('settings', null, null, null, env('SESSION_PARENT_DOMAIN'), false, false);
 
         return response()->json([
             'data' => [
                 'success' => true
             ]
-        ])->withoutCookie('user')->withCookie($cookie);
+        ])->withoutCookie('user')->withCookie($cookie)->withCookie($settingsCookie);
     }
 
 
