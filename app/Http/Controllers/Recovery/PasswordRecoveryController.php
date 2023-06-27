@@ -99,6 +99,7 @@ class PasswordRecoveryController extends Controller
         $restricted = strtolower($user->name_first . $user->name_last . $user->username . $user->email);
         if (str_contains($restricted, $request->input('password'))) {
             return new JsonResponse([
+                'success' => false,
                 'errors' => [
                     'password' => 'Password cannot contain personal info'
                 ]
@@ -120,6 +121,7 @@ class PasswordRecoveryController extends Controller
 
         if ($status !== $this->broker::PASSWORD_RESET) {
             return new JsonResponse([
+                'success' => false,
                 'errors' => [
                     'password' => __($status)
                 ]
