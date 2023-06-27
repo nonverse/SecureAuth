@@ -92,14 +92,15 @@ class PasswordRecoveryController extends Controller
         ]);
 
         /*
-         * Check if password contains any part of the user's name
+         * Check if password contains user's personal info
          */
         $password = $request->input('password');
         $user = $this->repository->get($request->input('email'));
-        if (str_contains($password, $user->name_first) || str_contains($password, $user->name_last)) {
+        $restricted = strtolower($user->name_first . $user->name_last . $user->username . $user->email);
+        if (str_contains($restricted, $request->input('password'))) {
             return new JsonResponse([
                 'errors' => [
-                    'password' => 'Password cannot contain your name'
+                    'password' => 'Password cannot contain personal info'
                 ]
             ], 422);
         }
