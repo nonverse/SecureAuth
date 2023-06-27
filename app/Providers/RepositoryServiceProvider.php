@@ -11,6 +11,7 @@ use App\Contracts\Repository\OAuth2\RefreshTokenRepositoryInterface;
 use App\Contracts\Repository\OAuth2\ScopeRepositoryInterface;
 use App\Contracts\Repository\RecoveryRepositoryInterface;
 use App\Contracts\Repository\RepositoryInterface;
+use App\Contracts\Repository\SettingsRepositoryInterface;
 use App\Contracts\Repository\UserRepositoryInterface;
 use App\Repositories\ActionRepository;
 use App\Repositories\AuthorizationTokenRepository;
@@ -21,6 +22,7 @@ use App\Repositories\OAuth2\RefreshTokenRepository;
 use App\Repositories\OAuth2\ScopeRepository;
 use App\Repositories\RecoveryRepository;
 use App\Repositories\Repository;
+use App\Repositories\SettingsRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -39,6 +41,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(RecoveryRepositoryInterface::class, RecoveryRepository::class);
         $this->app->bind(AuthorizationTokenRepositoryInterface::class, AuthorizationTokenRepository::class);
         $this->app->bind(ActionRepositoryInterface::class, ActionRepository::class);
+        $this->app->bind(SettingsRepositoryInterface::class, SettingsRepository::class);
 
         //OAuth2
         $this->app->bind(ClientRepositoryInterface::class, ClientRepository::class);
