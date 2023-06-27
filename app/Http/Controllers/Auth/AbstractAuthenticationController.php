@@ -50,13 +50,14 @@ class AbstractAuthenticationController extends Controller
             'authed_at' => CarbonImmutable::now()
         ]), 43800);
 
+        $settings = [];
         foreach ($this->settingsRepository->getUserSettings($user->uuid) as $setting) {
             $settings[$setting['key']] = $setting['value'];
         }
 
         $settingsCookie = cookie('settings', json_encode([
-            'theme' => $settings['theme'] ?: 'system',
-            'language' => $settings['language'] ?: 'en-AU'
+            'theme' => array_key_exists('theme', $settings) ? $settings['theme'] : 'system',
+            'language' => array_key_exists('language', $settings) ? $settings['language'] : 'en-AU'
         ]), 43800, null, env('SESSION_PARENT_DOMAIN'), false, false);
 
         /*
