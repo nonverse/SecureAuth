@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Contracts\Repository\SettingsRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Carbon\CarbonImmutable;
@@ -9,11 +10,22 @@ use Carbon\CarbonInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Validator;
 
 class AbstractAuthenticationController extends Controller
 {
+    /**
+     * @var SettingsRepositoryInterface
+     */
+    private SettingsRepositoryInterface $settingsRepository;
+
+    public function __construct(
+        SettingsRepositoryInterface $settingsRepository
+    )
+    {
+        $this->settingsRepository = $settingsRepository;
+    }
+
     /**
      * Login a user into the network
      *
@@ -38,6 +50,15 @@ class AbstractAuthenticationController extends Controller
             'authed_at' => CarbonImmutable::now()
         ]), 43800);
 
+        foreach ($this->settingsRepository->getUserSettings($user->uuid) as $setting) {
+            $settings[$setting['key']] = $setting['value'];
+        }
+
+        $settingsCookie = cookie('settings', json_encode([
+            'theme' => $settings['theme'] ?: 'system',
+            'language' => $settings['language'] ?: 'en-AU'
+        ]), 43800, null, env('SESSION_PARENT_DOMAIN'), false, false);
+
         /*
          * Log user in
          */
@@ -48,7 +69,7 @@ class AbstractAuthenticationController extends Controller
                 'complete' => true,
                 'uuid' => $user->uuid
             ]
-        ])->withCookie($cookie);
+        ])->withCookie($cookie)->withCookie($settingsCookie);
     }
 
     /**

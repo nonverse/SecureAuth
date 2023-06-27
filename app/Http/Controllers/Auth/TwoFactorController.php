@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Contracts\Repository\SettingsRepositoryInterface;
 use App\Contracts\Repository\UserRepositoryInterface;
 use Carbon\CarbonImmutable;
 use Exception;
@@ -37,18 +38,22 @@ class TwoFactorController extends AbstractAuthenticationController
      * @var Google2FA
      */
     private Google2FA $google2FA;
+
     public function __construct(
-        UserRepositoryInterface $repository,
-        Encrypter               $encrypter,
-        Hasher                  $hasher,
-        Google2FA               $google2FA,
+        UserRepositoryInterface     $repository,
+        SettingsRepositoryInterface $settingsRepository,
+        Encrypter                   $encrypter,
+        Hasher                      $hasher,
+        Google2FA                   $google2FA,
     )
     {
+        parent::__construct($settingsRepository);
         $this->repository = $repository;
         $this->encrypter = $encrypter;
         $this->hasher = $hasher;
         $this->google2FA = $google2FA;
     }
+
     /**
      * Verify 2FA code
      *
