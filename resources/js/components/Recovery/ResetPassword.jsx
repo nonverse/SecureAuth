@@ -30,6 +30,7 @@ const ResetPassword = () => {
                         if (response.data.success) {
                             navigate('/')
                         }
+                        dispatch(updateLoader(false))
                     })
             }}>
                 {({values, errors}) => (
