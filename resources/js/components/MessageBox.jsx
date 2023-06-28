@@ -5,6 +5,7 @@ const MessageBox = ({id, weight, onClose, children}) => {
 
     return (
         <motion.div className="message-box-container"
+                    id={id}
                     key={id}
                     initial={{opacity: 0}}
                     animate={{opacity: 1}}
