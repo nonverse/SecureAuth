@@ -51,9 +51,7 @@ class PasswordRecoveryController extends Controller
 
         if (!$this->repository->get($request->input('email'))) {
             return new JsonResponse([
-                'data' => [
-                    'success' => false
-                ],
+                'success' => false,
                 'error' => [
                     'User not found'
                 ]
@@ -71,9 +69,7 @@ class PasswordRecoveryController extends Controller
         }
 
         return new JsonResponse([
-            'data' => [
-                'success' => true
-            ]
+            'success' => true
         ]);
     }
 
@@ -129,9 +125,7 @@ class PasswordRecoveryController extends Controller
         }
 
         return new JsonResponse([
-            'data' => [
-                'success' => true
-            ]
+            'success' => true
         ]);
     }
 }
