@@ -8,7 +8,7 @@ import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {updateLoader} from "../../state/loader";
 
-const RequestPasswordReset = () => {
+const RequestPasswordReset = ({setState}) => {
 
     const [error, setError] = useState('')
     const dispatch = useDispatch()
@@ -26,7 +26,10 @@ const RequestPasswordReset = () => {
                 dispatch(updateLoader(true))
                 await auth.post('/recovery/password', values)
                     .then(response => {
-
+                        if (response.data.success) {
+                            setState(1)
+                            dispatch(updateLoader(false))
+                        }
                     })
                     .catch(e => {
                         switch (e.response.status) {
