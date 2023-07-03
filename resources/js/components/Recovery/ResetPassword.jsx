@@ -30,7 +30,7 @@ const ResetPassword = () => {
                     .then(response => {
                         if (response.data.success) {
                             dispatch(sendNotification({
-                                message: 'You password has been changed',
+                                message: 'You password has been reset',
                             }))
                             navigate('/')
                         }
