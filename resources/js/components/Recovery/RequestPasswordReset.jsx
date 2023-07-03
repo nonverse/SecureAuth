@@ -7,11 +7,14 @@ import {auth} from "../../scripts/api/auth";
 import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {updateLoader} from "../../state/loader";
+import {sendNotification} from "../../state/notification";
+import {useNavigate} from "react-router-dom";
 
 const RequestPasswordReset = ({setState}) => {
 
     const [error, setError] = useState('')
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     function validateEmail(value) {
         setError('')
@@ -27,8 +30,11 @@ const RequestPasswordReset = ({setState}) => {
                 await auth.post('/recovery/password', values)
                     .then(response => {
                         if (response.data.success) {
-                            setState(1)
+                            dispatch(sendNotification({
+                                message: `Password reset e-mail sent to ${values.email}`
+                            }))
                             dispatch(updateLoader(false))
+                            navigate('/')
                         }
                     })
                     .catch(e => {
