@@ -11,6 +11,7 @@ import {updateUser} from "../state/user";
 import validate from "../scripts/validate";
 import {updateClient} from "../state/client";
 import cookies from "../scripts/helpers/cookies";
+import NotificationPortal from "./NotificationPortal";
 
 function Index() {
 
@@ -77,6 +78,7 @@ function Index() {
                     <BrowserRouter>
                         <div className="container">
                             {loading ? <Loader/> : ''}
+                            <NotificationPortal/>
                             <Router/>
                         </div>
                     </BrowserRouter>
