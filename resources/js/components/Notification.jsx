@@ -1,7 +1,7 @@
 import {motion} from "framer-motion";
 import {useDispatch, useSelector} from "react-redux";
 import InLineButton from "@/elements/InLineButton.jsx";
-import {closeNotification} from "@/state/app/notification.js";
+import {closeNotification} from "@/state/notification.js";
 import {useEffect} from "react";
 
 const Notification = () => {
