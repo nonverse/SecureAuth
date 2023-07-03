@@ -7,6 +7,7 @@ import {useDispatch} from "react-redux";
 import {updateLoader} from "../../state/loader";
 import {auth} from "../../scripts/api/auth";
 import {useNavigate} from "react-router-dom";
+import {sendNotification} from "../../state/notification";
 
 const ResetPassword = () => {
 
@@ -28,6 +29,9 @@ const ResetPassword = () => {
                 })
                     .then(response => {
                         if (response.data.success) {
+                            dispatch(sendNotification({
+                                message: 'You password has been changed',
+                            }))
                             navigate('/')
                         }
                         dispatch(updateLoader(false))
