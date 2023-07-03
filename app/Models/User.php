@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\ResetPassword;
 use App\Services\User\HasApiTokens;
 use Carbon\Carbon;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -30,7 +31,6 @@ use Illuminate\Notifications\Notifiable;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, CanResetPassword, HasApiTokens;
@@ -87,4 +87,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @param string $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new ResetPassword($this, env('APP_URL') . '/recovery/password?token=' . $token . '&email=' . urlencode($this->email)));
+    }
 }
