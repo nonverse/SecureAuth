@@ -42,14 +42,13 @@ class TwoFactorController extends AbstractAuthenticationController
     public function __construct(
         UserRepositoryInterface     $repository,
         SettingsRepositoryInterface $settingsRepository,
-        Encrypter                   $encrypter,
         Hasher                      $hasher,
         Google2FA                   $google2FA,
     )
     {
         parent::__construct($settingsRepository);
         $this->repository = $repository;
-        $this->encrypter = $encrypter;
+        $this->encrypter = new \Illuminate\Encryption\Encrypter(base64_decode(str_replace('base64:', '', env('APP_SHARED_KEY'))), config('app.cipher'));;
         $this->hasher = $hasher;
         $this->google2FA = $google2FA;
     }
