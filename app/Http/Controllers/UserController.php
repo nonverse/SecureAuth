@@ -84,10 +84,16 @@ class UserController extends Controller
         if ($user) {
             $uuid = $user['data']['uuid'];
 
-            $cookie = cookie('user', json_encode([
-                'uuid' => $uuid,
+            /*
+             * Add user to UUID remember cookie
+             */
+            $cookieData = $request->cookie('user') ? json_decode($request->cookie('user'), true) : [];
+            $cookieData[$uuid] = [
+                // Store successful login timestamp in cookie
                 'authed_at' => CarbonImmutable::now()
-            ]), 43800);
+            ];
+
+            $cookie = cookie('user', json_encode($cookieData));
 
             Auth::logout();
             $request->session()->invalidate();
