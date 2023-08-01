@@ -156,15 +156,24 @@ class UserController extends Controller
             return response('No user cookie found', 404);
         }
 
+        /**
+         * Decode cookie containing timed out users
+         */
         $users = json_decode($cookie);
 
         $response = [];
         $latestUuid = '';
         foreach ($users as $uuid => $authedAt) {
             try {
+                /**
+                 * Try to get user from database
+                 */
                 $user = $this->repository->get($uuid);
                 $timeStamp = CarbonImmutable::minValue();
 
+                /**
+                 * Determine the last logged in user
+                 */
                 if ($timeStamp->isBefore(CarbonImmutable::parse($authedAt->authed_at))) {
                     $timeStamp = $authedAt;
                     $latestUuid = $uuid;
@@ -176,6 +185,9 @@ class UserController extends Controller
                     'name_last' => $user->name_last
                 ];
             } catch (Exception $e) {
+                /**
+                 * If unable to find user in database, assume the account was deleted
+                 */
                 $response[$uuid] = [
                     'email' => 'deleteduser@nonverse.net',
                     'name_first' => 'Deleted',

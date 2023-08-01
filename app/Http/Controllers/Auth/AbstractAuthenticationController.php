@@ -43,10 +43,11 @@ class AbstractAuthenticationController extends Controller
         $request->session()->regenerate();
 
         /*
-         * Create user UUID remember cookie
+         * Add user to UUID remember cookie
          */
         $cookieData = $request->cookie('user') ? json_decode($request->cookie('user'), true) : [];
         $cookieData[$user->uuid] = [
+            // Store successful login timestamp in cookie
             'authed_at' => CarbonImmutable::now()
         ];
 
@@ -57,6 +58,9 @@ class AbstractAuthenticationController extends Controller
             $settings[$setting['key']] = $setting['value'];
         }
 
+        /*
+         * Create settings cookie containing user's basic settings
+         */
         $settingsCookie = cookie('settings', json_encode([
             'theme' => array_key_exists('theme', $settings) ? $settings['theme'] : 'system',
             'language' => array_key_exists('language', $settings) ? $settings['language'] : 'en-AU'
