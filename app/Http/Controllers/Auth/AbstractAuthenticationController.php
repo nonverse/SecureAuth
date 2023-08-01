@@ -45,10 +45,12 @@ class AbstractAuthenticationController extends Controller
         /*
          * Create user UUID remember cookie
          */
-        $cookie = cookie('user', json_encode([
-            'uuid' => $user->uuid,
+        $cookieData = $request->cookie('user') ? json_decode($request->cookie('user')) : [];
+        $cookieData[$user->uuid] = [
             'authed_at' => CarbonImmutable::now()
-        ]), 43800);
+        ];
+
+        $cookie = cookie('user', json_encode($cookieData));
 
         $settings = [];
         foreach ($this->settingsRepository->getUserSettings($user->uuid) as $setting) {
