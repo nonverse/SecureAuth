@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\Repository\UserRepositoryInterface;
 use App\Services\User\UserCreationService;
 use Carbon\CarbonImmutable;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -24,7 +25,7 @@ class UserController extends Controller
 
     public function __construct(
         UserRepositoryInterface $repository,
-        UserCreationService $creationService
+        UserCreationService     $creationService
     )
     {
         $this->repository = $repository;
@@ -151,22 +152,42 @@ class UserController extends Controller
      */
     public function getCookie(Request $request): Response|JsonResponse
     {
-        if (!$request->cookie('user')) {
+        if (!$cookie = $request->cookie('user')) {
             return response('No user cookie found', 404);
         }
 
-        $user = $this->repository->get(json_decode($request->cookie('user'))->uuid);
+        $users = json_decode($cookie);
 
-        if (!$user) {
-            return response('Invalid user cookie', 400);
+        $response = [];
+        $latestUuid = '';
+        foreach ($users as $uuid => $authedAt) {
+            try {
+                $user = $this->repository->get($uuid);
+                $timeStamp = CarbonImmutable::minValue();
+
+                if ($timeStamp->isBefore(CarbonImmutable::parse($authedAt->authed_at))) {
+                    $timeStamp = $authedAt;
+                    $latestUuid = $uuid;
+                }
+
+                $response[$uuid] = [
+                    'email' => $user->email,
+                    'name_first' => $user->name_first,
+                    'name_last' => $user->name_last
+                ];
+            } catch (Exception $e) {
+                $response[$uuid] = [
+                    'email' => 'deleteduser@nonverse.net',
+                    'name_first' => 'Deleted',
+                    'name_last' => 'User'
+                ];
+            }
         }
 
         return new JsonResponse([
             'data' => [
-                'uuid' => $user->uuid,
-                'email' => $user->email,
-                'name_first' => $user->name_first,
-                'name_last' => $user->name_last,
+                'users' => $response,
+                'last_login' => $latestUuid
             ]
         ]);
     }
