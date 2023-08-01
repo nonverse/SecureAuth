@@ -12,6 +12,7 @@ import validate from "../scripts/validate";
 import {updateClient} from "../state/client";
 import cookies from "../scripts/helpers/cookies";
 import NotificationPortal from "./NotificationPortal";
+import {updateUsers} from "../state/users";
 
 function Index() {
 
@@ -26,6 +27,7 @@ function Index() {
             await auth.get('/user/cookie')
                 .then(response => {
                     const lastLogin = response.data.data.last_login
+                    dispatch(updateUsers(response.data.data.users))
                     dispatch(updateUser(response.data.data.users[lastLogin]))
                     setInitialised(true)
                 })
