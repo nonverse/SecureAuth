@@ -25,7 +25,8 @@ function Index() {
         if (window.location.pathname === '/login') {
             await auth.get('/user/cookie')
                 .then(response => {
-                    dispatch(updateUser(response.data.data))
+                    const lastLogin = response.data.data.last_login
+                    dispatch(updateUser(response.data.data.users[lastLogin]))
                     setInitialised(true)
                 })
         } else if (window.location.pathname === '/register') {
