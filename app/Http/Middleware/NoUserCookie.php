@@ -31,7 +31,7 @@ class NoUserCookie
     {
         $cookie = $request->cookie('user');
 
-        if ($cookie && $this->repository->get(json_decode($cookie, true)['uuid'])) {
+        if ($cookie) {
             $intended = [
                 'host' => urlencode($request->input('host') ?: urlencode(env('BASE_APP_URL'))),
                 'resource' => urlencode($request->input('resource') ?: urlencode('/'))
