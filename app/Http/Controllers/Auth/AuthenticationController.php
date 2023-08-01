@@ -89,8 +89,9 @@ class AuthenticationController extends AbstractAuthenticationController
              * If user has UUID cookie and last login on device was less than
              * 14 days ago, skip 2FA on same device
              */
-            if ($request->cookie('user')) {
-                $timeout = CarbonImmutable::parse(json_decode($request->cookie('user'))->authed_at)->addDays(14);
+            if ($request->cookie('user') && array_key_exists($user->uuid, json_decode($request->cookie('user'), true))) {
+                $users = json_decode($request->cookie('user'), true);
+                $timeout = CarbonImmutable::parse($users[$user->uuid]['authed_at'])->addDays(7);
                 if (CarbonImmutable::now()->isBefore($timeout)) {
                     return $this->sendLoginSuccessResponse($request, $user);
                 }
