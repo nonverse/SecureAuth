@@ -10,7 +10,11 @@ const Login = () => {
     const views = {
         0: <Password advance={advance}/>,
         1: <TwoStep/>,
-        2: <AccountSelector/>
+        2: <AccountSelector restart={restart}/>
+    }
+
+    function restart() {
+        setState(0)
     }
 
     function advance(to = 0) {
