@@ -66,11 +66,8 @@ const Password = ({advance}) => {
                             <InLineButton id="forgot-password" onClick={() => {
                                 window.location.replace('/recovery/password')
                             }}>Forgot Password</InLineButton>
-                            <InLineButton id="not-you" onClick={async () => {
-                                await Auth.clearUser()
-                                    .then(() => {
-                                        window.location.replace('/')
-                                    })
+                            <InLineButton id="not-you" onClick={() => {
+                                advance(2)
                             }}>Not you?</InLineButton>
                         </div>
                     </Form>
