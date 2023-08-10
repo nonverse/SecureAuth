@@ -29,7 +29,8 @@
         display: grid;
         position: relative;
         margin-top: 1rem;
-        width: $max-width;
+        width: 18vw;
+        max-width: $max-width;
 
         .field-wrapper {
             width: 100%;
