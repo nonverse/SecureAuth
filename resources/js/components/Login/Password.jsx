@@ -6,13 +6,14 @@ import {useEffect, useState} from "react";
 import Field from "../../elements/Field";
 import validate from "../../scripts/validate";
 import InLineButton from "../../elements/InLineButton";
-import Auth, {auth} from "../../scripts/api/auth";
+import {auth} from "../../scripts/api/auth";
 import {updateLoader} from "../../state/loader";
 import {updateUser} from "../../state/user";
 
 const Password = ({advance}) => {
 
     const user = useSelector(state => state.user.value)
+    const users = useSelector(state => state.users.value)
     const query = new URLSearchParams(window.location.search)
     const [error, setError] = useState('')
     const dispatch = useDispatch()
@@ -67,7 +68,10 @@ const Password = ({advance}) => {
                                 window.location.replace('/recovery/password')
                             }}>Forgot Password</InLineButton>
                             <InLineButton id="not-you" onClick={() => {
-                                advance(2)
+                                window.history.replaceState(null, document.title, window.location.pathname)
+                                {
+                                    users ? advance(2) : window.location = '/'
+                                }
                             }}>Not you?</InLineButton>
                         </div>
                     </Form>

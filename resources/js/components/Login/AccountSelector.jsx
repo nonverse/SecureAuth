@@ -21,7 +21,6 @@ const AccountSelector = ({restart}) => {
                         name_first: users[user]['name_first'],
                         name_last: users[user]['name_last']
                     }))
-                    window.history.replaceState(null, document.title, window.location.pathname)
                     restart()
                 }}/>
             ))}
