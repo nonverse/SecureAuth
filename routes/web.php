@@ -54,6 +54,14 @@ Route::prefix('login')->group(function () {
 });
 
 /*
+ * Switch User
+ */
+Route::prefix('switch-user')->middleware(['auth'])->group(function () {
+    Route::view('/', 'app');
+    Route::post('/', [\App\Http\Controllers\Auth\AuthenticationController::class, 'switchUser']);
+});
+
+/*
  * Confirm Action
  */
 Route::prefix('authorize')->middleware(['auth'])->group(function () {
