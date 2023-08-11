@@ -35,6 +35,7 @@ class CreateAccessTokenService
         $id = Str::random(100);
 
         $payload = [
+            'sub' => $userId,
             'iss' => env('APP_URL'),
             'aud' => $data['redirect_uri'],
             'iat' => time(),
