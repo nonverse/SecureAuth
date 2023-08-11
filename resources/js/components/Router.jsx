@@ -7,6 +7,7 @@ import Password from "./Recovery/Password";
 import TwoStep from "./Recovery/TwoStep";
 import Authorization from "./OAuth2/Authorization";
 import Confirm from "./Confirm/Confirm";
+import SwitchUser from "./SwitchUser";
 
 const Router = () => {
 
@@ -19,6 +20,7 @@ const Router = () => {
                 <Route path={"/"} element={<Email/>}/>
                 <Route path={"/login"} element={<Login/>}/>
                 <Route path={"/register"} element={<Register/>}/>
+                <Route path={"/switch-user"} element={<SwitchUser/>}/>
 
                 // Authorize
                 <Route path={"/authorize"} element={<Confirm/>}/>
