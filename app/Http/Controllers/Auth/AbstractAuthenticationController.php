@@ -87,6 +87,16 @@ class AbstractAuthenticationController extends Controller
      */
     public function sendLogoutSuccessResponse(Request $request): JsonResponse
     {
+        /**
+         * Before logging the user out, we will get the user cookie and
+         * remove their UUID from it. This means that the browser will not
+         * remember them, but will remember other users that have been
+         * timed out
+         */
+        $cookieData = $request->cookie('user') ? json_decode($request->cookie('user'), true) : [];
+        if (array_key_exists($request->user()->uuid, $cookieData)) {
+            unset($cookieData[$request->user()->uuid]);
+        }
 
         /*
          * Log user out
@@ -100,13 +110,14 @@ class AbstractAuthenticationController extends Controller
         $request->session()->regenerateToken();
 
         $cookie = cookie('user_session', null, null, null, env('SESSION_PARENT_DOMAIN'));
+        $userCookie = cookie('user', json_encode($cookieData));
         $settingsCookie = cookie('settings', null, null, null, env('SESSION_PARENT_DOMAIN'), false, false);
 
         return response()->json([
             'data' => [
                 'success' => true
             ]
-        ])->withoutCookie('user')->withCookie($cookie)->withCookie($settingsCookie);
+        ])->withCookie($userCookie)->withCookie($cookie)->withCookie($settingsCookie);
     }
 
 
