@@ -6,6 +6,7 @@ import {auth} from "../../scripts/api/auth";
 import {updateUser} from "../../state/user";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import validate from "../../scripts/validate";
 
 const Login = () => {
 
@@ -23,7 +24,7 @@ const Login = () => {
     useEffect(() => {
         async function initialise() {
             //TODO Fix visual bug where previous user's login form is displayed momentarily before new user's
-            if (query.get('email')) {
+            if (!validate.email(query.get('email'))) {
                 await auth.post('/user/initialize', {
                     email: query.get('email')
                 })
