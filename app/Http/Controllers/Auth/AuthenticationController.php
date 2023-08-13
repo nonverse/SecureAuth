@@ -207,6 +207,8 @@ class AuthenticationController extends AbstractAuthenticationController
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        // Pasan sat and did fuckall but helped me figure this shit out!!
         $cookieSession = cookie('user_session', null, null, null, env('SESSION_PARENT_DOMAIN'));
 
         $query = http_build_query([
