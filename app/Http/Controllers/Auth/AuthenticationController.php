@@ -207,8 +207,7 @@ class AuthenticationController extends AbstractAuthenticationController
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
-        //TODO $settingsCookie = cookie('settings', null, null, null, env('SESSION_PARENT_DOMAIN'), false, false);
+        $cookieSession = cookie('user_session', null, null, null, env('SESSION_PARENT_DOMAIN'));
 
         $query = http_build_query([
             'email' => $newUser->email
@@ -219,6 +218,6 @@ class AuthenticationController extends AbstractAuthenticationController
             'data' => [
                 'redirect_uri' => env('APP_URL') . '/login?' . $query
             ]
-        ])->withCookie($userCookie);
+        ])->withCookie($userCookie)->withCookie($cookieSession);
     }
 }
