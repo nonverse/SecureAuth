@@ -14,7 +14,7 @@ class UserRepository implements UserRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function get($uuid): User|array
+    public function get($uuid): User|array|null
     {
         $user = [];
         if (Str::isUuid($uuid)) {
