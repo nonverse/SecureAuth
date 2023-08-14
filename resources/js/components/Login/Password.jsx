@@ -38,7 +38,7 @@ const Password = ({advance}) => {
                     email: user.email
                 })
                     .then(response => {
-                        if (response.data.data.complete) {
+                        if (response.data.complete) {
                             return window.location = `https://${query.get('host') ? query.get('host') : 'account.nonverse.test'}${query.get('resource') ? query.get('resource') : '/'}`
                         } else {
                             dispatch(updateUser({

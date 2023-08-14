@@ -73,8 +73,8 @@ class AbstractAuthenticationController extends Controller
         Auth::login($user, false);
 
         return response()->json([
+            'complete' => true,
             'data' => [
-                'complete' => true,
                 'uuid' => $user->uuid
             ]
         ])->withCookie($cookie)->withCookie($settingsCookie);

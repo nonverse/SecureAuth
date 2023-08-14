@@ -41,7 +41,7 @@ const TwoStep = () => {
                     one_time_password: `${values.digit_1}${values.digit_2}${values.digit_3}${values.digit_4}${values.digit_5}${values.digit_6}`
                 })
                     .then(response => {
-                        if (response.data.data.complete) {
+                        if (response.data.complete) {
                             return window.location = `https://${query.get('host') ? query.get('host') : 'account.nonverse.test'}${query.get('resource') ? query.get('resource') : '/'}`
                         }
                     })
