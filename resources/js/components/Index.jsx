@@ -26,7 +26,7 @@ function Index() {
         if (window.location.pathname === '/login') {
             await auth.get('/user/cookie')
                 .then(response => {
-                    const lastLogin = response.data.data.last_login
+                    const lastLogin = response.data.data.last_user
                     dispatch(updateUsers(response.data.data.users))
                     dispatch(updateUser(response.data.data.users[lastLogin]))
                     setInitialised(true)
