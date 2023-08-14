@@ -204,15 +204,6 @@ class AuthenticationController extends AbstractAuthenticationController
             ], 400);
         }
 
-        if (array_key_exists($newUser->uuid, $userCookie) && array_key_exists('remember_until', $userCookie[$newUser->uuid])) {
-            if ($rememberUntil = $userCookie[$newUser->uuid]['remember_until']) {
-                if (CarbonImmutable::now()->isBefore($rememberUntil)) {
-                    Auth::logout();
-                    return $this->sendLoginSuccessResponse($request, $newUser);
-                }
-            }
-        }
-
         /**
          * Add remember_until timestamp to previous user
          */
@@ -222,6 +213,15 @@ class AuthenticationController extends AbstractAuthenticationController
         ];
 
         $userCookieNew = cookie('user', json_encode($userCookie));
+
+        if (array_key_exists($newUser->uuid, $userCookie) && array_key_exists('remember_until', $userCookie[$newUser->uuid])) {
+            if ($rememberUntil = $userCookie[$newUser->uuid]['remember_until']) {
+                if (CarbonImmutable::now()->isBefore($rememberUntil)) {
+                    Auth::logout();
+                    return $this->sendLoginSuccessResponse($request, $newUser)->withCookie($userCookieNew);
+                }
+            }
+        }
 
         /*
          * Pasan sat and did fuck all but helped me figure this shit out!!
