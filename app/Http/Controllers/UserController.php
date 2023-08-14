@@ -159,7 +159,11 @@ class UserController extends Controller
     public function getCookie(Request $request): Response|JsonResponse
     {
         if (!$cookie = $request->cookie('user')) {
-            return response('No user cookie found', 404);
+            return new JsonResponse([
+                'data' => [
+                    'error' => 'No user cookie found'
+                ]
+            ], 404);
         }
 
         /**
@@ -169,6 +173,15 @@ class UserController extends Controller
 
         $response = [];
         $latestUuid = '';
+
+        if (!$users) {
+            return new JsonResponse([
+                'data' => [
+                    'error' => 'No users found in user cookie'
+                ]
+            ], 404);
+        }
+
         foreach ($users as $uuid => $authedAt) {
             try {
                 /**
@@ -199,13 +212,12 @@ class UserController extends Controller
             }
         }
 
-
         return new JsonResponse([
             'data' => [
                 'users' => $response,
-                'last_login' => $latestUuid,
-                'raw' => $users
-            ]
+                'last_user' => $latestUuid,
+                'current_user' => $request->user() ? $request->user()->uuid : null
+            ],
         ]);
     }
 
