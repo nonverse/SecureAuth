@@ -9,11 +9,17 @@
 
     &:hover {
         cursor: pointer;
+        border-color: rgba($splash, .5);
+
+        .card-value {
+            color: rgba($splash, .5);
+        }
     }
 
     .card-name {
         color: var(--font-color);
     }
+
     .card-value {
         color: rgba(var(--font-color-rgb), .5);
     }
