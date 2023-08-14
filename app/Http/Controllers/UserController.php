@@ -192,20 +192,19 @@ class UserController extends Controller
                 ];
             } catch (Exception $e) {
                 /**
-                 * If unable to find user in database, assume the account was deleted
+                 * If unable to find user in database, assume the account was deleted and remove
+                 * from response
                  */
-                $response[$uuid] = [
-                    'email' => 'deleteduser@nonverse.net',
-                    'name_first' => 'Deleted',
-                    'name_last' => 'User'
-                ];
+                unset($response[$uuid]);
             }
         }
+
 
         return new JsonResponse([
             'data' => [
                 'users' => $response,
-                'last_login' => $latestUuid
+                'last_login' => $latestUuid,
+                'raw' => $users
             ]
         ]);
     }
