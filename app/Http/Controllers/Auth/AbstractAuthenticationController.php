@@ -47,6 +47,7 @@ class AbstractAuthenticationController extends Controller
          */
         $cookieData = $request->cookie('user') ? json_decode($request->cookie('user'), true) : [];
         $cookieData[$user->uuid] = [
+            ...array_key_exists($user->uuid, $cookieData) ? $cookieData[$user->uuid] : [],
             // Store successful login timestamp in cookie
             'authed_at' => CarbonImmutable::now()
         ];
