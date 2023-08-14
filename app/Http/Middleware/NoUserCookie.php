@@ -31,7 +31,7 @@ class NoUserCookie
     {
         $cookie = $request->cookie('user');
 
-        if ($cookie) {
+        if ($cookie && json_decode($cookie, true)) {
             $intended = [
                 'host' => urlencode($request->input('host') ?: urlencode(env('BASE_APP_URL'))),
                 'resource' => urlencode($request->input('resource') ?: urlencode('/'))

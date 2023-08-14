@@ -16,7 +16,8 @@ class UserCookie
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!$request->cookie('user')) {
+        if (!$request->cookie('user') || !json_decode($request->cookie('user'), true)) {
+
             $intended = [
                 'host' => urlencode($request->input('host') ?: urlencode(env('VITE_ACCOUNT_APP'))),
                 'resource' => urlencode($request->input('resource')  ?: urlencode('/'))
