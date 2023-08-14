@@ -23,6 +23,17 @@ return [
     ],
 
     /*
+     * User session config
+     */
+    'user_session' => [
+        /**
+         * How long after force timeout should the user be allowed to login without password?
+         * This does not apply if a user's session has expired
+         */
+        'remember' => 30 //(Minutes)
+    ],
+
+    /*
     |--------------------------------------------------------------------------
     | Authentication Guards
     |--------------------------------------------------------------------------
