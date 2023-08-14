@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Contracts\Repository\SettingsRepositoryInterface;
 use App\Contracts\Repository\UserRepositoryInterface;
 use Carbon\CarbonImmutable;
-use Carbon\CarbonInterface;
 use Exception;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Encryption\Encrypter;
@@ -112,8 +111,8 @@ class AuthenticationController extends AbstractAuthenticationController
             ]);
 
             return new JsonResponse([
+                'complete' => false,
                 'data' => [
-                    'complete' => false,
                     'authentication_token' => $token
                 ]
             ]);
@@ -169,7 +168,7 @@ class AuthenticationController extends AbstractAuthenticationController
 
         if ($validator->fails()) {
             return new JsonResponse([
-                'success' => false,
+                'complete' => false,
                 'errors' => $validator->errors()
             ], 422);
         }
@@ -198,16 +197,17 @@ class AuthenticationController extends AbstractAuthenticationController
             }
         } catch (Exception $e) {
             return new JsonResponse([
-                'success' => false,
+                'complete' => false,
                 'errors' => [
                     'uuid' => 'Invalid UUID'
                 ]
             ], 400);
         }
 
-        if (array_key_exists($newUser->uuid, $userCookie)) {
+        if (array_key_exists($newUser->uuid, $userCookie) && array_key_exists('remember_until', $userCookie[$newUser->uuid])) {
             if ($rememberUntil = $userCookie[$newUser->uuid]['remember_until']) {
                 if (CarbonImmutable::now()->isBefore($rememberUntil)) {
+                    Auth::logout();
                     return $this->sendLoginSuccessResponse($request, $newUser);
                 }
             }
@@ -242,7 +242,7 @@ class AuthenticationController extends AbstractAuthenticationController
         ]);
 
         return response()->json([
-            'success' => true,
+            'complete' => true,
             'data' => [
                 'redirect_uri' => env('APP_URL') . '/login?' . $query
             ]
