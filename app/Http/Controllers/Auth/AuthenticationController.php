@@ -102,7 +102,7 @@ class AuthenticationController extends AbstractAuthenticationController
              */
             $users = $this->userManagementService->getCookie($request);
             if (array_key_exists($user->uuid, $users)) {
-                $timeout = CarbonImmutable::parse($users[$user->uuid]['session']['exp'])->addDays(7);
+                $timeout = CarbonImmutable::parse($users[$user->uuid]['session']['aat'])->addDays(7);
                 if (CarbonImmutable::now()->isBefore($timeout)) {
                     return $this->sendLoginSuccessResponse($request, $user);
                 }
