@@ -1,7 +1,8 @@
 .fluid {
     //background-color: #6951FF;
     display: flex;
-    //max-width: $max-width;
+    width: 20vw;
+    max-width: $max-width;
     flex-direction: column;
     align-items: center;
     position: absolute;
@@ -29,8 +30,7 @@
         display: grid;
         position: relative;
         margin-top: 1rem;
-        width: 20vw;
-        max-width: $max-width;
+        width: 100%;
 
         .field-wrapper {
             width: 100%;

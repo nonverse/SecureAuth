@@ -1,13 +1,17 @@
 #register-details {
-    width: 30vw;
+    width: 25vw;
+
+    .fluid-heading {
+        width: 25vw;
+    }
 
     .fluid-content {
-        width: auto;
+        width: 25vw;
     }
 
     #register-name {
         display: grid;
-        width: 30vw;
+        width: 25vw;
         grid-template-columns: 1fr 1fr;
         grid-column-gap: 1rem;
     }
