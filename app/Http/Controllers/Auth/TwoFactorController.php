@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Contracts\Repository\SettingsRepositoryInterface;
 use App\Contracts\Repository\UserRepositoryInterface;
+use App\Services\User\UserManagementService;
 use Carbon\CarbonImmutable;
 use Exception;
 use http\Exception\RuntimeException;
@@ -42,11 +43,12 @@ class TwoFactorController extends AbstractAuthenticationController
     public function __construct(
         UserRepositoryInterface     $repository,
         SettingsRepositoryInterface $settingsRepository,
+        UserManagementService       $managementService,
         Hasher                      $hasher,
         Google2FA                   $google2FA,
     )
     {
-        parent::__construct($settingsRepository);
+        parent::__construct($settingsRepository, $managementService);
         $this->repository = $repository;
         $this->encrypter = new \Illuminate\Encryption\Encrypter(base64_decode(str_replace('base64:', '', env('APP_SHARED_KEY'))), config('app.cipher'));;
         $this->hasher = $hasher;
