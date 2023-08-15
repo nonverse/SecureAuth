@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Repository\UserRepositoryInterface;
 use App\Services\User\UserCreationService;
+use App\Services\User\UserManagementService;
 use Carbon\CarbonImmutable;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -23,13 +24,20 @@ class UserController extends Controller
      */
     private UserCreationService $creationService;
 
+    /**
+     * @var UserManagementService
+     */
+    private UserManagementService $userManagementService;
+
     public function __construct(
         UserRepositoryInterface $repository,
-        UserCreationService     $creationService
+        UserCreationService     $creationService,
+        UserManagementService   $userManagementService
     )
     {
         $this->repository = $repository;
         $this->creationService = $creationService;
+        $this->userManagementService = $userManagementService;
     }
 
     /**
@@ -158,31 +166,12 @@ class UserController extends Controller
      */
     public function getCookie(Request $request): Response|JsonResponse
     {
-        if (!$cookie = $request->cookie('user')) {
-            return new JsonResponse([
-                'data' => [
-                    'error' => 'No user cookie found'
-                ]
-            ], 404);
-        }
-
-        /**
-         * Decode cookie containing timed out users
-         */
-        $users = json_decode($cookie);
+        $cookie = $this->userManagementService->getCookie($request);
 
         $response = [];
         $latestUuid = '';
 
-        if (!$users) {
-            return new JsonResponse([
-                'data' => [
-                    'error' => 'No users found in user cookie'
-                ]
-            ], 404);
-        }
-
-        foreach ($users as $uuid => $authedAt) {
+        foreach ($cookie as $uuid => $userRaw) {
             try {
                 /**
                  * Try to get user from database
@@ -193,8 +182,8 @@ class UserController extends Controller
                 /**
                  * Determine the last logged in user
                  */
-                if ($timeStamp->isBefore(CarbonImmutable::parse($authedAt->authed_at))) {
-                    $timeStamp = $authedAt;
+                if ($timeStamp->isBefore(CarbonImmutable::parse($userRaw['session']['aat']))) {
+                    $timeStamp = $userRaw['session']['aat'];
                     $latestUuid = $uuid;
                 }
 
@@ -216,7 +205,7 @@ class UserController extends Controller
             'data' => [
                 'users' => $response,
                 'last_user' => $latestUuid,
-                'current_user' => $request->user() ? $request->user()->uuid : null
+                'current_user' => $request->user() ? $request->user()->uuid : null,
             ],
         ]);
     }
