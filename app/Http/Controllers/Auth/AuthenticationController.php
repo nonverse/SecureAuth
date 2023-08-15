@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Contracts\Repository\SettingsRepositoryInterface;
 use App\Contracts\Repository\UserRepositoryInterface;
+use App\Services\User\UserManagementService;
 use Carbon\CarbonImmutable;
 use Exception;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -35,14 +36,21 @@ class AuthenticationController extends AbstractAuthenticationController
      */
     private Hasher $hasher;
 
+    /**
+     * @var UserManagementService
+     */
+    private UserManagementService $userManagementService;
+
     public function __construct(
         UserRepositoryInterface     $repository,
         SettingsRepositoryInterface $settingsRepository,
+        UserManagementService       $managementService,
         Encrypter                   $encrypter,
         Hasher                      $hasher
     )
     {
-        parent::__construct($settingsRepository);
+        parent::__construct($settingsRepository, $managementService);
+        $this->userManagementService = $managementService;
         $this->repository = $repository;
         $this->encrypter = $encrypter;
         $this->hasher = $hasher;
@@ -90,11 +98,11 @@ class AuthenticationController extends AbstractAuthenticationController
         if ($user->use_totp) {
             /*
              * If user has UUID cookie and last login on device was less than
-             * 14 days ago, skip 2FA on same device
+             * x days ago, skip 2FA on same device
              */
-            if ($request->cookie('user') && array_key_exists($user->uuid, json_decode($request->cookie('user'), true))) {
-                $users = json_decode($request->cookie('user'), true);
-                $timeout = CarbonImmutable::parse($users[$user->uuid]['authed_at'])->addDays(7);
+            $users = $this->userManagementService->getCookie($request);
+            if (array_key_exists($user->uuid, $users)) {
+                $timeout = CarbonImmutable::parse($users[$user->uuid]['session']['exp'])->addDays(7);
                 if (CarbonImmutable::now()->isBefore($timeout)) {
                     return $this->sendLoginSuccessResponse($request, $user);
                 }
