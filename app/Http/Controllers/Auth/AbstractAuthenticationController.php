@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Contracts\Repository\SettingsRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\User\UserManagementService;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Illuminate\Http\JsonResponse;
@@ -19,11 +20,18 @@ class AbstractAuthenticationController extends Controller
      */
     private SettingsRepositoryInterface $settingsRepository;
 
+    /**
+     * @var UserManagementService
+     */
+    private UserManagementService $userManagementService;
+
     public function __construct(
-        SettingsRepositoryInterface $settingsRepository
+        SettingsRepositoryInterface $settingsRepository,
+        UserManagementService       $userManagementService
     )
     {
         $this->settingsRepository = $settingsRepository;
+        $this->userManagementService = $userManagementService;
     }
 
     /**
@@ -43,16 +51,9 @@ class AbstractAuthenticationController extends Controller
         $request->session()->regenerate();
 
         /*
-         * Add user to UUID remember cookie
+         * Add user to cookie
          */
-        $cookieData = $request->cookie('user') ? json_decode($request->cookie('user'), true) : [];
-        $cookieData[$user->uuid] = [
-            ...array_key_exists($user->uuid, $cookieData) ? $cookieData[$user->uuid] : [],
-            // Store successful login timestamp in cookie
-            'authed_at' => CarbonImmutable::now()
-        ];
-
-        $cookie = cookie('user', json_encode($cookieData));
+        $this->userManagementService->add($request, $user);
 
         $settings = [];
         foreach ($this->settingsRepository->getUserSettings($user->uuid) as $setting) {
@@ -77,7 +78,7 @@ class AbstractAuthenticationController extends Controller
             'data' => [
                 'uuid' => $user->uuid
             ]
-        ])->withCookie($cookie)->withCookie($settingsCookie);
+        ])->withCookie($this->userManagementService->getResponseCookie())->withCookie($settingsCookie);
     }
 
     /**
