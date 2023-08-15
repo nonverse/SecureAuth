@@ -97,6 +97,7 @@ class TwoFactorController extends AbstractAuthenticationController
              */
             if (!$this->hasher->check($request->input('totp_recovery_token'), $user->totp_recovery_token)) {
                 return response('Invalid recovery token', 401);
+                //TODO totp_recovery_token is no longer stored in user table
             }
 
             /*
