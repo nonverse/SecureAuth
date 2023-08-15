@@ -139,7 +139,7 @@ class UserManagementService
      * @param Request $request
      * @return array
      */
-    protected function getCookie(Request $request): array
+    public function getCookie(Request $request): array
     {
         if (empty($this->updatedCookie)) {
             $this->updatedCookie = $request->cookie('user') ? json_decode($request->cookie('user'), true) : [];
