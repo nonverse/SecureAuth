@@ -29,6 +29,9 @@ class NoUserCookie
      */
     public function handle(Request $request, Closure $next)
     {
+        if ($request->has('args') && str_contains($request->input('args'), 'ignore_session')) {
+            return $next($request);
+        }
         $cookie = $request->cookie('user');
 
         if ($cookie && json_decode($cookie, true)) {
