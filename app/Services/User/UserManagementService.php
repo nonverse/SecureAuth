@@ -104,12 +104,12 @@ class UserManagementService
      * being challenged until the value in ['session']['exp']
      *
      * @param Request $request
-     * @param User $user
      * @return void
      */
-    public function remember(Request $request, User $user): void
+    public function remember(Request $request): void
     {
         $cookie = $this->getCookie($request);
+        $user = $request->user();
 
         $cookie[$user->uuid] = [
             'session' => [
