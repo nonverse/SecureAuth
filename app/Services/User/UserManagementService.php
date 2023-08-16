@@ -8,6 +8,7 @@ use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Cookie\CookieJar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Cookie;
 
 class UserManagementService
@@ -120,6 +121,13 @@ class UserManagementService
             ]
         ];
 
+        /*
+         * Logout previous user and invalidate their session
+         */
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         $this->updatedCookie = $cookie;
     }
 
@@ -131,6 +139,16 @@ class UserManagementService
     public function getResponseCookie(): \Illuminate\Foundation\Application|CookieJar|Cookie|Application
     {
         return cookie('user', json_encode($this->updatedCookie));
+    }
+
+    /**
+     * Get parent session cookie without user
+     *
+     * @return \Illuminate\Foundation\Application|CookieJar|Cookie|Application
+     */
+    public function getEmptySessionCookie(): \Illuminate\Foundation\Application|CookieJar|Cookie|Application
+    {
+        return cookie('user_session', null, null, null, env('SESSION_PARENT_DOMAIN'));
     }
 
     /**
