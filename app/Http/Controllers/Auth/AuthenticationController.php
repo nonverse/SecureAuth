@@ -6,7 +6,6 @@ use App\Contracts\Repository\SettingsRepositoryInterface;
 use App\Contracts\Repository\UserRepositoryInterface;
 use App\Services\User\UserManagementService;
 use Carbon\CarbonImmutable;
-use Exception;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Contracts\Foundation\Application;
@@ -16,7 +15,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class AuthenticationController extends AbstractAuthenticationController
@@ -157,103 +155,5 @@ class AuthenticationController extends AbstractAuthenticationController
         }
 
         return Auth::logoutOtherDevices($request->input('password'));
-    }
-
-    /**
-     * Switch the currently logged in user
-     *
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function switchUser(Request $request): JsonResponse
-    {
-        /*
-         * Validate request
-         */
-        $validator = Validator::make($request->all(), [
-            'uuid' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return new JsonResponse([
-                'complete' => false,
-                'errors' => $validator->errors()
-            ], 422);
-        }
-
-        /*
-         * Get the user cookie before regenerating the session so that we
-         * can persist it to the new session
-         *
-         * The user cookie is also useful for later on when we have to edit
-         * the current users remember timestamps
-         */
-        $userCookie = $request->cookie('user') ? json_decode($request->cookie('user'), true) : [];
-
-        /*
-         * Get the current user
-         */
-        $user = $request->user();
-
-        /*
-         * Attempt to get new user from database
-         */
-        try {
-            $newUser = $this->repository->get($request->input('uuid'));
-            if (!$newUser) {
-                throw new Exception('No User');
-            }
-        } catch (Exception $e) {
-            return new JsonResponse([
-                'complete' => false,
-                'errors' => [
-                    'uuid' => 'Invalid UUID'
-                ]
-            ], 400);
-        }
-
-        /**
-         * Add remember_until timestamp to previous user
-         */
-        $userCookie[$user->uuid] = [
-            ...$userCookie[$user->uuid],
-            'remember_until' => CarbonImmutable::now()->addMinutes(config('auth.user_session.remember'))
-        ];
-
-        $userCookieNew = cookie('user', json_encode($userCookie));
-
-        if (array_key_exists($newUser->uuid, $userCookie) && array_key_exists('remember_until', $userCookie[$newUser->uuid])) {
-            if ($rememberUntil = $userCookie[$newUser->uuid]['remember_until']) {
-                if (CarbonImmutable::now()->isBefore($rememberUntil)) {
-                    Auth::logout();
-                    return $this->sendLoginSuccessResponse($request, $newUser)->withCookie($userCookieNew);
-                }
-            }
-        }
-
-        /*
-         * Pasan sat and did fuck all but helped me figure this shit out!!
-         *
-         * Clear the user_session cookie in parent domain
-         */
-        $sessionCookieNew = cookie('user_session', null, null, null, env('SESSION_PARENT_DOMAIN'));
-
-        /*
-         * Logout previous user and invalidate their session
-         */
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        $query = http_build_query([
-            'email' => $newUser->email
-        ]);
-
-        return response()->json([
-            'complete' => true,
-            'data' => [
-                'redirect_uri' => env('APP_URL') . '/login?' . $query
-            ]
-        ])->withCookie($userCookieNew)->withCookie($sessionCookieNew);
     }
 }
