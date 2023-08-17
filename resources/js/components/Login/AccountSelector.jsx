@@ -14,12 +14,12 @@ const AccountSelector = ({restart}) => {
     return (
         <Fluid heading="Welcome back" subHeading="Choose an account">
             {Object.keys(users).map((user) => (
-                <Card key={user} name={`${users[user]['name_first']} ${users[user]['name_last']}`}
-                      value={users[user]['email']} onClick={() => {
+                <Card key={user} name={`${users[user]['data']['name_first']} ${users[user]['data']['name_last']}`}
+                      value={users[user]['data']['email']} onClick={() => {
                     dispatch(updateUser({
-                        email: users[user]['email'],
-                        name_first: users[user]['name_first'],
-                        name_last: users[user]['name_last']
+                        email: users[user]['data']['email'],
+                        name_first: users[user]['data']['name_first'],
+                        name_last: users[user]['data']['name_last']
                     }))
                     restart()
                 }}/>

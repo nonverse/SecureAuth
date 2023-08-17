@@ -28,7 +28,7 @@ function Index() {
                 .then(response => {
                     const lastLogin = response.data.data.last_user
                     dispatch(updateUsers(response.data.data.users))
-                    dispatch(updateUser(response.data.data.users[lastLogin]))
+                    dispatch(updateUser(response.data.data.users[lastLogin].data))
                     setInitialised(true)
                 })
         } else if (window.location.pathname === '/register') {
