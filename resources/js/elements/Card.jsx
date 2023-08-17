@@ -1,4 +1,4 @@
-const Card = ({name, value, noDisplayName, onClick}) => {
+const Card = ({name, value, info, noDisplayName, onClick}) => {
 
     return (
         <div id={`service-${name}`} className="card" onClick={() => {
@@ -6,8 +6,11 @@ const Card = ({name, value, noDisplayName, onClick}) => {
                 onClick()
             }
         }}>
-            {noDisplayName ? '' : <span className="default card-name">{name}</span>}
-            <span className="default card-value">{value}</span>
+            <div className="card-main">
+                {noDisplayName ? '' : <span className="default card-name">{name}</span>}
+                <span className="default card-value">{value}</span>
+            </div>
+            <span className="default card-info">{info}</span>
         </div>
     )
 }
