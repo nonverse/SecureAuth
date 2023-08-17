@@ -5,6 +5,7 @@ namespace App\Services\User;
 use App\Contracts\Repository\SettingsRepositoryInterface;
 use App\Models\User;
 use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Cookie\CookieJar;
 use Illuminate\Http\Request;
@@ -121,14 +122,39 @@ class UserManagementService
             ]
         ];
 
-        /*
-         * Logout previous user and invalidate their session
-         */
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
         $this->updatedCookie = $cookie;
+    }
+
+    /**
+     * Check if a user is remembered in the user cookie
+     *
+     * @param Request $request
+     * @param User $user
+     * @return bool
+     */
+    public function isRemembered(Request $request, User $user): bool
+    {
+        $cookie = $this->getCookie($request);
+
+        if (!array_key_exists($user->uuid, $cookie)) {
+            return false;
+        }
+
+        if (!array_key_exists('exp', $cookie[$user->uuid]['session'])) {
+            return false;
+        }
+
+        $exp = $cookie[$user->uuid]['session']['exp'];
+
+        if (!$exp instanceof CarbonInterface) {
+            return false;
+        }
+
+        if (CarbonImmutable::now()->isAfter($exp)) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -139,16 +165,6 @@ class UserManagementService
     public function getResponseCookie(): \Illuminate\Foundation\Application|CookieJar|Cookie|Application
     {
         return cookie('user', json_encode($this->updatedCookie));
-    }
-
-    /**
-     * Get parent session cookie without user
-     *
-     * @return \Illuminate\Foundation\Application|CookieJar|Cookie|Application
-     */
-    public function getEmptySessionCookie(): \Illuminate\Foundation\Application|CookieJar|Cookie|Application
-    {
-        return cookie('user_session', null, null, null, env('SESSION_PARENT_DOMAIN'));
     }
 
     /**
