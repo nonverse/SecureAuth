@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Repository\SettingsRepositoryInterface;
 use App\Contracts\Repository\UserRepositoryInterface;
+use App\Http\Controllers\Auth\AbstractAuthenticationController;
 use App\Services\User\UserCreationService;
 use App\Services\User\UserManagementService;
 use Carbon\CarbonImmutable;
@@ -10,9 +12,8 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class UserController extends AbstractAuthenticationController
 {
     /**
      * @var UserRepositoryInterface
@@ -30,11 +31,13 @@ class UserController extends Controller
     private UserManagementService $userManagementService;
 
     public function __construct(
-        UserRepositoryInterface $repository,
-        UserCreationService     $creationService,
-        UserManagementService   $userManagementService
+        UserRepositoryInterface     $repository,
+        UserCreationService         $creationService,
+        UserManagementService       $userManagementService,
+        SettingsRepositoryInterface $settingsRepository
     )
     {
+        parent::__construct($settingsRepository, $userManagementService);
         $this->repository = $repository;
         $this->creationService = $creationService;
         $this->userManagementService = $userManagementService;
@@ -83,42 +86,23 @@ class UserController extends Controller
         /**
          * Try to create a new user
          */
-        $user = $this->creationService->handle($request->all());
+        $userResponse = $this->creationService->handle($request->all());
 
         /**
          * If successfully created new user, logout any existing user
          * and login the new user
          */
-        if ($user) {
-            $uuid = $user['data']['uuid'];
+        if ($userResponse) {
+            $user = $this->repository->get($userResponse['data']['uuid']);
 
-            /*
-             * Add user to UUID remember cookie
-             */
-            $cookieData = $request->cookie('user') ? json_decode($request->cookie('user'), true) : [];
-            $cookieData[$uuid] = [
-                // Store successful login timestamp in cookie
-                'authed_at' => CarbonImmutable::now()
-            ];
+            $this->userManagementService->remember($request);
+            $this->userManagementService->add($request, $user);
 
-            $cookie = cookie('user', json_encode($cookieData));
-
-            Auth::logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-
-            Auth::loginUsingId($uuid);
-
-            return response()->json([
-                'success' => true,
-                'data' => [
-                    'uuid' => $uuid
-                ]
-            ])->withCookie($cookie);
+            return $this->sendLoginSuccessResponse($request, $user);
         }
 
         return new JsonResponse([
-            'success' => false
+            'complete' => false
         ], 422);
     }
 
