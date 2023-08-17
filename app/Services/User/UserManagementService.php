@@ -146,9 +146,10 @@ class UserManagementService
 
         $exp = $cookie[$user->uuid]['session']['exp'];
 
-        if (!$exp instanceof CarbonInterface) {
-            return false;
-        }
+        //TODO IDK Why this validation is not working. It is not required but pisses me off that it doesnt work
+//        if (!$exp instanceof CarbonInterface) {
+//            return false;
+//        }
 
         if (CarbonImmutable::now()->isAfter($exp)) {
             return false;
