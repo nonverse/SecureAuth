@@ -188,9 +188,14 @@ class UserController extends Controller
                 }
 
                 $response[$uuid] = [
-                    'email' => $user->email,
-                    'name_first' => $user->name_first,
-                    'name_last' => $user->name_last
+                    'data' => [
+                        'email' => $user->email,
+                        'name_first' => $user->name_first,
+                        'name_last' => $user->name_last,
+                    ],
+                    'session' => [
+                        'is_valid' => (int)(array_key_exists('exp', $cookie[$user->uuid]['session']) && CarbonImmutable::now()->isBefore($cookie[$user->uuid]['session']['exp'])) ?: (int)($request->user() && $request->user()->uuid == $user->uuid)
+                    ]
                 ];
             } catch (Exception $e) {
                 /**
