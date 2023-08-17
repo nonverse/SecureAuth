@@ -139,6 +139,7 @@ class UserManagementService
         if (!array_key_exists($user->uuid, $cookie)) {
             return false;
         }
+        //TODO Use redis and create a hash table
 
         if (!array_key_exists('exp', $cookie[$user->uuid]['session'])) {
             return false;
