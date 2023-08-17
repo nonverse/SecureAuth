@@ -2,11 +2,9 @@ import {useEffect, useState} from "react";
 import TwoStep from "./TwoStep";
 import Password from "./Password";
 import AccountSelector from "./AccountSelector";
-import {auth} from "../../scripts/api/auth";
-import {updateUser} from "../../state/user";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import validate from "../../scripts/validate";
+import {updateUser} from "../../state/user";
 
 const Login = () => {
 
@@ -24,16 +22,18 @@ const Login = () => {
     useEffect(() => {
         async function initialise() {
             //TODO Fix visual bug where previous user's login form is displayed momentarily before new user's
-            if (!validate.email(query.get('email'))) {
-                await auth.post('/user/initialize', {
-                    email: query.get('email')
+            if (query.get('uuid')) {
+                await axios.post(`https://auth.nonverse.test/login`, query, {
+                    withCredentials: true
                 })
                     .then(response => {
-                        dispatch(updateUser({
-                            ...response.data.data,
-                            email: query.get('email')
-                        }))
-                        navigate(`/login?${new URLSearchParams(window.location.search)}`)
+                        if (response.data.complete) {
+                            return window.location = `https://${query.get('host') ? query.get('host') : 'account.nonverse.test'}${query.get('resource') ? query.get('resource') : '/'}`
+                        }
+                        dispatch(updateUser(response.data.data))
+                    })
+                    .catch(e => {
+
                     })
             }
         }
