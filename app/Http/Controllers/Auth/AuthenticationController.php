@@ -62,6 +62,13 @@ class AuthenticationController extends AbstractAuthenticationController
      */
     public function login(Request $request): Response|JsonResponse
     {
+        /**
+         * If a UUID is present in the request, attempt to log the user in using their
+         * UUID and user cookie
+         */
+        if ($request->has('uuid')) {
+            return $this->loginUsingUuid($request);
+        }
 
         $request->validate([
             'email' => 'required|email',
@@ -155,5 +162,40 @@ class AuthenticationController extends AbstractAuthenticationController
         }
 
         return Auth::logoutOtherDevices($request->input('password'));
+    }
+
+    /**
+     * Check if the user is remembered in the cookie and either
+     * send usr login details or login user
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    protected function loginUsingUuid(Request $request): JsonResponse
+    {
+        $user = $this->repository->get($request->input('uuid'));
+
+        if (!$user) {
+            return new JsonResponse([
+                'complete' => false,
+                'errors' => [
+                    'uuid' => 'User not found'
+                ]
+            ], 404);
+        }
+
+        $this->userManagementService->remember($request);
+
+        if (!$this->userManagementService->isRemembered($request, $user)) {
+            return response()->json([
+                'complete' => false,
+                'data' => [
+                    'email' => $user->email,
+                    'name_first' => $user->name_first,
+                    'name_last' => $user->name_last
+                ]])->withCookie($this->userManagementService->getResponseCookie());
+        }
+
+        return $this->sendLoginSuccessResponse($request, $user)->withCookie($this->userManagementService->getResponseCookie());
     }
 }
