@@ -33,9 +33,11 @@ const Password = ({advance}) => {
                 password: ''
             }} onSubmit={async (values) => {
                 dispatch(updateLoader(true))
-                await auth.post('login', {
+                await axios.post(`https://auth.nonverse.test/login`, {
                     ...values,
                     email: user.email
+                }, {
+                    withCredentials: true
                 })
                     .then(response => {
                         if (response.data.complete) {
