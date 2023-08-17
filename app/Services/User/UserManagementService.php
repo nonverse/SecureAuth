@@ -5,11 +5,9 @@ namespace App\Services\User;
 use App\Contracts\Repository\SettingsRepositoryInterface;
 use App\Models\User;
 use Carbon\CarbonImmutable;
-use Carbon\CarbonInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Cookie\CookieJar;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Cookie;
 
 class UserManagementService
@@ -110,17 +108,19 @@ class UserManagementService
     public function remember(Request $request): void
     {
         $cookie = $this->getCookie($request);
-        $user = $request->user();
 
-        $cookie[$user->uuid] = [
-            'session' => [
-                ...$cookie[$user->uuid]['session'],
-                'exp' => CarbonImmutable::now()->addMinutes(config('auth.user_session.remember'))
-            ],
-            'settings' => [
-                ...$cookie[$user->uuid]['settings']
-            ]
-        ];
+        if ($user = $request->user()) {
+
+            $cookie[$user->uuid] = [
+                'session' => [
+                    ...$cookie[$user->uuid]['session'],
+                    'exp' => CarbonImmutable::now()->addMinutes(config('auth.user_session.remember'))
+                ],
+                'settings' => [
+                    ...$cookie[$user->uuid]['settings']
+                ]
+            ];
+        }
 
         $this->updatedCookie = $cookie;
     }
