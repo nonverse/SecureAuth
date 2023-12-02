@@ -27,6 +27,7 @@ function Index() {
             await auth.get('/user/cookie')
                 .then(response => {
                     const lastLogin = response.data.data.last_user
+                    //TODO Ignore session if last_user is null or empty
                     dispatch(updateUsers(response.data.data.users))
                     dispatch(updateUser(response.data.data.users[lastLogin].data))
                     setInitialised(true)

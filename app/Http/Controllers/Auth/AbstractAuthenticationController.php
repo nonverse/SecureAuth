@@ -35,8 +35,6 @@ class AbstractAuthenticationController extends Controller
     }
 
     /**
-     * Login a user into the network
-     *
      * @param Request $request
      * @param User $user
      * @return JsonResponse
@@ -81,9 +79,8 @@ class AbstractAuthenticationController extends Controller
         ])->withCookie($this->userManagementService->getResponseCookie())->withCookie($settingsCookie);
     }
 
+
     /**
-     * Logout a user out of the network
-     *
      * @param Request $request
      * @return JsonResponse
      */
