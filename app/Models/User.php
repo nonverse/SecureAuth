@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Notifications\ResetPassword;
 use App\Services\User\HasApiTokens;
+use App\Services\User\HasScopes;
 use Carbon\Carbon;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,7 +34,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, CanResetPassword, HasApiTokens;
+    use HasFactory, Notifiable, CanResetPassword, HasApiTokens, HasScopes;
 
     /**
      * The primary key associated with the table.
