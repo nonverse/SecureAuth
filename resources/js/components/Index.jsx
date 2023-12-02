@@ -66,7 +66,12 @@ function Index() {
                     dispatch(updateClient(response.data.data))
                     setInitialised(true)
                 })
-                .catch(() => {
+                .catch(e => {
+                    if (e.response.status === 403) {
+                        dispatch(updateClient({
+                            name: 'unauthorized'
+                        }))
+                    }
                     setInitialised(true)
                 })
         } else {

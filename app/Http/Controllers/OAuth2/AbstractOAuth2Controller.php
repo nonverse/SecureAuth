@@ -283,4 +283,27 @@ class AbstractOAuth2Controller extends Controller
             ], 400);
         }
     }
+
+    /**
+     * Check if user has required scopes to access application
+     *
+     * @param Request $request
+     * @return bool
+     * @throws Exception
+     */
+    public function validateUserScopes(Request $request): bool
+    {
+
+        $client = $this->clientRepository->get($request->input('client_id'));
+
+        if ($client->scopes) {
+            $scopes = explode(', ', substr($client->scopes, 1, -1));
+
+            if (!$request->user()->hasScopes($scopes)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

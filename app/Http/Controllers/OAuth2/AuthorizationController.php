@@ -76,6 +76,12 @@ class AuthorizationController extends AbstractOAuth2Controller
 
         $client = $this->clientRepository->get($request->input('client_id'));
 
+        if (!$this->validateUserScopes($request)) {
+            return new JsonResponse([
+                'error' => 'unauthorized'
+            ], 403);
+        }
+
         /**
          * Automatically approve request if the user has previously authorized it and an access token was issued
          */
@@ -118,6 +124,12 @@ class AuthorizationController extends AbstractOAuth2Controller
                 ],
                 'errors' => $e
             ], 401);
+        }
+
+        if (!$this->validateUserScopes($request)) {
+            return new JsonResponse([
+                'error' => 'unauthorized'
+            ], 403);
         }
 
         /**
