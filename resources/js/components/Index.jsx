@@ -24,14 +24,28 @@ function Index() {
 
     useEffect(async () => {
         if (window.location.pathname === '/login') {
-            await auth.get('/user/cookie')
-                .then(response => {
-                    const lastLogin = response.data.data.last_user
-                    //TODO Ignore session if last_user is null or empty
-                    dispatch(updateUsers(response.data.data.users))
-                    dispatch(updateUser(response.data.data.users[lastLogin].data))
-                    setInitialised(true)
+            if (query.get('uuid')) {
+                await axios.post(`https://auth.nonverse.test/login`, query, {
+                    withCredentials: true
                 })
+                    .then(response => {
+                        dispatch(updateUser(response.data.data))
+                        if (response.data.complete) {
+                            return window.location = `https://${query.get('host') ? query.get('host') : 'account.nonverse.test'}${query.get('resource') ? query.get('resource') : '/'}`
+                        } else {
+                            setInitialised(true)
+                        }
+                    })
+            } else {
+                await auth.get('/user/cookie')
+                    .then(response => {
+                        const lastLogin = response.data.data.last_user
+                        //TODO Ignore session if last_user is null or empty
+                        dispatch(updateUsers(response.data.data.users))
+                        dispatch(updateUser(response.data.data.users[lastLogin].data))
+                        setInitialised(true)
+                    })
+            }
         } else if (window.location.pathname === '/register') {
             if (validate.email(query.get('email'))) {
                 return window.location.replace('/')

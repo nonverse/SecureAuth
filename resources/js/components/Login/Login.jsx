@@ -19,28 +19,6 @@ const Login = () => {
         2: <AccountSelector restart={restart}/>
     }
 
-    useEffect(() => {
-        async function initialise() {
-            //TODO Fix visual bug where previous user's login form is displayed momentarily before new user's
-            if (query.get('uuid')) {
-                await axios.post(`https://auth.nonverse.test/login`, query, {
-                    withCredentials: true
-                })
-                    .then(response => {
-                        if (response.data.complete) {
-                            return window.location = `https://${query.get('host') ? query.get('host') : 'account.nonverse.test'}${query.get('resource') ? query.get('resource') : '/'}`
-                        }
-                        dispatch(updateUser(response.data.data))
-                    })
-                    .catch(e => {
-
-                    })
-            }
-        }
-
-        initialise()
-    })
-
     function restart() {
         setState(0)
     }
