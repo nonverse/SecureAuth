@@ -19,7 +19,7 @@ class UserCookie
         if (!$request->cookie('user') || !json_decode($request->cookie('user'), true)) {
 
             $intended = [
-                'host' => urlencode($request->input('host') ?: urlencode(env('VITE_ACCOUNT_APP'))),
+                'host' => urlencode($request->input('host') ?: urlencode(env('BASE_APP_URL'))),
                 'resource' => urlencode($request->input('resource')  ?: urlencode('/'))
             ];
 
