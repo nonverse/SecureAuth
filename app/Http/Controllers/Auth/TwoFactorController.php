@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Contracts\Repository\SettingsRepositoryInterface;
 use App\Contracts\Repository\UserRepositoryInterface;
-use App\Services\Auth\TwoFactorEnableService;
-use App\Services\Auth\TwoFactorSetupService;
 use Carbon\CarbonImmutable;
 use Exception;
 use http\Exception\RuntimeException;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Response;
 use PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException;
 use PragmaRX\Google2FA\Exceptions\InvalidCharactersException;
 use PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException;
@@ -41,70 +39,19 @@ class TwoFactorController extends AbstractAuthenticationController
      */
     private Google2FA $google2FA;
 
-    /**
-     * @var TwoFactorSetupService
-     */
-    private TwoFactorSetupService $setupService;
-
-    /**
-     * @var TwoFactorEnableService
-     */
-    private TwoFactorEnableService $enableService;
-
     public function __construct(
-        UserRepositoryInterface $repository,
-        Encrypter               $encrypter,
-        Hasher                  $hasher,
-        Google2FA               $google2FA,
-        TwoFactorSetupService   $setupService,
-        TwoFactorEnableService  $enableService
+        UserRepositoryInterface     $repository,
+        SettingsRepositoryInterface $settingsRepository,
+        Hasher                      $hasher,
+        Google2FA                   $google2FA,
     )
     {
+        parent::__construct($settingsRepository);
         $this->repository = $repository;
-        $this->encrypter = $encrypter;
+        $this->encrypter = new \Illuminate\Encryption\Encrypter(base64_decode(str_replace('base64:', '', env('APP_SHARED_KEY'))), config('app.cipher'));;
         $this->hasher = $hasher;
         $this->google2FA = $google2FA;
-        $this->setupService = $setupService;
-        $this->enableService = $enableService;
     }
-
-    /**
-     * Get a user's 2FA setup data
-     *
-     * @param Request $request
-     * @return Response|JsonResponse
-     */
-    public function get(Request $request): Response|JsonResponse
-    {
-        if ($request->user()->use_totp) {
-            return response('TOTP is already enabled', 400);
-        }
-
-        return new JsonResponse([
-            'data' => $this->setupService->handle($request->user())
-        ]);
-    }
-
-    /**
-     * Enable 2FA on a user's account
-     *
-     * @param Request $request
-     * @return JsonResponse
-     * @throws IncompatibleWithGoogleAuthenticatorException
-     * @throws InvalidCharactersException
-     * @throws SecretKeyTooShortException
-     */
-    public function enable(Request $request): JsonResponse
-    {
-        $request->validate([
-            'code' => 'required'
-        ]);
-
-        return new JsonResponse([
-            'data' => $this->enableService->handle($request->user(), $request->input('code'))
-        ]);
-    }
-
 
     /**
      * Verify 2FA code
@@ -174,39 +121,5 @@ class TwoFactorController extends AbstractAuthenticationController
         }
 
         return $this->sendLoginSuccessResponse($request, $user);
-    }
-
-    /**
-     * Disable 2FA on a user's account
-     *
-     * @param Request $request
-     * @return JsonResponse|Response
-     */
-    public function disable(Request $request): Response|JsonResponse
-    {
-        $request->validate([
-            'password' => 'required'
-        ]);
-
-        $user = $request->user();
-        if (!Hash::check($request->input('password'), $user->password)) {
-            return response('Incorrect password', 401);
-        }
-
-        try {
-            $user->update([
-                'use_totp' => false,
-                'totp_authenticated_at' => CarbonImmutable::now()
-            ]);
-        } catch (Exception $e) {
-            throw new RuntimeException($e->getMessage());
-        }
-
-        return new JsonResponse([
-            'data' => [
-                'uuid' => $user->uuid,
-                'success' => true
-            ]
-        ]);
     }
 }

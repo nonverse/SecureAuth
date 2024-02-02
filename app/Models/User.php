@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Notifications\ResetPassword;
+use App\Services\User\HasApiTokens;
 use Carbon\Carbon;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
 
 /**
  * @property string $uuid
@@ -30,10 +31,9 @@ use Laravel\Passport\HasApiTokens;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-
 class User extends Authenticatable
 {
-    use HasFactory, HasApiTokens, Notifiable, CanResetPassword;
+    use HasFactory, Notifiable, CanResetPassword, HasApiTokens;
 
     /**
      * The primary key associated with the table.
@@ -87,4 +87,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @param string $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new ResetPassword($this, env('APP_URL') . '/recovery/password?token=' . $token . '&email=' . urlencode($this->email)));
+    }
 }

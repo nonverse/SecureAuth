@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Contracts\Repository\SettingsRepositoryInterface;
 use App\Contracts\Repository\UserRepositoryInterface;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Encryption\Encrypter;
@@ -32,11 +33,13 @@ class AuthenticationController extends AbstractAuthenticationController
     private Hasher $hasher;
 
     public function __construct(
-        UserRepositoryInterface $repository,
-        Encrypter               $encrypter,
-        Hasher                  $hasher
+        UserRepositoryInterface     $repository,
+        SettingsRepositoryInterface $settingsRepository,
+        Encrypter                   $encrypter,
+        Hasher                      $hasher
     )
     {
+        parent::__construct($settingsRepository);
         $this->repository = $repository;
         $this->encrypter = $encrypter;
         $this->hasher = $hasher;

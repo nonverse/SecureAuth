@@ -18,6 +18,10 @@ return [
         'passwords' => 'users',
     ],
 
+    'authorization_token' => [
+        'expiry' => 5 //(Minutes)
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
@@ -42,7 +46,7 @@ return [
         ],
 
         'api' => [
-            'driver' => 'passport',
+            'driver' => 'oauth2',
             'provider' => 'users',
         ],
     ],

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Contracts\Repository\SettingsRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Carbon\CarbonImmutable;
@@ -13,6 +14,18 @@ use Illuminate\Support\Facades\Validator;
 
 class AbstractAuthenticationController extends Controller
 {
+    /**
+     * @var SettingsRepositoryInterface
+     */
+    private SettingsRepositoryInterface $settingsRepository;
+
+    public function __construct(
+        SettingsRepositoryInterface $settingsRepository
+    )
+    {
+        $this->settingsRepository = $settingsRepository;
+    }
+
     /**
      * Login a user into the network
      *
@@ -37,6 +50,16 @@ class AbstractAuthenticationController extends Controller
             'authed_at' => CarbonImmutable::now()
         ]), 43800);
 
+        $settings = [];
+        foreach ($this->settingsRepository->getUserSettings($user->uuid) as $setting) {
+            $settings[$setting['key']] = $setting['value'];
+        }
+
+        $settingsCookie = cookie('settings', json_encode([
+            'theme' => array_key_exists('theme', $settings) ? $settings['theme'] : 'system',
+            'language' => array_key_exists('language', $settings) ? $settings['language'] : 'en-AU'
+        ]), 43800, null, env('SESSION_PARENT_DOMAIN'), false, false);
+
         /*
          * Log user in
          */
@@ -47,7 +70,7 @@ class AbstractAuthenticationController extends Controller
                 'complete' => true,
                 'uuid' => $user->uuid
             ]
-        ])->withCookie($cookie);
+        ])->withCookie($cookie)->withCookie($settingsCookie);
     }
 
     /**
@@ -70,11 +93,14 @@ class AbstractAuthenticationController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
+        $cookie = cookie('user_session', null, null, null, env('SESSION_PARENT_DOMAIN'));
+        $settingsCookie = cookie('settings', null, null, null, env('SESSION_PARENT_DOMAIN'), false, false);
+
         return response()->json([
             'data' => [
                 'success' => true
             ]
-        ])->withoutCookie('user');
+        ])->withoutCookie('user')->withCookie($cookie)->withCookie($settingsCookie);
     }
 
 

@@ -1,0 +1,26 @@
+.nv-logo {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 4vh;
+    margin-left: 2vw;
+
+    .nv-logo-path {
+        padding-right: .5vw;
+
+        path {
+            cursor: pointer;
+            fill: var(--font-color);
+        }
+    }
+
+    .nv-logo-title {
+        font-weight: normal;
+        font-size: 2rem;
+
+        .splash {
+            font-size: 2rem;
+        }
+    }
+}

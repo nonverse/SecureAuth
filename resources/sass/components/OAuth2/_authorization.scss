@@ -1,0 +1,27 @@
+#oauth-authorization {
+
+    .fluid-text {
+        min-width: $max-width;
+    }
+
+    #oauth-scopes {
+        margin-left: 2rem;
+        margin-top: 1rem;
+
+        color: rgba(var(--font-color-rgb), .5);
+    }
+
+    #authorize-actions {
+        justify-self: end;
+        margin-top: 1rem;
+
+        #oauth-approve {
+            margin-left: 1rem;
+        }
+    }
+}
+
+#client-error {
+    max-width: $max-width;
+    color: rgba(var(--font-color-rgb), .5);
+}

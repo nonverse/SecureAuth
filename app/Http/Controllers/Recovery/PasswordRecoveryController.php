@@ -49,6 +49,15 @@ class PasswordRecoveryController extends Controller
             'email' => 'required|email'
         ]);
 
+        if (!$this->repository->get($request->input('email'))) {
+            return new JsonResponse([
+                'success' => false,
+                'error' => [
+                    'User not found'
+                ]
+            ], 404);
+        }
+
         $reset = $this->broker->sendResetLink($request->only('email'));
 
         if ($reset !== $this->broker::RESET_LINK_SENT) {
@@ -60,9 +69,7 @@ class PasswordRecoveryController extends Controller
         }
 
         return new JsonResponse([
-            'data' => [
-                'success' => true
-            ]
+            'success' => true
         ]);
     }
 
@@ -81,14 +88,16 @@ class PasswordRecoveryController extends Controller
         ]);
 
         /*
-         * Check if password contains any part of the user's name
+         * Check if password contains user's personal info
          */
         $password = $request->input('password');
         $user = $this->repository->get($request->input('email'));
-        if (str_contains($password, $user->name_first) || str_contains($password, $user->name_last)) {
+        $restricted = strtolower($user->name_first . $user->name_last . $user->username . $user->email);
+        if (str_contains($restricted, $request->input('password'))) {
             return new JsonResponse([
+                'success' => false,
                 'errors' => [
-                    'password' => 'Password cannot contain your name'
+                    'password' => 'Password cannot contain personal info'
                 ]
             ], 422);
         }
@@ -108,6 +117,7 @@ class PasswordRecoveryController extends Controller
 
         if ($status !== $this->broker::PASSWORD_RESET) {
             return new JsonResponse([
+                'success' => false,
                 'errors' => [
                     'password' => __($status)
                 ]
@@ -115,9 +125,7 @@ class PasswordRecoveryController extends Controller
         }
 
         return new JsonResponse([
-            'data' => [
-                'success' => true
-            ]
+            'success' => true
         ]);
     }
 }
