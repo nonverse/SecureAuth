@@ -15,26 +15,26 @@ $line-height-base: 1.6;
 }
 
 .dark {
-    --font-color: #ECF0F3;
-    --font-color-rgb: 236, 240, 243;
+    --font-color: #D9D9D9;
+    --font-color-rgb: 217, 217, 217;
 
-    --main: #02010A;
-    --main-rgb: 2, 1, 10;
+    --main: #080B0D;
+    --main-rgb: 8, 11, 13;
 
-    --main-2: #D9D9D9;
-    --main-2-rgb: 217, 217, 217;
+    --main-2: #141414;
+    --main-2-rgb: 20, 20, 20;
 }
 
 .system {
     @media (prefers-color-scheme: dark) {
-        --font-color: #ECF0F3;
-        --font-color-rgb: 236, 240, 243;
+        --font-color: #D9D9D9;
+        --font-color-rgb: 217, 217, 217;
 
-        --main: #02010A;
-        --main-rgb: 2, 1, 10;
+        --main: #080B0D;
+        --main-rgb: 8, 11, 13;
 
-        --main-2: #D9D9D9;
-        --main-2-rgb: 217, 217, 217;
+        --main-2: #141414;
+        --main-2-rgb: 20, 20, 20;
     }
 
     @media (prefers-color-scheme: light) {
