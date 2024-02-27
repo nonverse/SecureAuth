@@ -7,6 +7,7 @@ import InLineButton from "../../elements/InLineButton";
 import {updateUser} from "../../state/user";
 import validate from "../../scripts/validate";
 import {useState} from "react";
+import {auth} from "../../scripts/api/auth";
 
 const Details = ({advance}) => {
 
@@ -33,18 +34,29 @@ const Details = ({advance}) => {
                 username: user.username ? user.username : '',
                 name_first: user.name_first ? user.name_first : '',
                 name_last: user.name_last ? user.name_last : ''
-            }} onSubmit={(values) => {
-                // TODO Check if username is being used with an API call
-                dispatch(
-                    updateUser({
-                        ...values
-                    })
-                )
+            }} onSubmit={async (values) => {
 
-                advance()
+                await auth.post('register/validate-username', values)
+                    .then(response => {
+                        dispatch(
+                            updateUser({
+                                ...values
+                            })
+                        )
+                        advance()
+                    })
+                    .catch(e => {
+                        switch (e.response.status) {
+                            case 422:
+                                setError('That username is taken')
+                                break
+                            default:
+                                setError('Something went wrong')
+                        }
+                    })
             }}>
-                {({errors}) => (
-                    <Form id="fluid-form" cta="Continue">
+                {({errors, isSubmitting}) => (
+                    <Form loading={isSubmitting} id="fluid-form" cta="Continue">
                         {/*<Field readOnly name="email" label="E-Mail"/>*/}
                         <Field name="username" label="Username" validate={validateUsername}
                                error={error}/>

@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Http;
 
 class UserController extends AbstractAuthenticationController
 {
@@ -196,6 +197,32 @@ class UserController extends AbstractAuthenticationController
                 'last_user' => $latestUuid,
                 'current_user' => $request->user() ? $request->user()->uuid : null,
             ],
+        ]);
+    }
+
+    /**
+     * Handle request to validate a username
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function username(Request $request): JsonResponse
+    {
+        $request->validate([
+            'username' => 'required'
+        ]);
+
+        $response = Http::withToken(env('API_ACCESS_KEY'))->post(env('API_SERVER') . '/user/validate-username', [
+            'username' => $request->input('username')
+        ]);
+
+        if (!$response->successful()) {
+            return new JsonResponse([
+                'success' => false,
+            ], $response->status());
+        }
+        return new JsonResponse([
+            'success' => true
         ]);
     }
 
