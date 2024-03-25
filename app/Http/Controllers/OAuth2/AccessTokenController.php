@@ -77,12 +77,23 @@ class AccessTokenController extends AbstractOAuth2Controller
             return $e;
         }
 
-        /**
-         * If the client is requesting the access token using a refresh token
-         */
-        if ($request->input('refresh_token')) {
-            return $this->createTokenUsingRefreshToken($request);
+        switch ($request->input('grant_type')) {
+            case 'authorization_code':
+                return $this->createTokenUsingAuthorizationCode($request);
+            case 'refresh_token':
+                return $this->createTokenUsingRefreshToken($request);
         }
+    }
+
+    /**
+     * Create access token using authorization code
+     *
+     * @param Request $request
+     * @return JsonResponse
+     * @throws Exception
+     */
+    protected function createTokenUsingAuthorizationCode(Request $request): JsonResponse
+    {
 
         /**
          * Get decoded value of JWT (JWT has already been validated along with the request)
@@ -121,6 +132,7 @@ class AccessTokenController extends AbstractOAuth2Controller
         $this->authCodeRepository->update($code->id, ['revoked' => 1]);
 
         return new JsonResponse($response);
+
     }
 
     /**

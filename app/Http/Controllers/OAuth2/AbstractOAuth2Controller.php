@@ -8,18 +8,15 @@ use App\Contracts\Repository\OAuth2\RefreshTokenRepositoryInterface;
 use App\Contracts\Repository\OAuth2\ScopeRepositoryInterface;
 use App\Http\Controllers\Controller;
 use Exception;
-use Firebase\JWT\ExpiredException;
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class AbstractOAuth2Controller extends Controller
 {
+    use ValidatesAuthorizationCodeGrant, ValidatesRefreshTokenGrant;
+
     /**
      * @var ClientRepositoryInterface
      */
@@ -86,8 +83,8 @@ class AbstractOAuth2Controller extends Controller
             $errors['redirect_uri'] = 'Unable to validate redirect_uri';
         }
 
-        if (!in_array($request->input('response_type'), config('oauth.grant_types'))) {
-            $errors['response_type'] = 'Unsupported or invalid grant type';
+        if (!in_array($request->input('response_type'), config('oauth.response_types'))) {
+            $errors['response_type'] = 'Unsupported or invalid response type';
         }
 
         if ($request->input('scope')) {
@@ -118,13 +115,13 @@ class AbstractOAuth2Controller extends Controller
      */
     public function validateAccessTokenRequest(Request $request)
     {
+        /**
+         * Core validation
+         */
         $validator = Validator::make($request->all(), [
             'grant_type' => 'required',
-            'code' => 'required_without:refresh_token',
-            'refresh_token' => 'required_without:code',
             'redirect_uri' => 'required_without:refresh_token',
             'client_id' => 'required',
-            'scope' => 'required_without:refresh_token'
         ]);
 
         if ($validator->fails()) {
@@ -132,83 +129,19 @@ class AbstractOAuth2Controller extends Controller
         }
 
         /**
-         * This code will only run if the client is attempting to get an access token using an
-         * authorization code
-         */
-        if ($request->input('code')) {
-            /**
-             * Attempt to decode JWT
-             */
-            try {
-                $jwtCode = (array)JWT::decode($request->input('code'), new Key(config('oauth.public_key'), 'RS256'));
-            } catch (ExpiredException $e) {
-                return response()->json([
-                    'error' => 'invalid_grant',
-                    'error_description' => 'Authorization code has expired'
-                ], 400);
-            }
-
-            $code = $this->authCodeRepository->get($jwtCode['jti']);
-
-            /**
-             * Check if the authorization code has been revoked
-             */
-            if ($code->revoked) {
-                return response()->json([
-                    'error' => 'invalid_grant',
-                    'error_description' => 'Authorization code is invalid'
-                ], 400);
-            }
-
-            /**
-             * Check that the redirect uri is the same as the one that was authorized
-             */
-            if ($request->input('redirect_uri') !== $jwtCode['aud']) {
-                return new JsonResponse([
-                    'error' => 'invalid_grant',
-                    'error_description' => 'Failed to verify redirect_uri'
-                ], 400);
-            }
-        }
-
-        /**
-         * Check that the requested client exists
+         * Check that the requested client exists and check client_secret if required
          */
         try {
             $client = $this->clientRepository->get($request->input('client_id'));
-        } catch (Exception $e) {
-            return new JsonResponse([
-                'error' => 'invalid_client',
-                'error_description' => 'Client not found'
-            ], 401);
-        }
 
-        /**
-         * This code will only run if the client is attempting to get an access token using an
-         * authorization code
-         */
-        if ($request->input('code')) {
-            /**
-             * Check if the requested client is the same as the one that was authorized
-             */
-            if ($client->id !== $code->client_id) {
-                return new JsonResponse([
-                    'error' => 'invalid_client',
-                    'error_description' => 'Client authentication failed'
-                ], 401);
-            }
-
-            /**
-             * If the client is authenticating via PKCE, verify the code_verifier
-             */
-            if (array_key_exists('cha', $jwtCode)) {
-                if (!$request->input('code_verifier')) {
+            if ($client->secret) {
+                if (!$request->input('client_secret')) {
                     return new JsonResponse([
                         'error' => 'invalid_request',
-                        'error_description' => 'code_verifier is required for authorization via PKCE'
+                        'error_description' => 'client_secret is required for authorization'
                     ], 400);
                 }
-                if (!Hash::check($request->input('code_verifier'), $jwtCode['cha'])) {
+                if (!Hash::check($request->input('client_secret'), $client->secret)) {
                     return new JsonResponse([
                         'error' => 'invalid_client',
                         'error_description' => 'Client authentication failed'
@@ -216,71 +149,23 @@ class AbstractOAuth2Controller extends Controller
                 }
             }
 
-            /**
-             * Check that the scopes are the same as the those that were authorized
-             */
-            if ($request->input('scope') !== $code->scopes) {
-                return new JsonResponse([
-                    'error' => 'invalid_scope',
-                    'error_description' => 'Failed to verify scope(s)'
-                ], 400);
-            }
-        }
-
-        /**
-         * If the client is protected using a secret, verify the client secret
-         */
-        if ($client->secret) {
-            if (!$request->input('client_secret')) {
-                return new JsonResponse([
-                    'error' => 'invalid_request',
-                    'error_description' => 'client_secret is required for authorization'
-                ], 400);
-            }
-            if (!Hash::check($request->input('client_secret'), $client->secret)) {
-                return new JsonResponse([
-                    'error' => 'invalid_client',
-                    'error_description' => 'Client authentication failed'
-                ], 401);
-            }
-        }
-
-        if ($request->input('refresh_token')) {
-
-            /**
-             * Attempt to decode JWT and get refresh token entry
-             */
-            try {
-                $jwtRefreshToken = (array)JWT::decode($request->get('refresh_token'), new Key(config('oauth.public_key'), 'RS256'));
-                $refreshToken = $this->refreshTokenRepositoryInterface->get($jwtRefreshToken['jti']);
-            } catch (ExpiredException $e) {
-                return response()->json([
-                    'error' => 'invalid_grant',
-                    'error_description' => 'Refresh token has expired'
-                ], 400);
-            } catch (ModelNotFoundException $e) {
-                return response()->json([
-                    'error' => 'invalid_grant',
-                    'error_description' => 'Refresh token is invalid'
-                ], 400);
-            }
-
-            if ($refreshToken->revoked) {
-                return response()->json([
-                    'error' => 'invalid_grant',
-                    'error_description' => 'Refresh token is invalid'
-                ], 400);
-            }
-        }
-
-        /**
-         * Check that a requested grant type is supported
-         */
-        if ($request->input('grant_type') !== 'authorization_code') {
+        } catch (Exception $e) {
             return new JsonResponse([
-                'error' => 'unsupported_grant_type',
-                'error_description' => 'Unsupported grant type'
-            ], 400);
+                'error' => 'invalid_client',
+                'error_description' => 'Client not found'
+            ], 401);
+        }
+
+        switch ($request->input('grant_type')) {
+            case 'authorization_code':
+                return $this->validateAuthorizationCodeGrantRequest($request);
+            case 'refresh_token':
+                return $this->validateRefreshTokenGrantRequest($request);
+            default:
+                return new JsonResponse([
+                    'error' => 'invalid_grant_type',
+                    'error_description' => 'Requested grant type does not exists or is invalid'
+                ]);
         }
     }
 
