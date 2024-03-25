@@ -17,6 +17,8 @@ use Illuminate\Http\Request;
 
 class AccessTokenController extends AbstractOAuth2Controller
 {
+    use HasAuthorizationCodeGrant, HasRefreshTokenGrant;
+
     /**
      * @var AccessTokenRepositoryInterface
      */
@@ -77,90 +79,11 @@ class AccessTokenController extends AbstractOAuth2Controller
             return $e;
         }
 
-        /**
-         * If the client is requesting the access token using a refresh token
-         */
-        if ($request->input('refresh_token')) {
-            return $this->createTokenUsingRefreshToken($request);
+        switch ($request->input('grant_type')) {
+            case 'authorization_code':
+                return $this->createTokenUsingAuthorizationCode($request);
+            case 'refresh_token':
+                return $this->createTokenUsingRefreshToken($request);
         }
-
-        /**
-         * Get decoded value of JWT (JWT has already been validated along with the request)
-         */
-        $jwt = (array)JWT::decode($request->input('code'), new Key(config('oauth.public_key'), 'RS256'));
-
-        /**
-         * Get authorization code entry
-         */
-        $code = $this->authCodeRepository->get($jwt['jti']);
-
-        /**
-         * Create a new token
-         */
-        $token = $this->createAccessTokenService->handle($request->all(), $code->user_id);
-
-        $response = [
-            'access_token' => $token['value'],
-            'token_type' => 'Bearer',
-            'expires_in' => $token['expires_in'],
-            'scope' => $request->input('scope')
-        ];
-
-        /**
-         * If this is the first time that the client and user pair are requesting an access token,
-         * automatically issue a long lasting refresh token
-         */
-        if (!$this->accessTokenRepository->getBuilder()->where(['client_id' => $code->client_id, 'user_id' => $code->user_id])->whereNot('id', $token['id'])->exists()) {
-            $refreshToken = $this->createRefreshTokenService->handle($request, $this->accessTokenRepository->get($token['id']));
-            $response['refresh_token'] = $refreshToken['value'];
-        }
-
-        /**
-         * Invalidate the authorization code that was used
-         */
-        $this->authCodeRepository->update($code->id, ['revoked' => 1]);
-
-        return new JsonResponse($response);
-    }
-
-    /**
-     * Create access token using refresh token
-     *
-     * @param Request $request
-     * @return JsonResponse
-     * @throws Exception
-     */
-    protected function createTokenUsingRefreshToken(Request $request): JsonResponse
-    {
-        /**
-         * Get decoded value of JWT refresh token (This has already been validated along with the request)
-         */
-        $jwt = (array)JWT::decode($request->input('refresh_token'), new Key(config('oauth.public_key'), 'RS256'));
-
-        /**
-         * Get refresh token entry
-         */
-        $refreshToken = $this->refreshTokenRepository->get($jwt['jti']);
-
-        /**
-         * Get access token entry that was used to issue refresh token
-         */
-        $accessToken = $this->accessTokenRepository->get($refreshToken->access_token_id);
-        //TODO Store scope and user_id in refresh token entry as this access token will eventually be purged in database cleanups
-
-        /**
-         * Create new access token
-         */
-        $token = $this->createAccessTokenService->handle(array_merge($request->all(), [
-            'scope' => $accessToken->scopes,
-            'redirect_uri' => $accessToken->redirect_uri
-        ]), $accessToken->user_id);
-
-        return new JsonResponse([
-            'access_token' => $token['value'],
-            'token_type' => 'Bearer',
-            'expires_in' => $token['expires_in'],
-            'scope' => $accessToken->scopes
-        ]);
     }
 }

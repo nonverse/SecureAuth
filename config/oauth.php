@@ -12,9 +12,9 @@ return [
     'public_key' => file_get_contents('../storage/oauth-public.key'),
 
     /**
-     * Supported (enabled) grant types
+     * Supported (enabled) response types
      */
-    'grant_types' => [
+    'response_types' => [
         'code',
     ],
 
