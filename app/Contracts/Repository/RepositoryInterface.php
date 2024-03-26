@@ -5,6 +5,7 @@ namespace App\Contracts\Repository;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 interface RepositoryInterface
 {
@@ -25,7 +26,7 @@ interface RepositoryInterface
      *
      * @param $id
      * @return Model
-     * @throws Exception
+     * @throws ModelNotFoundException
      *
      */
     public function get($id): Model;
