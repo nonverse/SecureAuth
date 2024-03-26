@@ -2,13 +2,9 @@
 
 namespace App\Contracts\Repository\OAuth2;
 
-interface ScopeRepositoryInterface
+use App\Contracts\Repository\RepositoryInterface;
+
+interface ScopeRepositoryInterface extends RepositoryInterface
 {
-    /**
-     * Get array of scopes by IDs
-     *
-     * @param array $ids
-     * @return array
-     */
-    public function getScopesById(array $ids): array;
+
 }
